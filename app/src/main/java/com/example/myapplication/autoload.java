@@ -31,8 +31,8 @@ public class autoload {
 
 
     public static  List<Map<String, Object>> data = new ArrayList<>();
-
-
+    public static  List<Map<String, Object>> cardIem = new ArrayList<>();
+    public static List<String> cardItem_list = new ArrayList<String>();
     public static void getProductData(){
 
         DatabaseReference usersRef = rootRef.child("ProductList");
@@ -42,9 +42,10 @@ public class autoload {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     Map<String, Object> map = new HashMap<>();
+                    map.put("id", ds.getKey());
                     for(DataSnapshot child : ds.getChildren()) {
                         map.put(child.getKey(), child.getValue());
-                        map.put("id", ds.getKey());
+
                     }
                     data.add(map);
                 }
