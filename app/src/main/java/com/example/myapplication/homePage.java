@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,14 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class homePage extends AppCompatActivity {
-    private CardView buy;
-    private CardView sell;
-    private CardView buyBook;
-    private CardView sellBook;
-    private CardView dueBook;
-    private CardView costBook;
-    private CardView productList;
-    private CardView stockManagement;
+    CardView buy,sell,buyBook,sellBook,dueBook,costBook,productList,stockManagement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
@@ -45,8 +39,10 @@ public class homePage extends AppCompatActivity {
         productList.setOnClickListener(view -> startActivity(new Intent(homePage.this, productList.class)));
         sell.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
+        dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
 
-
+        autoload.cardIem.clear();
+        autoload.cardItem_list.clear();
         if(autoload.data.isEmpty()){
             autoload.getProductData();
         }

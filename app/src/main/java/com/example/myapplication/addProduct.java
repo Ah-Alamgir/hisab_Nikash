@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -14,12 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class addProduct extends AppCompatActivity {
-    private EditText name;
-    private EditText sellPrice;
-    private EditText buyPrice;
-    private EditText Stock;
-    private EditText discount;
-    private EditText vat;
+    private EditText name,sellPrice,buyPrice,Stock,discount, vat;
 
     private Button submit, updateBtn;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -58,9 +54,9 @@ public class addProduct extends AppCompatActivity {
 
                 Map<String, Object> userData = new HashMap<>();
                 userData.put("name", name.getText().toString());
-                userData.put("sellPrice", Integer.valueOf(sellPrice.getText().toString()));
-                userData.put("buyPrice", Integer.valueOf(buyPrice.getText().toString()));
-                userData.put("Stock", Integer.valueOf(Stock.getText().toString()));
+                userData.put("sellPrice", Integer.valueOf(String.valueOf(sellPrice.getText())));
+                userData.put("buyPrice", Integer.valueOf(String.valueOf(buyPrice.getText())));
+                userData.put("Stock", Integer.valueOf(String.valueOf(Stock.getText())));
                 if(!discount.getText().toString().isEmpty()){
                     userData.put("Discount", Integer.valueOf(discount.getText().toString()));
                 }

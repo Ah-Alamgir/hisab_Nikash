@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -71,17 +72,24 @@ public class Sell extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
             Map<String, Object> item = mData.get(position);
-            holder.textName.setText((String) item.get("name"));
+            holder.textName.setText( String.valueOf(item.get("name")) );
+            holder.pieceAmount.setText("0");
             holder.textSellPrice.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
 
-            holder.cardView.setOnClickListener(view -> {
-                totalPriceVar = totalPriceVar+ Integer.parseInt((String) holder.textSellPrice.getText());
+            holder.plusBtn.setOnClickListener(view -> {
                 itemCountVar = itemCountVar+1;
-                totalPrice_textView.setText(totalPriceVar.toString());
-                totalItemBtn.setText(itemCountVar.toString());
+                holder.pieceAmount.setText(String.valueOf(Integer.valueOf(holder.pieceAmount.getText().toString())+1));
+                addtoCard(String.valueOf(item.get("id")), position, Integer.valueOf(item.get("sellPrice").toString()) , Integer.valueOf(holder.pieceAmount.getText().toString()));
 
-                addtoCard((String) item.get("id"), position);
 
+            });
+            holder.minusBtn.setOnClickListener(view -> {
+                if(!(Integer.valueOf(holder.pieceAmount.getText().toString()) <=0)){
+                    itemCountVar = itemCountVar-1;
+                    holder.pieceAmount.setText(String.valueOf(Integer.valueOf(holder.pieceAmount.getText().toString())-1));
+                    addtoCard(String.valueOf(item.get("id")), position, -Integer.valueOf(item.get("sellPrice").toString()) , Integer.valueOf(holder.pieceAmount.getText().toString()));
+
+                }
             });
         }
 
@@ -93,8 +101,9 @@ public class Sell extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textName;
-            TextView textSellPrice;
+            TextView textName, textSellPrice, pieceAmount;
+            ImageButton plusBtn, minusBtn;
+
             CardView cardView;
 
             public ViewHolder(@NonNull View itemView) {
@@ -102,6 +111,9 @@ public class Sell extends AppCompatActivity {
                 textName = itemView.findViewById(R.id.name_text);
                 textSellPrice = itemView.findViewById(R.id.sell_price_text);
                 cardView = itemView.findViewById(R.id.sellCardView);
+                plusBtn = itemView.findViewById(R.id.plusBtn);
+                minusBtn = itemView.findViewById(R.id.minusBtn);
+                pieceAmount = itemView.findViewById(R.id.pieceText);
 
             }
 
@@ -110,8 +122,13 @@ public class Sell extends AppCompatActivity {
 
     }
 
+    public void addtoCard(String id, int position, int price,int orderAmount){
 
-    public void addtoCard(String id, int position){
+        totalPriceVar = totalPriceVar+ price;
+        totalPrice_textView.setText(totalPriceVar.toString());
+        totalItemBtn.setText(itemCountVar.toString());
+
+
         if(!autoload.cardItem_list.contains(id)){
             autoload.cardItem_list.add(id);
             Map<String, Object> map = new HashMap<>();
@@ -122,11 +139,8 @@ public class Sell extends AppCompatActivity {
             map.put("vat", autoload.data.get(position).get("vat"));
             autoload.cardIem.add(map);
         }else{
-            int order = (int) autoload.cardIem.get(autoload.cardItem_list.indexOf(id)).get("Order");
-            order = order+1;
-            autoload.cardIem.get(autoload.cardItem_list.indexOf(id)).put("Order", order);
+            autoload.cardIem.get(autoload.cardItem_list.indexOf(id)).put("Order", orderAmount);
         }
-
     }
 
 

@@ -27,56 +27,73 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:boxBackgroundColor="#FFFFFF">
+                android:hint="প্রোডাক্টের নাম"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#FF9800"
+                app:hintTextColor="#FF9800">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="প্রোডাক্টের নাম" />
+                    android:textColor="#673AB7" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:boxBackgroundColor="#FFFFFF">
+                android:hint="বিক্রয় মূল্য"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#FF9800"
+                app:hintTextColor="#FF9800">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sellingPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="বিক্রয় মূল্য" />
+                    android:inputType="number"
+                    android:textColor="#673AB7" />
             </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:boxBackgroundColor="#FFFFFF">
+                android:hint="স্টক"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#FF9800"
+                app:hintTextColor="#FF9800">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/stock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="স্টক" />
+                    android:inputType="number"
+                    android:textColor="#673AB7" />
             </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:boxBackgroundColor="#FFFFFF">
+                android:hint="ক্রয় মূল্য"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#FF9800"
+                app:hintTextColor="#FF9800">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sell_price_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ক্রয় মূল্য" />
+                    android:inputType="number"
+                    android:textColor="#673AB7" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

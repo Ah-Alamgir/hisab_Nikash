@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
-                app:srcCompat="@mipmap/bill" />
+                app:srcCompat="@mipmap/calendar" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -295,7 +295,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
-                app:srcCompat="@mipmap/book" />
+                app:srcCompat="@mipmap/accounting" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
