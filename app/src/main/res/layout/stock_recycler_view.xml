@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15,000"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
             app:layout_constraintTop_toTopOf="@+id/deleteBtn" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:text="ক্রয়  ৳"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintEnd_toStartOf="@+id/buy_price_text_view"
             app:layout_constraintTop_toTopOf="@+id/deleteBtn" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="স্টকঃ 000"
-            android:textColor="#673AB7"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintEnd_toEndOf="@+id/name_text_view"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/name_text_view" />
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:text="বিক্রয়  ৳"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="@+id/deleteBtn"
             app:layout_constraintEnd_toStartOf="@+id/sell_price_text_view" />
 
@@ -61,7 +61,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
             android:text="Poco M2"
-            android:textColor="#673AB7"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15,000"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="@+id/deleteBtn"
             app:layout_constraintEnd_toStartOf="@+id/deleteBtn" />
 
@@ -94,7 +94,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_edit_24" />
+            app:srcCompat="@drawable/baseline_edit_24"
+            app:tint="@color/colorTextView2" />
 
         <ImageButton
             android:id="@+id/deleteBtn"
@@ -105,7 +106,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_delete_sweep_24" />
+            app:srcCompat="@drawable/baseline_delete_sweep_24"
+            app:tint="@color/colorTextView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

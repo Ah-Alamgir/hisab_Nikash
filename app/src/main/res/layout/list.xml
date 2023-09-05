@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardviewstock"
     android:layout_width="match_parent"
     android:layout_height="70dp"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="৳"
-            android:textColor="#E91E63"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sell_price_text_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Poco M2"
-            android:textColor="#E91E63"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="15,000"
-            android:textColor="#E91E63"
+            android:textColor="@color/colorTextView2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/edits"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,11 +62,32 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#00FFFFFF"
             android:src="@drawable/baseline_edit_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorTextView2" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/stockamount_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="15"
+                android:textColor="@color/colorTextView2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

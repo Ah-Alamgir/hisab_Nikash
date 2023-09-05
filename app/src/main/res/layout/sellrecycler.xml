@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="৳"
-            android:textColor="#673AB7"
+            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sell_price_text"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Poco M2"
-            android:textColor="#673AB7"
+            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="15,000"
-            android:textColor="#673AB7"
+            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,13 +71,24 @@
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent">
 
+
+            <ImageButton
+                android:id="@+id/plusBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:backgroundTintMode="add"
+                android:contentDescription="add"
+                android:visibility="visible"
+                app:srcCompat="@drawable/plush"
+                app:tint="@color/colorTextView2" />
+
             <TextView
                 android:id="@+id/pieceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="00"
-                android:textColor="#673AB7"
+                android:textColor="@color/colorTextView3"
                 android:textSize="22sp" />
 
             <ImageButton
@@ -88,16 +99,28 @@
                 android:backgroundTintMode="add"
                 android:contentDescription="add"
                 android:visibility="visible"
-                app:srcCompat="@drawable/baseline_horizontal_rule_24" />
+                app:srcCompat="@drawable/baseline_horizontal_rule_24"
+                app:tint="@color/colorTextView2" />
 
-            <ImageButton
-                android:id="@+id/plusBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:backgroundTintMode="add"
-                android:contentDescription="add"
-                android:visibility="visible"
-                app:srcCompat="@drawable/plush" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/stockamount_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="15"
+                    android:textColor="@color/colorTextView2"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.cardview.widget.CardView>
+
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

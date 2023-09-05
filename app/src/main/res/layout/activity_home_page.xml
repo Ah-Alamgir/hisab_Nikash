@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="@color/colorTextView3"
+                android:textColor="#049F91"
                 android:textSize="20sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="@color/colorTextView3"
+                android:textColor="#049F91"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="@color/colorTextView3"
+                android:textColor="#049F91"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView4"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="@color/colorTextView3"
+                android:textColor="#049F91"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -125,10 +125,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/buying"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -151,10 +151,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/buyBook"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -177,10 +177,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/dueBooks"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="বাকির খাতা"
+                android:text="দেনা পাওনা"
                 android:textColor="@color/colorTextView2"
                 android:textSize="16sp" />
 
@@ -202,37 +202,11 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/productLists"
-            android:layout_width="170dp"
-            android:layout_height="100dp"
-            android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
-            app:cardCornerRadius="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:text="প্রোডাক্ট লিস্ট "
-                android:textColor="@color/colorTextView2"
-                android:textSize="16sp" />
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="7dp"
-                app:srcCompat="@mipmap/instock" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/selling"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -255,10 +229,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/sellBoooks"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -281,10 +255,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/costBooks"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -307,10 +281,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/stockManage"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
-            app:cardBackgroundColor="@color/colorSecondary"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <TextView

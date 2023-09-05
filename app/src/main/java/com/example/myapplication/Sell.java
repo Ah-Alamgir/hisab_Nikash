@@ -75,6 +75,7 @@ public class Sell extends AppCompatActivity {
             holder.textName.setText( String.valueOf(item.get("name")) );
             holder.pieceAmount.setText("0");
             holder.textSellPrice.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
+            holder.finalStock.setText(Objects.requireNonNull(item.get("Stock")).toString());
 
             holder.plusBtn.setOnClickListener(view -> {
                 itemCountVar = itemCountVar+1;
@@ -101,7 +102,7 @@ public class Sell extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textName, textSellPrice, pieceAmount;
+            TextView textName, textSellPrice, pieceAmount, finalStock;
             ImageButton plusBtn, minusBtn;
 
             CardView cardView;
@@ -114,6 +115,7 @@ public class Sell extends AppCompatActivity {
                 plusBtn = itemView.findViewById(R.id.plusBtn);
                 minusBtn = itemView.findViewById(R.id.minusBtn);
                 pieceAmount = itemView.findViewById(R.id.pieceText);
+                finalStock = itemView.findViewById(R.id.stockamount_text_view);
 
             }
 

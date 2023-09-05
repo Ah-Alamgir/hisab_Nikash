@@ -24,6 +24,7 @@ public class homePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        setTitle("মাহি এন্টারপ্রাইজ");
 
 
 
@@ -33,14 +34,13 @@ public class homePage extends AppCompatActivity {
         sellBook = findViewById(R.id.sellBoooks);
         dueBook = findViewById(R.id.dueBooks);
         costBook = findViewById(R.id.costBooks);
-        productList = findViewById(R.id.productLists);
         stockManagement = findViewById(R.id.stockManage);
 
 
-        productList.setOnClickListener(view -> startActivity(new Intent(homePage.this, productList.class)));
         sell.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
-        dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
+        costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
+        dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
 
         autoload.cardIem.clear();
         autoload.cardItem_list.clear();

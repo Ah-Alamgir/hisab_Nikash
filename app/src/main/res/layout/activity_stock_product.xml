@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFD558">
+            android:background="@color/colorPrimary">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
@@ -42,7 +42,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="28"
-                    android:textColor="#9C27B0" />
+                    android:textColor="@color/colorTextView2" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -51,7 +51,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="25dp"
                     android:text="মোট মজুত"
-                    android:textColor="#9C27B0" />
+                    android:textColor="@color/colorTextView" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -73,7 +73,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="258122"
-                    android:textColor="#9C27B0" />
+                    android:textColor="@color/colorTextView2" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -82,7 +82,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="25dp"
                     android:text="মজুত মূল্য "
-                    android:textColor="#9C27B0" />
+                    android:textColor="@color/colorTextView" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FBE6A8">
+            android:background="@color/colorSecondary">
 
             <TextView
                 android:id="@+id/totalPrice"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="0000"
-                android:textColor="#673AB7"
+                android:textColor="@color/colorTextView2"
                 android:textSize="26sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView"
@@ -53,10 +53,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="00"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorTextView2"
                 android:textStyle="bold"
                 app:icon="@drawable/next_24"
                 app:iconGravity="end"
+                app:iconTint="@color/colorTextView2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
