@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="#F4EEB6"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#FDC97C"
+            android:background="@color/colorSecondary"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="#000000"
+                android:textColor="@color/colorTextView3"
                 android:textSize="20sp" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="আজকের বিক্রি"
-                android:textColor="#9C27B0" />
+                android:textColor="@color/colorTextView2" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="#E91E63"
+                android:textColor="@color/colorTextView3"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="#E91E63"
+                android:textColor="@color/colorTextView3"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView4"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
-                android:textColor="#E91E63"
+                android:textColor="@color/colorTextView3"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="আজকের ব্যায়"
-                android:textColor="#3F51B5"
+                android:textColor="@color/colorTextView2"
                 app:layout_constraintEnd_toStartOf="@+id/textView4"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="আজকের বাকি"
-                android:textColor="#3F51B5"
+                android:textColor="@color/colorTextView2"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="আজকের খরচ"
-                android:textColor="#3F51B5"
+                android:textColor="@color/colorTextView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -125,9 +125,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/buying"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -136,9 +137,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="কেনা"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -150,9 +151,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/buyBook"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -161,9 +163,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="কেনার খাতা"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -175,9 +177,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/dueBooks"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -186,9 +189,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="বাকির খাতা"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -200,9 +203,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productLists"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -211,9 +215,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="প্রোডাক্ট লিস্ট "
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -225,9 +229,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/selling"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -236,9 +241,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="বিক্রি"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -250,9 +255,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/sellBoooks"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -261,9 +267,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="বিক্রির খাতা"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -275,9 +281,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/costBooks"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -286,9 +293,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="খরচের খাতা"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -300,9 +307,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/stockManage"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/colorSecondary"
             app:cardCornerRadius="8dp">
 
             <TextView
@@ -311,9 +319,9 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="স্টক ম্যানেজমেন্ট"
-                android:textColor="#3F51B5"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorTextView2"
+                android:textSize="16sp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="খরচ এড করুন "
-        android:textColor="#9C27B0"
+        android:textColor="@color/colorTextView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
@@ -24,9 +24,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorPrimary"
         android:text="বেতন "
-        android:textColor="#673AB7"
+        android:textColor="@color/colorTextView2"
         app:cornerRadius="8dp"
         app:icon="@mipmap/subjective"
         app:iconGravity="top"
@@ -41,9 +41,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorPrimary"
         android:text="ভাড়া "
-        android:textColor="#673AB7"
+        android:textColor="@color/colorTextView2"
         app:cornerRadius="8dp"
         app:icon="@mipmap/buyhome"
         app:iconGravity="top"
@@ -58,9 +58,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorPrimary"
         android:text="বিল "
-        android:textColor="#673AB7"
+        android:textColor="@color/colorTextView2"
         app:cornerRadius="8dp"
         app:icon="@mipmap/orderfulfillment"
         app:iconGravity="top"
@@ -75,9 +75,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/colorPrimary"
         android:text="ক্রয় "
-        android:textColor="#673AB7"
+        android:textColor="@color/colorTextView2"
         app:cornerRadius="8dp"
         app:icon="@mipmap/purchaseorder"
         app:iconGravity="top"
@@ -98,13 +98,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFF9C6">
+            android:background="@color/colorPrimary">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="96dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorSecondary"
                 app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -118,7 +118,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="ভাড়া"
-                    android:textColor="#9C27B0"
+                    android:textColor="@color/colorTextView2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,7 +130,7 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="৫০০"
-                    android:textColor="#E91E63"
+                    android:textColor="@color/colorTextView3"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
             </androidx.cardview.widget.CardView>
@@ -140,7 +140,7 @@
                 android:layout_width="100dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorSecondary"
                 app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toStartOf="@+id/cardView7"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -154,7 +154,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="বেতন "
-                    android:textColor="#9C27B0"
+                    android:textColor="@color/colorTextView2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -166,7 +166,7 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="৫০০"
-                    android:textColor="#E91E63"
+                    android:textColor="@color/colorTextView3"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
             </androidx.cardview.widget.CardView>
@@ -176,7 +176,7 @@
                 android:layout_width="100dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorSecondary"
                 app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toStartOf="@+id/cardView9"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -190,7 +190,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="ক্রয় "
-                    android:textColor="#9C27B0"
+                    android:textColor="@color/colorTextView2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -202,19 +202,19 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="৫০০"
-                    android:textColor="#E91E63"
+                    android:textColor="@color/colorTextView3"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/date_textVIew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="august 2023"
-                android:textColor="#3F51B5"
+                android:textColor="@color/colorTextView"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -225,10 +225,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/purple_500"
+                android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                app:layout_constraintTop_toBottomOf="@+id/date_textVIew" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -238,18 +238,18 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="মোট খরচ "
-                android:textColor="#3F51B5"
+                android:textColor="@color/colorTextView2"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/totalcost_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="00"
-                android:textColor="#3F51B5"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -259,7 +259,7 @@
                 android:layout_width="100dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorSecondary"
                 app:cardCornerRadius="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -273,7 +273,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="বিল "
-                    android:textColor="#9C27B0"
+                    android:textColor="@color/colorTextView2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -285,7 +285,7 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="৫০০"
-                    android:textColor="#E91E63"
+                    android:textColor="@color/colorTextView3"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
             </androidx.cardview.widget.CardView>

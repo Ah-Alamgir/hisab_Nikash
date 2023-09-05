@@ -26,6 +26,7 @@ public class homePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
 
+
         buy = findViewById(R.id.buying);
         sell = findViewById(R.id.selling);
         buyBook = findViewById(R.id.buyBook);
