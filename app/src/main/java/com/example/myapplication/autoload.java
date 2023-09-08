@@ -49,6 +49,7 @@ public class autoload {
                             break;
                         case "singleValues":
                             singleValues = (Map<String, Object>) childSnapshot.getValue();
+                            homePage.setText();
                             break;
                         case "history":
                             for (DataSnapshot historySnapshot : childSnapshot.getChildren()) {

@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/todaySell2"
+                android:id="@+id/todaySell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
@@ -30,7 +30,6 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/todaySell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="আজকের বিক্রি"
@@ -43,7 +42,7 @@
             android:layout_gravity="bottom">
 
             <TextView
-                android:id="@+id/actualCost"
+                android:id="@+id/todayCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"
@@ -54,7 +53,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/today_due"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500"

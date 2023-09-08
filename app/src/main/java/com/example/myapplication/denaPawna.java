@@ -9,6 +9,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -36,12 +37,16 @@ public class denaPawna extends AppCompatActivity {
     DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
     LocalDate date;
     TabLayout tabLayout;
+
+    TextView giveTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dena_pawna);
-        setTitle("দেনা পাওনা");
+        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
 
+        giveTextView= findViewById(R.id.give_take_textView);
+        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
         newDue = findViewById(R.id.newDue);
 
         newDue.setOnClickListener(view -> showTextInputDialog());
@@ -68,13 +73,15 @@ public class denaPawna extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // Not needed for this implementation
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // Not needed for this implementation
+
             }
+
+
         });
 
     }
