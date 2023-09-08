@@ -76,7 +76,7 @@ public class addProduct extends AppCompatActivity {
             setTitle("তথ্য আপডেট করুন");
             submit.setVisibility(View.GONE);
             updateBtn.setVisibility(View.VISIBLE);
-            Map<String, Object> item = autoload.data.get(edit_position);
+            Map<String, Object> item = autoload.productLists.get(edit_position);
 
 
             name.setText((String) item.get("name"));

@@ -41,13 +41,9 @@ public class homePage extends AppCompatActivity {
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
 
-        autoload.cardIem.clear();
-        autoload.cardItem_list.clear();
-        autoload.getData();
-        if(autoload.data.isEmpty()){
-            autoload.getProductData();
-            autoload.denapaonaHistory("give");
-            autoload.denapaonaHistory("take");
+
+        if(autoload.productLists.isEmpty()){
+            autoload.getData();
         }
     }
 

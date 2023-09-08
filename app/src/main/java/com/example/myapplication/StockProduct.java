@@ -38,7 +38,7 @@ public class StockProduct extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.stockRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new StockProduct.MyAdapter(autoload.data));
+        recyclerView.setAdapter(new StockProduct.MyAdapter(autoload.productLists));
 
         totoalStock_textview = findViewById(R.id.total_stock_textView);
         totalStock_value_textView = findViewById(R.id.total_stock_value_text);
@@ -51,7 +51,7 @@ public class StockProduct extends AppCompatActivity {
 
         });
 
-        setTitle("মোট পণ্য সংখ্যাঃ "+ autoload.data.size());
+        setTitle("মোট পণ্য সংখ্যাঃ "+ autoload.productLists.size());
         count();
 
 
@@ -61,7 +61,7 @@ public class StockProduct extends AppCompatActivity {
     private void count(){
         int totalStock_var=0, totalStock_valueVar=0;
 
-        for (Map<String, Object> map : autoload.data) {
+        for (Map<String, Object> map : autoload.productLists) {
             totalStock_var = Integer.parseInt(map.get("Stock").toString()) + totalStock_var;
             totalStock_valueVar = (Integer.parseInt(map.get("buyPrice").toString())* totalStock_var) + totalStock_valueVar;
         }
@@ -96,14 +96,14 @@ public class StockProduct extends AppCompatActivity {
             holder.buyPrice.setText(Objects.requireNonNull(item.get("buyPrice")).toString());
             holder.cardViews.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.anim1));
             holder.stockAmount.setText("স্টকঃ "+ item.get("Stock").toString());
-
             holder.deleteButton.setOnClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(StockProduct.this);
                 builder.setMessage("Are you sure you want to delete this item?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", (dialog, id) -> {
                             autoload.deleteData((String) item.get("id"));
-                            autoload.data.remove(mData.get(position));
+
+                            autoload.productLists.remove(mData.get(position));
                             removeItem(position);
 
                         })

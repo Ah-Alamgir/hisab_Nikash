@@ -38,7 +38,7 @@ public class Sell extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.pdRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(autoload.data));
+        recyclerView.setAdapter(new MyAdapter(autoload.productLists));
 
 
         totalItemBtn = findViewById(R.id.orderPage);
@@ -135,13 +135,13 @@ public class Sell extends AppCompatActivity {
             autoload.cardItem_list.add(id);
             Map<String, Object> map = new HashMap<>();
             map.put("Order", 1 );
-            map.put("name",autoload.data.get(position).get("name"));
-            map.put("sellPrice", autoload.data.get(position).get("sellPrice"));
-            map.put("Discount", autoload.data.get(position).get("Discount"));
-            map.put("vat", autoload.data.get(position).get("vat"));
-            autoload.cardIem.add(map);
+            map.put("name",autoload.productLists.get(position).get("name"));
+            map.put("sellPrice", autoload.productLists.get(position).get("sellPrice"));
+            map.put("Discount", autoload.productLists.get(position).get("Discount"));
+            map.put("vat", autoload.productLists.get(position).get("vat"));
+            autoload.cardItem.add(map);
         }else{
-            autoload.cardIem.get(autoload.cardItem_list.indexOf(id)).put("Order", orderAmount);
+            autoload.cardItem.get(autoload.cardItem_list.indexOf(id)).put("Order", orderAmount);
         }
     }
 

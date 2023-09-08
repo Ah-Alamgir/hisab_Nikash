@@ -52,7 +52,7 @@ public class denaPawna extends AppCompatActivity {
         DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setData(autoload.denapaonaGive);
+        adapter.setData(autoload.give);
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -60,9 +60,9 @@ public class denaPawna extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 // Check if Tab 1 is selected
                 if (tab.getPosition() == 0) {
-                    adapter.setData(autoload.denapaonaGive);
+                    adapter.setData(autoload.give);
                 } else if (tab.getPosition()==2) {
-                    adapter.setData(autoload.denapaonatake);
+                    adapter.setData(autoload.take);
                 }
             }
 

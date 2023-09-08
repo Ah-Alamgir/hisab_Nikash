@@ -41,7 +41,7 @@ public class productList extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(autoload.data));
+        recyclerView.setAdapter(new MyAdapter(autoload.productLists));
     }
 
 

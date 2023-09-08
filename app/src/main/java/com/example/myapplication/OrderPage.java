@@ -32,7 +32,7 @@ public class OrderPage extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new OrderPage.MyAdapter(autoload.cardIem));
+        recyclerView.setAdapter(new OrderPage.MyAdapter(autoload.cardItem));
 
         priceSholPay = findViewById(R.id.priceShouldPay);
     }
