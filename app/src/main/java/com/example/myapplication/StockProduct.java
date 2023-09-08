@@ -45,7 +45,11 @@ public class StockProduct extends AppCompatActivity {
         addNewProduct = findViewById(R.id.addProductStock);
 
 
-        addNewProduct.setOnClickListener(view -> startActivity(new Intent(this, addProduct.class)));
+        addNewProduct.setOnClickListener(view -> {
+            addProduct.editProduct= false;
+            startActivity(new Intent(this, addProduct.class));
+
+        });
 
         setTitle("মোট পণ্য সংখ্যাঃ "+ autoload.data.size());
         count();
@@ -98,9 +102,10 @@ public class StockProduct extends AppCompatActivity {
                 builder.setMessage("Are you sure you want to delete this item?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", (dialog, id) -> {
-                            autoload.ddeleteData((String) item.get("id"));
-                            removeItem(position);
+                            autoload.deleteData((String) item.get("id"));
                             autoload.data.remove(mData.get(position));
+                            removeItem(position);
+
                         })
                         .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
                 AlertDialog alert = builder.create();

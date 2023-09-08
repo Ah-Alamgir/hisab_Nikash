@@ -12,10 +12,10 @@
 
 
 
-    <color name="colorPrimary">#DEF5E5</color>
-    <color name="colorSecondary">#BCEAD5</color>
+    <color name="colorPrimary">#C38154</color>
+    <color name="colorSecondary">#884A39</color>
     <color name="colorTextView">#404258</color>
     <color name="colorTextView3">#50577A</color>
-    <color name="colorTextView2">#0E5E6F</color>
-    <color name="cardviewColor">#9ED5C5</color>
+    <color name="colorTextView2">#FCE9F1</color>
+    <color name="cardviewColor">#9BABB8</color>
 </resources>

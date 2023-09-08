@@ -33,11 +33,11 @@
                 android:layout_marginRight="8dp"
                 android:hint="প্রোডাক্টের নাম"
                 app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/colorTextView2"
-                app:hintTextColor="@color/colorTextView2">
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pName"
+                    android:id="@+id/denaPawana_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#673AB7" />
@@ -52,8 +52,8 @@
                 android:layout_marginRight="8dp"
                 android:hint="বিক্রয় মূল্য"
                 app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/colorTextView2"
-                app:hintTextColor="@color/colorTextView2">
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sellingPrice"
@@ -72,8 +72,8 @@
                 android:layout_marginRight="8dp"
                 android:hint="স্টক"
                 app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/colorTextView2"
-                app:hintTextColor="@color/colorTextView2">
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/stock"
@@ -92,8 +92,8 @@
                 android:layout_marginRight="8dp"
                 android:hint="ক্রয় মূল্য"
                 app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/colorTextView2"
-                app:hintTextColor="@color/colorTextView2">
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sell_price_text_view"
@@ -117,7 +117,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="ভ্যাট"
-                    android:textColor="@color/colorTextView2"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
 
                 <EditText
@@ -145,7 +145,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="ডিস্কাউন্ট"
-                    android:textColor="@color/colorTextView2"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
 
                 <EditText
@@ -179,7 +179,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
 
         </LinearLayout>

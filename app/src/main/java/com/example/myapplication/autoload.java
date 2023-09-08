@@ -49,7 +49,7 @@ public class autoload {
                     }
                     data.add(map);
                 }
-                Log.d("datam", data.toString());
+
             }
 
             @Override
@@ -61,7 +61,7 @@ public class autoload {
 
 
 
-    public static void ddeleteData(String id){
+    public static void deleteData(String id){
         DatabaseReference usersRef = rootRef.child("ProductList");
         usersRef.child(id).removeValue();
     }

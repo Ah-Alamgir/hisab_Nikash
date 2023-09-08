@@ -80,7 +80,7 @@
                 android:contentDescription="add"
                 android:visibility="visible"
                 app:srcCompat="@drawable/plush"
-                app:tint="@color/colorTextView2" />
+                app:tint="@color/colorSecondary" />
 
             <TextView
                 android:id="@+id/pieceText"
@@ -100,7 +100,7 @@
                 android:contentDescription="add"
                 android:visibility="visible"
                 app:srcCompat="@drawable/baseline_horizontal_rule_24"
-                app:tint="@color/colorTextView2" />
+                app:tint="@color/colorSecondary" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "922631031107",
-    "project_id": "productlist-c033c",
-    "storage_bucket": "productlist-c033c.appspot.com"
+    "project_number": "1038767658321",
+    "project_id": "hisab-c55d9",
+    "storage_bucket": "hisab-c55d9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:922631031107:android:f6518a9007bd246f11c7f6",
+        "mobilesdk_app_id": "1:1038767658321:android:ae4664082324112856ef70",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "922631031107-7ubirjcjdqttebcckmcgc15cleue9cmi.apps.googleusercontent.com",
+          "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJxAE4ymX3y4vAqN8Hh4bK-2a3mP4nqj4"
+          "current_key": "AIzaSyDOaOp2y2mdJJbvt3yLMtxyOFHKGFgwtY0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "922631031107-7ubirjcjdqttebcckmcgc15cleue9cmi.apps.googleusercontent.com",
+              "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
