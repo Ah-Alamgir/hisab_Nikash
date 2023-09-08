@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/details_textInput"
@@ -38,7 +38,6 @@
             android:id="@+id/switchButtonTake"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="24dp"
             android:layout_toLeftOf="@id/switchButtonGive"
             android:text="পাবো "
             app:layout_constraintStart_toStartOf="@+id/details_textInput"
@@ -49,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="24dp"
             android:text="দিবো "
             app:layout_constraintEnd_toEndOf="@+id/details_textInput"
             app:layout_constraintTop_toBottomOf="@+id/details_textInput" />

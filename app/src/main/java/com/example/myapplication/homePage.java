@@ -31,7 +31,6 @@ public class homePage extends AppCompatActivity {
         buy = findViewById(R.id.buying);
         sell = findViewById(R.id.selling);
         buyBook = findViewById(R.id.buyBook);
-//        sellBook = findViewById(R.id.sellBoooks);
         dueBook = findViewById(R.id.dueBooks);
         costBook = findViewById(R.id.costBooks);
         stockManagement = findViewById(R.id.stockManage);
@@ -44,8 +43,11 @@ public class homePage extends AppCompatActivity {
 
         autoload.cardIem.clear();
         autoload.cardItem_list.clear();
+        autoload.getData();
         if(autoload.data.isEmpty()){
             autoload.getProductData();
+            autoload.denapaonaHistory("give");
+            autoload.denapaonaHistory("take");
         }
     }
 

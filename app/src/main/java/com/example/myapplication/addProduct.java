@@ -51,7 +51,7 @@ public class addProduct extends AppCompatActivity {
             } else if (buyPrice.getText().toString().isEmpty()) {
                 buyPrice.setError("Enter buying price");
             }else {
-                DatabaseReference myRef = database.getReference("ProductList");
+                DatabaseReference myRef = database.getReference("denaPaona");
 
                 Map<String, Object> userData = new HashMap<>();
                 userData.put("name", name.getText().toString());
@@ -64,7 +64,7 @@ public class addProduct extends AppCompatActivity {
                 if (!vat.getText().toString().isEmpty()){
                     userData.put("vat", Integer.valueOf(vat.getText().toString()));
                 }
-                myRef.push().setValue(userData);
+                myRef.child("ProductList").push().setValue(userData);
 
 
             }
