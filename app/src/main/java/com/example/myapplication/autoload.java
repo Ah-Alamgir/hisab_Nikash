@@ -8,9 +8,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,12 +23,12 @@ public class autoload {
 
     public static void deleteData(String id){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
-        Log.d("datam", id.toString());
         usersRef.child(id).removeValue();
     }
 
 
     static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
+    static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
     static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
     public static List<String> cardItem_list = new ArrayList<String>();
     static Map<String, Object> singleValues = new HashMap<>();
@@ -37,6 +40,7 @@ public class autoload {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("datam", dataSnapshot.toString());
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String category = childSnapshot.getKey();
                     switch (category) {
@@ -47,6 +51,21 @@ public class autoload {
                                 productLists.add(product);
                             }
                             break;
+
+
+                        case "costCalculation":
+                            for (DataSnapshot productSnapshot : childSnapshot.getChildren()) {
+                                Map<String, Object> cost = (Map<String, Object>) productSnapshot.getValue();
+                                cost.put("id",productSnapshot.getKey());
+                                costCalculations.add(cost);
+                            }
+                            Log.d("datam", costCalculations.toString());
+                            break;
+
+                        case "cardItem":
+
+
+
                         case "singleValues":
                             singleValues = (Map<String, Object>) childSnapshot.getValue();
                             homePage.setText();
@@ -72,10 +91,6 @@ public class autoload {
                             break;
                     }
                 }
-                Log.d("datam", productLists.toString());
-                Log.d("datam", singleValues.toString());
-                Log.d("datam", give.toString());
-                Log.d("datam", take.toString());
 
             }
 
@@ -85,6 +100,15 @@ public class autoload {
             }
         });
 
+    }
+
+
+
+
+    public static String getCurrentMonthName() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+        return monthYearFormat.format(calendar.getTime());
     }
 
 

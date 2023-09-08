@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,11 +13,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.myapplication.recyclerView.MyAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +41,7 @@ public class denaPawna extends AppCompatActivity {
     DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
     LocalDate date;
     TabLayout tabLayout;
+    private ViewPager2 viewPager;
 
     TextView giveTextView;
     @Override
@@ -53,13 +58,15 @@ public class denaPawna extends AppCompatActivity {
         date = LocalDate.now();
 
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setData(autoload.give);
+//        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//        DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        adapter.setData(autoload.give);
 
         tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new MyPagerAdapter());
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -136,4 +143,53 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
+
+
+
+    private class MyPagerAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        @NonNull
+        @Override
+        public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_take, parent, false);
+            RecyclerView recyclerView = view.findViewById(R.id.giveRecyclerViewFrag);
+            recyclerView.setLayoutManager(new LinearLayoutManager(parent.getContext()));
+            return new MyAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
+            List<String> itemList;
+
+            if (position == 0) {
+                // Tab 1
+                itemList = createTab1ItemList();
+            } else {
+                // Tab 2
+                itemList = createTab2ItemList();
+            }
+
+            MyAdapter adapter = new MyAdapter(itemList);
+//            holder.recyclerView.setAdapter(adapter);
+        }
+
+        @Override
+        public int getItemCount() {
+            return 2; // Two tab items
+        }
+
+        private List<String> createTab1ItemList() {
+            List<String> itemList = new ArrayList<>();
+            itemList.add("Tab 1 Item 1");
+            itemList.add("Tab 1 Item 2");
+            return itemList;
+        }
+
+        private List<String> createTab2ItemList() {
+            List<String> itemList = new ArrayList<>();
+            itemList.add("Tab 2 Item 1");
+            itemList.add("Tab 2 Item 2");
+            return itemList;
+        }
+    }
 }
