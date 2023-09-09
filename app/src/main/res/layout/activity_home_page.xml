@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="কেনা"
+                android:text="প্রিন্টার যোগ করুন"
                 android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
-                app:srcCompat="@mipmap/shopping" />
+                app:srcCompat="@mipmap/printer" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<String> dataList;
+    private final List<String> dataList;
 
     public MyAdapter(List<String> dataList) {
         this.dataList = dataList;

@@ -1,49 +1,26 @@
 package com.example.myapplication;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 public class OrderPage extends AppCompatActivity {
 
     TextView priceSholPay;
     public int priceTopay = 0;
-    private static final UUID UUID_SERIAL_PORT_PROFILE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    Button startPrint;
 
-    private BluetoothAdapter bluetoothAdapter;
-    private BluetoothDevice printerDevice;
-    private BluetoothSocket printerSocket;
-    private OutputStream outputStream;
-
-    private ActivityResultLauncher<Intent> enableBluetoothLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +32,20 @@ public class OrderPage extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new OrderPage.MyAdapter(autoload.cardItem));
-
+        startPrint = findViewById(R.id.startPrinting);
         priceSholPay = findViewById(R.id.priceShouldPay);
 
-        bluetoothSetup();
 
+
+        startPrint.setOnClickListener(view -> {
+            autoload.getDataToUpdate("sell", autoload.getCurrentMonthName(), priceTopay);
+        });
 
     }
 
     private class MyAdapter extends RecyclerView.Adapter<OrderPage.MyAdapter.ViewHolder> {
 
-        private List<Map<String, Object>> mData;
+        private final List<Map<String, Object>> mData;
 
         public MyAdapter(List<Map<String, Object>> data) {
             mData = data;
@@ -125,74 +105,6 @@ public class OrderPage extends AppCompatActivity {
     }
 
 
-    private void bluetoothSetup() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if (bluetoothAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not supported on this device", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        enableBluetoothLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        discoverDevices();
-                    } else {
-                        Toast.makeText(OrderPage.this, "Bluetooth is required to print", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            enableBluetoothLauncher.launch(enableBluetoothIntent);
-        } else {
-            discoverDevices();
-        }
-    }
-
-
-    private void discoverDevices() {
-        // Discover Bluetooth devices and select the printer
-        // Set the selected printer device to the printerDevice variable
-        // Call establishBluetoothConnection() to establish the Bluetooth connection
-    }
-
-    private void establishBluetoothConnection() {
-        try {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            printerSocket = printerDevice.createRfcommSocketToServiceRecord(UUID_SERIAL_PORT_PROFILE);
-            printerSocket.connect();
-            outputStream = printerSocket.getOutputStream();
-
-            // Send print commands using the outputStream
-            String message = "Hello, World!";
-            outputStream.write(message.getBytes());
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void closeBluetoothConnection() {
-        try {
-            if (outputStream != null) {
-                outputStream.close();
-            }
-            if (printerSocket != null) {
-                printerSocket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        closeBluetoothConnection();
-    }
 }
 

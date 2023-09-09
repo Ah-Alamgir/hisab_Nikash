@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class homePage extends AppCompatActivity {
-    CardView buy,sell,buyBook,sellBook,dueBook,costBook,productList,stockManagement;
+    CardView printerConnect,sell,buyBook,sellBook,dueBook,costBook,productList,stockManagement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     static TextView sellToday, dueToday, spendToday;
 
@@ -30,7 +30,7 @@ public class homePage extends AppCompatActivity {
 
 
 
-        buy = findViewById(R.id.buying);
+        printerConnect = findViewById(R.id.buying);
         sell = findViewById(R.id.selling);
         buyBook = findViewById(R.id.buyBook);
         dueBook = findViewById(R.id.dueBooks);
@@ -63,6 +63,7 @@ public class homePage extends AppCompatActivity {
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
+        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, BluetoothPrinterActivity.class)));
 
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();
@@ -76,7 +77,10 @@ public class homePage extends AppCompatActivity {
 
     public static void setText(){
         if(autoload.singleValues.size()>0){
-            sellToday.setText(autoload.singleValues.get("todaySell").toString());
+
+            Object value = ((Map<String, Object>) autoload.singleValues.get("sell")).get((autoload.getCurrentMonthName()));
+            assert value != null;
+            sellToday.setText(value.toString());
             spendToday.setText(autoload.singleValues.get("todaySpend").toString());
             dueToday.setText(autoload.singleValues.get("todayDue").toString());
         }

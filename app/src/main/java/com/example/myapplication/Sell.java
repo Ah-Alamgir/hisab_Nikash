@@ -47,14 +47,13 @@ public class Sell extends AppCompatActivity {
         totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, OrderPage.class)));
         setTitle("প্রোডাক্ট নির্বাচন করুন ");
 
-
     }
 
 
 
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-        private List<Map<String, Object>> mData;
+        private final List<Map<String, Object>> mData;
         public MyAdapter(List<Map<String, Object>> data) {
             mData = data;
         }

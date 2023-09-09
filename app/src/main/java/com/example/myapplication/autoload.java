@@ -6,6 +6,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +28,10 @@ public class autoload {
         usersRef.child(id).removeValue();
     }
 
-
+    public static void saveSingleData(String tag, String date, int price){
+        DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
+        usersRef.child(date).setValue(price);
+    }
     static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
     static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
     static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
@@ -107,9 +112,32 @@ public class autoload {
 
     public static String getCurrentMonthName() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-        return monthYearFormat.format(calendar.getTime());
+        SimpleDateFormat dateFormat;
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
+
+
+    public static void getDataToUpdate(String tag, String date, int userInputtedCost){
+        DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag).child(date);
+
+        costRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                        int currentValue = dataSnapshot.getValue(Integer.class);
+                        int updatedValue = currentValue + userInputtedCost;
+                        autoload.singleValues.put("todaySell", updatedValue);
+                        costRef.setValue(updatedValue);
+                }else {
+                    costRef.setValue(userInputtedCost);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 
 }

@@ -73,7 +73,7 @@ public class StockProduct extends AppCompatActivity {
 
     private class MyAdapter extends RecyclerView.Adapter<StockProduct.MyAdapter.ViewHolder> {
 
-        private List<Map<String, Object>> mData;
+        private final List<Map<String, Object>> mData;
         public MyAdapter(List<Map<String, Object>> data) {
             mData = data;
         }
