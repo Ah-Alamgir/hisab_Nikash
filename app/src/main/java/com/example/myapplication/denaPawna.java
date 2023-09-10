@@ -55,14 +55,14 @@ public class denaPawna extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dena_pawna);
 
-//        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
+        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
 
         giveTextView= findViewById(R.id.give_take_textView);
-//        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
+        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
         newDue = findViewById(R.id.newDue);
 
         newDue.setOnClickListener(view -> showTextInputDialog());
-        date = autoload.getCurrentMonthName();
+        date = autoload.dates;
 
 
 
@@ -134,7 +134,6 @@ public class denaPawna extends AppCompatActivity {
         editText = view.findViewById(R.id.denaPawana_editText);
         detailsText = view.findViewById(R.id.biboron_editText);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
-        switchButtonTake = view.findViewById(R.id.switchButtonTake);
         switchButtonDue = view.findViewById(R.id.switchButtonDue);
 
         builder.setView(view);
@@ -156,12 +155,15 @@ public class denaPawna extends AppCompatActivity {
             hisab.put("details", detailsText.getText().toString());
             hisab.put("date", date);
             if (switchButtonGive.isChecked()) {
+                autoload.getDataToUpdate("todaySpend", Integer.valueOf(editText.getText().toString()));
                 myRef.child("singleValues").child("give").push().setValue(hisab);
             } else if (switchButtonTake.isChecked()) {
                 myRef.child("singleValues").child("take").push().setValue(hisab);
             } else if (switchButtonDue.isChecked()) {
+                autoload.getDataToUpdate("todayDue",Integer.valueOf(editText.getText().toString()) );
                 myRef.child("singleValues").child("Due").push().setValue(hisab);
             }
+
         }else {
             if (editText.getText().toString().isEmpty()){
                 editText.setError("দাম লিখুন");
@@ -220,16 +222,21 @@ public class denaPawna extends AppCompatActivity {
      public static List<Map<String, Object>> filterItemsByWeek(String time, String id) {
         Map<String, Object> giveMap = (Map<String, Object>) autoload.singleValues.get(id);
         filteredItems.clear();
-        for (Map.Entry<String, Object> entry : giveMap.entrySet()) {
-            Map<String, Object> item = (Map<String, Object>) entry.getValue();
-            String itemDateValue = (String) item.get("date");
-            if (itemDateValue.contains(time)) {
-                int itemPrice = Integer.valueOf(item.get("price").toString()) ;
-                totalPrice += itemPrice;
-                filteredItems.add(item);
+        try {
+            for (Map.Entry<String, Object> entry : giveMap.entrySet()) {
+                Map<String, Object> item = (Map<String, Object>) entry.getValue();
+                String itemDateValue = (String) item.get("date");
+                if (itemDateValue.contains(time)) {
+                    int itemPrice = Integer.valueOf(item.get("price").toString()) ;
+                    totalPrice += itemPrice;
+                    filteredItems.add(item);
 
+                }
             }
+        }catch (Exception e) {
+
         }
+
         return filteredItems;
     }
 

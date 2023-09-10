@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
+    public static String dates;
 
     public static void deleteData(String id){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
@@ -61,8 +61,6 @@ public class autoload {
                                 product.put("id",productSnapshot.getKey());
                                 productLists.add(product);
                             }
-
-
                             break;
 
 
@@ -74,33 +72,10 @@ public class autoload {
                             }
                             break;
 
-                        case "cardItem":
-
-
-
                         case "singleValues":
                             singleValues = (Map<String, Object>) childSnapshot.getValue();
                             homePage.setText();
                             break;
-//                        case "history":
-//                            for (DataSnapshot historySnapshot : childSnapshot.getChildren()) {
-//                                String historyType = historySnapshot.getKey();
-//                                switch (historyType) {
-//                                    case "give":
-//                                        for (DataSnapshot giveSnapshot : historySnapshot.getChildren()) {
-//                                            Map<String, Object> giveItem = (Map<String, Object>) giveSnapshot.getValue();
-//                                            give.add(giveItem);
-//                                        }
-//                                        break;
-//                                    case "take":
-//                                        for (DataSnapshot takeSnapshot : historySnapshot.getChildren()) {
-//                                            Map<String, Object> takeItem = (Map<String, Object>) takeSnapshot.getValue();
-//                                            take.add(takeItem);
-//                                        }
-//                                        break;
-//                                }
-//                            }
-//                            break;
                     }
                 }
 
@@ -116,29 +91,29 @@ public class autoload {
 
 
 
-
-    public static String getCurrentMonthName() {
+    public static void getCurrentMonthName(){
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat;
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        return dateFormat.format(calendar.getTime());
+        dates= dateFormat.format(calendar.getTime());
     }
 
-
-
-    public static void getDataToUpdate(String tag, String date, int userInputtedCost){
-        DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag).child(date);
+    public static void getDataToUpdate(String tag, int userInputtedCost){
+        DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag);
 
         costRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                        int currentValue = dataSnapshot.getValue(Integer.class);
+                if (dataSnapshot.hasChild(dates)) {
+                    try {
+                        int currentValue = dataSnapshot.child(dates).getValue(Integer.class);
                         int updatedValue = currentValue + userInputtedCost;
                         autoload.singleValues.put("todaySell", updatedValue);
                         costRef.setValue(updatedValue);
+                    }catch (Exception e) {}
+
                 }else {
-                    costRef.setValue(userInputtedCost);
+                    costRef.child(dates).setValue(userInputtedCost);
                 }
             }
             @Override

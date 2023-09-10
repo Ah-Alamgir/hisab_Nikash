@@ -133,6 +133,8 @@ public class Sell extends AppCompatActivity {
         if(!autoload.cardItem_list.contains(id)){
             autoload.cardItem_list.add(id);
             Map<String, Object> map = new HashMap<>();
+            map.put("id", id);
+            map.put("Stock", autoload.productLists.get(position).get("Stock"));
             map.put("Order", 1 );
             map.put("name",autoload.productLists.get(position).get("name"));
             map.put("sellPrice", autoload.productLists.get(position).get("sellPrice"));

@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +25,8 @@ public class OrderPage extends AppCompatActivity {
     TextView priceSholPay;
     public int priceTopay = 0;
     Button startPrint;
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("denaPaona");
+
 
 
     @Override
@@ -38,7 +45,21 @@ public class OrderPage extends AppCompatActivity {
 
 
         startPrint.setOnClickListener(view -> {
-            autoload.getDataToUpdate("sell", autoload.getCurrentMonthName(), priceTopay);
+
+            autoload.getDataToUpdate("todaySell", priceTopay);
+            //update stock ammount in fireBase
+
+            Map<String, Object> updateItem = new HashMap<String, Object>();
+            for (Map<String, Object> item: autoload.cardItem){
+                updateItem.put("Stock",Integer.valueOf(item.get("Stock").toString())- Integer.valueOf(item.get("Order").toString()) );
+                myRef.child("ProductList").child(item.get("id").toString()).updateChildren(updateItem);
+            }
+
+            Map<String, Object> hisab = new HashMap<>();
+            hisab.put("price", priceTopay);
+            hisab.put("details", "");
+            hisab.put("date", autoload.dates);
+            myRef.child("singleValues").child("sell").push().setValue(hisab);
         });
 
     }

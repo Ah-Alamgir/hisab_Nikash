@@ -50,7 +50,7 @@ public class bikri extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new bikri.MyAdapter(denaPawna.filterItemsByWeek(getTime("month"),"bikri")));
+        recyclerView.setAdapter(new bikri.MyAdapter(denaPawna.filterItemsByWeek(getTime("month"),"sell")));
 
         return view;
     }

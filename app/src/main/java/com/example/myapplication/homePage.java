@@ -56,8 +56,7 @@ public class homePage extends AppCompatActivity {
 
 
 
-
-
+        autoload.getCurrentMonthName();
 
         sell.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
@@ -78,11 +77,19 @@ public class homePage extends AppCompatActivity {
     public static void setText(){
         if(autoload.singleValues.size()>0){
             try {
-                Object value = ((Map<String, Object>) autoload.singleValues.get("sell")).get((autoload.getCurrentMonthName()));
-                assert value != null;
-                sellToday.setText(value.toString());
-                spendToday.setText(autoload.singleValues.get("todaySpend").toString());
-                dueToday.setText(autoload.singleValues.get("todayDue").toString());
+
+                Map<String, Object> todayDueMap = (Map<String, Object>) autoload.singleValues.get("todayDue");
+                Map<String, Object> todaysellMap = (Map<String, Object>) autoload.singleValues.get("todaySell");
+                Map<String, Object> todaySpendMap = (Map<String, Object>) autoload.singleValues.get("todaySpend");
+                if (todayDueMap != null) {
+                    sellToday.setText(todaysellMap.get(autoload.dates).toString());
+                    spendToday.setText(todaySpendMap.get(autoload.dates).toString());
+                    dueToday.setText(todayDueMap.get(autoload.dates).toString());
+                }
+
+
+
+
             }catch (Exception e){
 
             }

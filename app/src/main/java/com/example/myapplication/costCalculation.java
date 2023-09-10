@@ -45,7 +45,7 @@ public class costCalculation extends AppCompatActivity {
 
 
 
-        date_TextView.setText(autoload.getCurrentMonthName());
+        date_TextView.setText(autoload.dates);
         salaryBtn.setOnClickListener(view -> {
             showTextInputDialog("বেতন বাবদ খরচ ", "salary");
         });
@@ -75,10 +75,8 @@ public class costCalculation extends AppCompatActivity {
         editText = view.findViewById(R.id.denaPawana_editText);
         detailsText = view.findViewById(R.id.biboron_editText);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
-        switchButtonTake = view.findViewById(R.id.switchButtonTake);
 
         switchButtonGive.setVisibility(View.GONE);
-        switchButtonTake.setVisibility(View.GONE);
 
         builder.setView(view);
 
@@ -92,8 +90,6 @@ public class costCalculation extends AppCompatActivity {
             }else {
                 if (editText.getText().toString().isEmpty()){
                     editText.setError("দাম লিখুন");
-                } else if (!switchButtonTake.isChecked() || !switchButtonGive.isChecked()) {
-                    Toast.makeText(this, "দিবেন না পাবেন নিশ্চিত করুন", Toast.LENGTH_SHORT).show();
                 }else{
                     detailsText.setError("বিবরণ লিখুন ");
                 }
