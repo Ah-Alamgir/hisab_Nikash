@@ -38,8 +38,7 @@ public class autoload {
     static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
     public static List<String> cardItem_list = new ArrayList<String>();
     static Map<String, Object> singleValues = new HashMap<>();
-    static ArrayList<Map<String, Object>> give = new ArrayList<>();
-    static ArrayList<Map<String, Object>> take = new ArrayList<>();
+
     public static void getData(){
         // Create a DatabaseReference object
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
@@ -52,8 +51,6 @@ public class autoload {
                 cardItem.clear();
                 cardItem_list.clear();
                 singleValues.clear();
-                give.clear();
-                take.clear();
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String category = childSnapshot.getKey();
@@ -65,7 +62,7 @@ public class autoload {
                                 productLists.add(product);
                             }
 
-                            Log.d("datam", productLists.toString());
+
                             break;
 
 
@@ -85,25 +82,25 @@ public class autoload {
                             singleValues = (Map<String, Object>) childSnapshot.getValue();
                             homePage.setText();
                             break;
-                        case "history":
-                            for (DataSnapshot historySnapshot : childSnapshot.getChildren()) {
-                                String historyType = historySnapshot.getKey();
-                                switch (historyType) {
-                                    case "give":
-                                        for (DataSnapshot giveSnapshot : historySnapshot.getChildren()) {
-                                            Map<String, Object> giveItem = (Map<String, Object>) giveSnapshot.getValue();
-                                            give.add(giveItem);
-                                        }
-                                        break;
-                                    case "take":
-                                        for (DataSnapshot takeSnapshot : historySnapshot.getChildren()) {
-                                            Map<String, Object> takeItem = (Map<String, Object>) takeSnapshot.getValue();
-                                            take.add(takeItem);
-                                        }
-                                        break;
-                                }
-                            }
-                            break;
+//                        case "history":
+//                            for (DataSnapshot historySnapshot : childSnapshot.getChildren()) {
+//                                String historyType = historySnapshot.getKey();
+//                                switch (historyType) {
+//                                    case "give":
+//                                        for (DataSnapshot giveSnapshot : historySnapshot.getChildren()) {
+//                                            Map<String, Object> giveItem = (Map<String, Object>) giveSnapshot.getValue();
+//                                            give.add(giveItem);
+//                                        }
+//                                        break;
+//                                    case "take":
+//                                        for (DataSnapshot takeSnapshot : historySnapshot.getChildren()) {
+//                                            Map<String, Object> takeItem = (Map<String, Object>) takeSnapshot.getValue();
+//                                            take.add(takeItem);
+//                                        }
+//                                        break;
+//                                }
+//                            }
+//                            break;
                     }
                 }
 

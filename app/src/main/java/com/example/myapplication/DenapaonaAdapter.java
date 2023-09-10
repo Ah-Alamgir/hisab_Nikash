@@ -33,7 +33,7 @@ public class DenapaonaAdapter extends RecyclerView.Adapter<DenapaonaAdapter.View
         // Bind your data to the ViewHolder views
         holder.dateTextView.setText((String) data.get("date"));
         holder.priceTextView.setText("টাকার পরিমানঃ  "+ data.get("price"));
-        holder.detailsTextView.setText("বিবরনঃ "+(String) data.get("details"));
+        holder.detailsTextView.setText("বিবরনঃ "+ data.get("details"));
 
         // Set click listener for delete button if needed
         holder.deleteButton.setOnClickListener(v -> {

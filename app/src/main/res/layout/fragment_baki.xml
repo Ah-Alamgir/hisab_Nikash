@@ -6,12 +6,9 @@
     tools:context=".baki">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="baki fragment" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/baki_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

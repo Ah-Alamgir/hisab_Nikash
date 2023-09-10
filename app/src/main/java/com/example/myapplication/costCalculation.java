@@ -31,16 +31,16 @@ public class costCalculation extends AppCompatActivity {
 
         setTitle("খরচ হিসাব ");
 
-        salaryBtn = (Button) findViewById(R.id.salary_btn);
-        boughtBtn = (Button) findViewById(R.id.buy_btn);
-        billBtn = (Button) findViewById(R.id.bill_btn);
-        RentBtn = (Button) findViewById(R.id.rent_btn);
-        totalCost_textView = (TextView) findViewById(R.id.totalcost_textView);
-        date_TextView = (TextView) findViewById(R.id.date_textVIew);
-        salary_textView = (TextView) findViewById(R.id.salary_Text_view);
-        bought_TextView = (TextView) findViewById(R.id.buy_Text_view);
-        bill_textView = (TextView) findViewById(R.id.bill_Text_view);
-        rent_textView = (TextView) findViewById(R.id.vara_Text_view);
+        salaryBtn = findViewById(R.id.salary_btn);
+        boughtBtn = findViewById(R.id.buy_btn);
+        billBtn = findViewById(R.id.bill_btn);
+        RentBtn = findViewById(R.id.rent_btn);
+        totalCost_textView = findViewById(R.id.totalcost_textView);
+        date_TextView = findViewById(R.id.date_textVIew);
+        salary_textView = findViewById(R.id.salary_Text_view);
+        bought_TextView = findViewById(R.id.buy_Text_view);
+        bill_textView = findViewById(R.id.bill_Text_view);
+        rent_textView = findViewById(R.id.vara_Text_view);
 
 
 

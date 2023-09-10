@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,23 +44,25 @@ public class denaPawna extends AppCompatActivity {
     private Switch switchButtonGive, switchButtonTake, switchButtonDue;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
-    LocalDate date;
+    String date;
     TabLayout tabLayout;
     private ViewPager2 viewPager;
-
+    static List<Map<String, Object>> filteredItems = new ArrayList<>();
+    static int totalPrice = 0;
     TextView giveTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dena_pawna);
-        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
+
+//        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
 
         giveTextView= findViewById(R.id.give_take_textView);
-        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
+//        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
         newDue = findViewById(R.id.newDue);
 
         newDue.setOnClickListener(view -> showTextInputDialog());
-        date = LocalDate.now();
+        date = autoload.getCurrentMonthName();
 
 
 
@@ -71,11 +74,54 @@ public class denaPawna extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("Tab " + (position + 1))
+                (tab, position) -> {
+                    if (position==0) {
+                        tab.setText("বাকি ");
+
+                    }else if(position==1) {
+                        tab.setText("বিক্রি");
+                    }else if(position==2){
+                        tab.setText("ব্যায় ");
+                    }
+                }
         ).attach();
 
-        getThisMonthHisab();
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void showTextInputDialog() {
@@ -108,13 +154,13 @@ public class denaPawna extends AppCompatActivity {
             Map<String, Object> hisab = new HashMap<>();
             hisab.put("price", editText.getText().toString());
             hisab.put("details", detailsText.getText().toString());
-            hisab.put("date", date.toString());
+            hisab.put("date", date);
             if (switchButtonGive.isChecked()) {
-                myRef.child("history").child("give").push().setValue(hisab);
+                myRef.child("singleValues").child("give").push().setValue(hisab);
             } else if (switchButtonTake.isChecked()) {
-                myRef.child("history").child("take").push().setValue(hisab);
+                myRef.child("singleValues").child("take").push().setValue(hisab);
             } else if (switchButtonDue.isChecked()) {
-                myRef.child("history").child("Due").push().setValue(hisab);
+                myRef.child("singleValues").child("Due").push().setValue(hisab);
             }
         }else {
             if (editText.getText().toString().isEmpty()){
@@ -164,36 +210,29 @@ public class denaPawna extends AppCompatActivity {
 
 
 
-    public void getThisMonthHisab(){
-
-
-        List<Integer> costList = new ArrayList<>();
-        List<Integer> sellList = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-        String time=  dateFormat.format(calendar.getTime());
 
 
 
-            Map<String, Integer> cost = (Map<String, Integer>) autoload.singleValues.get("cost");
 
 
-            for (Map.Entry<String, Integer> entry : cost.entrySet()) {
-                if (entry.getKey().toString().contains(time)) {
-                    costList.add(entry.getValue());
-                }
+
+
+     public static List<Map<String, Object>> filterItemsByWeek(String time, String id) {
+        Map<String, Object> giveMap = (Map<String, Object>) autoload.singleValues.get(id);
+        filteredItems.clear();
+        for (Map.Entry<String, Object> entry : giveMap.entrySet()) {
+            Map<String, Object> item = (Map<String, Object>) entry.getValue();
+            String itemDateValue = (String) item.get("date");
+            if (itemDateValue.contains(time)) {
+                int itemPrice = Integer.valueOf(item.get("price").toString()) ;
+                totalPrice += itemPrice;
+                filteredItems.add(item);
+
             }
-//            Map<String, Integer> sell = (Map<String, Integer>) autoload.singleValues.get("sell");
-//            for (Map.Entry<String, Integer> entry : sell.entrySet()) {
-//                if (entry.getKey().toString().contains(time)) {
-//                    sellList.add(entry.getValue());
-//                }
-//            }
-
-
-
+        }
+        return filteredItems;
     }
+
 }
 
 

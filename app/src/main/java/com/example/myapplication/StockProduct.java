@@ -1,10 +1,8 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -43,7 +40,7 @@ public class StockProduct extends AppCompatActivity {
         totoalStock_textview = findViewById(R.id.total_stock_textView);
         totalStock_value_textView = findViewById(R.id.total_stock_value_text);
         addNewProduct = findViewById(R.id.addProductStock);
-        Log.d("datam", autoload.productLists.toString());
+
 
         addNewProduct.setOnClickListener(view -> {
             addProduct.editProduct= false;
@@ -146,7 +143,7 @@ public class StockProduct extends AppCompatActivity {
                 buyPrice = itemView.findViewById(R.id.buy_price_text_view);
                 editButton = itemView.findViewById(R.id.editBtn);
                 deleteButton = itemView.findViewById(R.id.deleteBtn);
-                cardViews = itemView.findViewById(R.id.cardviewstock);
+                cardViews = itemView.findViewById(R.id.cardDenapaona);
             }
 
 

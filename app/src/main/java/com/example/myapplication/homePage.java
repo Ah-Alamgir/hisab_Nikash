@@ -77,12 +77,16 @@ public class homePage extends AppCompatActivity {
 
     public static void setText(){
         if(autoload.singleValues.size()>0){
+            try {
+                Object value = ((Map<String, Object>) autoload.singleValues.get("sell")).get((autoload.getCurrentMonthName()));
+                assert value != null;
+                sellToday.setText(value.toString());
+                spendToday.setText(autoload.singleValues.get("todaySpend").toString());
+                dueToday.setText(autoload.singleValues.get("todayDue").toString());
+            }catch (Exception e){
 
-            Object value = ((Map<String, Object>) autoload.singleValues.get("sell")).get((autoload.getCurrentMonthName()));
-            assert value != null;
-            sellToday.setText(value.toString());
-            spendToday.setText(autoload.singleValues.get("todaySpend").toString());
-            dueToday.setText(autoload.singleValues.get("todayDue").toString());
+            }
+
         }
     }
 
