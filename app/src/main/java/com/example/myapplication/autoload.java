@@ -28,6 +28,7 @@ public class autoload {
         usersRef.child(id).removeValue();
     }
 
+
     public static void saveSingleData(String tag, String date, int price){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
         usersRef.child(date).setValue(price);
@@ -45,7 +46,15 @@ public class autoload {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("datam", dataSnapshot.toString());
+
+                productLists.clear();
+                costCalculations.clear();
+                cardItem.clear();
+                cardItem_list.clear();
+                singleValues.clear();
+                give.clear();
+                take.clear();
+
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String category = childSnapshot.getKey();
                     switch (category) {
@@ -55,6 +64,8 @@ public class autoload {
                                 product.put("id",productSnapshot.getKey());
                                 productLists.add(product);
                             }
+
+                            Log.d("datam", productLists.toString());
                             break;
 
 
@@ -64,7 +75,6 @@ public class autoload {
                                 cost.put("id",productSnapshot.getKey());
                                 costCalculations.add(cost);
                             }
-                            Log.d("datam", costCalculations.toString());
                             break;
 
                         case "cardItem":

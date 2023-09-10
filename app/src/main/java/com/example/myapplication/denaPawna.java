@@ -5,38 +5,42 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.myapplication.recyclerView.MyAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class denaPawna extends AppCompatActivity {
 
     Button newDue;
     private EditText editText, detailsText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switchButtonGive, switchButtonTake;
+    private Switch switchButtonGive, switchButtonTake, switchButtonDue;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
     LocalDate date;
@@ -58,39 +62,19 @@ public class denaPawna extends AppCompatActivity {
         date = LocalDate.now();
 
 
-//        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-//        DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter.setData(autoload.give);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new MyPagerAdapter());
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                // Check if Tab 1 is selected
-                if (tab.getPosition() == 0) {
-                    adapter.setData(autoload.give);
-                } else if (tab.getPosition()==2) {
-                    adapter.setData(autoload.take);
-                }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
 
-            }
+        viewPager.setAdapter(adapter);
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText("Tab " + (position + 1))
+        ).attach();
 
-            }
-
-
-        });
-
+        getThisMonthHisab();
     }
 
 
@@ -105,6 +89,7 @@ public class denaPawna extends AppCompatActivity {
         detailsText = view.findViewById(R.id.biboron_editText);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
         switchButtonTake = view.findViewById(R.id.switchButtonTake);
+        switchButtonDue = view.findViewById(R.id.switchButtonDue);
 
         builder.setView(view);
 
@@ -125,11 +110,11 @@ public class denaPawna extends AppCompatActivity {
             hisab.put("details", detailsText.getText().toString());
             hisab.put("date", date.toString());
             if (switchButtonGive.isChecked()) {
-                myRef.child("give").setValue(Integer.valueOf(editText.getText().toString()));
                 myRef.child("history").child("give").push().setValue(hisab);
             } else if (switchButtonTake.isChecked()) {
-                myRef.child("take").setValue(Integer.valueOf(editText.getText().toString()));
                 myRef.child("history").child("take").push().setValue(hisab);
+            } else if (switchButtonDue.isChecked()) {
+                myRef.child("history").child("Due").push().setValue(hisab);
             }
         }else {
             if (editText.getText().toString().isEmpty()){
@@ -146,50 +131,69 @@ public class denaPawna extends AppCompatActivity {
 
 
 
-    private class MyPagerAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-        @NonNull
-        @Override
-        public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_take, parent, false);
-            RecyclerView recyclerView = view.findViewById(R.id.giveRecyclerViewFrag);
-            recyclerView.setLayoutManager(new LinearLayoutManager(parent.getContext()));
-            return new MyAdapter.ViewHolder(view);
+
+
+    private static class MyPagerAdapter extends FragmentStateAdapter {
+        private static final int NUM_PAGES = 3; // Replace with the number of tabs
+
+        public MyPagerAdapter(FragmentManager fragmentManager, Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
-            List<String> itemList;
-
-            if (position == 0) {
-                // Tab 1
-                itemList = createTab1ItemList();
-            } else {
-                // Tab 2
-                itemList = createTab2ItemList();
+        public Fragment createFragment(int position) {
+            // Create and return a new Fragment instance based on the position
+            switch (position) {
+                case 0:
+                    return baki.newInstance();
+                case 1:
+                    return bikri.newInstance();
+                case 2:
+                    return Fragment_bay.newInstance();
+                default:
+                    return null;
             }
-
-            MyAdapter adapter = new MyAdapter(itemList);
-//            holder.recyclerView.setAdapter(adapter);
         }
 
         @Override
         public int getItemCount() {
-            return 2; // Two tab items
-        }
-
-        private List<String> createTab1ItemList() {
-            List<String> itemList = new ArrayList<>();
-            itemList.add("Tab 1 Item 1");
-            itemList.add("Tab 1 Item 2");
-            return itemList;
-        }
-
-        private List<String> createTab2ItemList() {
-            List<String> itemList = new ArrayList<>();
-            itemList.add("Tab 2 Item 1");
-            itemList.add("Tab 2 Item 2");
-            return itemList;
+            return NUM_PAGES;
         }
     }
+
+
+
+    public void getThisMonthHisab(){
+
+
+        List<Integer> costList = new ArrayList<>();
+        List<Integer> sellList = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+        String time=  dateFormat.format(calendar.getTime());
+
+
+
+            Map<String, Integer> cost = (Map<String, Integer>) autoload.singleValues.get("cost");
+
+
+            for (Map.Entry<String, Integer> entry : cost.entrySet()) {
+                if (entry.getKey().toString().contains(time)) {
+                    costList.add(entry.getValue());
+                }
+            }
+//            Map<String, Integer> sell = (Map<String, Integer>) autoload.singleValues.get("sell");
+//            for (Map.Entry<String, Integer> entry : sell.entrySet()) {
+//                if (entry.getKey().toString().contains(time)) {
+//                    sellList.add(entry.getValue());
+//                }
+//            }
+
+
+
+    }
 }
+
+

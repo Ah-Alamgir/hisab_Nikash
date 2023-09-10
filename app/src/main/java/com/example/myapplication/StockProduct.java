@@ -43,7 +43,7 @@ public class StockProduct extends AppCompatActivity {
         totoalStock_textview = findViewById(R.id.total_stock_textView);
         totalStock_value_textView = findViewById(R.id.total_stock_value_text);
         addNewProduct = findViewById(R.id.addProductStock);
-
+        Log.d("datam", autoload.productLists.toString());
 
         addNewProduct.setOnClickListener(view -> {
             addProduct.editProduct= false;
@@ -101,11 +101,13 @@ public class StockProduct extends AppCompatActivity {
                 builder.setMessage("Are you sure you want to delete this item?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", (dialog, id) -> {
-                            autoload.deleteData((String) item.get("id"));
-
-                            autoload.productLists.remove(mData.get(position));
-                            removeItem(position);
-
+                            String itemId = (String) item.get("id");
+                            autoload.deleteData(itemId);
+                            int positions = mData.indexOf(item);
+                            if (positions != -1) {
+                                removeItem(positions);
+                                autoload.productLists.remove(positions);
+                            }
                         })
                         .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
                 AlertDialog alert = builder.create();
@@ -117,6 +119,7 @@ public class StockProduct extends AppCompatActivity {
             holder.editButton.setOnClickListener(view -> {
                 addProduct.editProduct = true;
                 startActivity(new Intent(StockProduct.this, addProduct.class));
+                finish();
             });
 
         }
@@ -153,4 +156,8 @@ public class StockProduct extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

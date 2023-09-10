@@ -83,19 +83,21 @@
             android:id="@+id/tabItem2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="পাবো " />
+            android:text="বিক্রি" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="দিবো" />
+            android:text="ব্যায়" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/newDue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

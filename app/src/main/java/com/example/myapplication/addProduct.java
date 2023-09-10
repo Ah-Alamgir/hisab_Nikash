@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,14 +17,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class addProduct extends AppCompatActivity {
-    private EditText name,sellPrice,buyPrice,Stock,discount, vat;
+    public EditText name,sellPrice,buyPrice,Stock,discount, vat;
 
     private Button submit, updateBtn;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    public static boolean editProduct= false;
+    DatabaseReference myRef = database.getReference("denaPaona");
     public static String id;
+    public static boolean editProduct= false;
+
     public static int edit_position;
 
 
@@ -41,33 +45,7 @@ public class addProduct extends AppCompatActivity {
 
 
         submit.setOnClickListener(view -> {
-            if(name.getText().toString().isEmpty()){
-                name.setError("Enter product name");
-            } else if (sellPrice.getText().toString().isEmpty()) {
-                sellPrice.setError("Enter selling price");
-            } else if (Stock.getText().toString().isEmpty()) {
-                Stock.setError("Add Stock information");
-
-            } else if (buyPrice.getText().toString().isEmpty()) {
-                buyPrice.setError("Enter buying price");
-            }else {
-                DatabaseReference myRef = database.getReference("denaPaona");
-
-                Map<String, Object> userData = new HashMap<>();
-                userData.put("name", name.getText().toString());
-                userData.put("sellPrice", Integer.valueOf(String.valueOf(sellPrice.getText())));
-                userData.put("buyPrice", Integer.valueOf(String.valueOf(buyPrice.getText())));
-                userData.put("Stock", Integer.valueOf(String.valueOf(Stock.getText())));
-                if(!discount.getText().toString().isEmpty()){
-                    userData.put("Discount", Integer.valueOf(discount.getText().toString()));
-                }
-                if (!vat.getText().toString().isEmpty()){
-                    userData.put("vat", Integer.valueOf(vat.getText().toString()));
-                }
-                myRef.child("ProductList").push().setValue(userData);
-
-
-            }
+            updateProduct();
         });
 
 
@@ -80,6 +58,7 @@ public class addProduct extends AppCompatActivity {
 
 
             name.setText((String) item.get("name"));
+            id= item.get("id").toString();
             sellPrice.setText(item.get("sellPrice").toString());
             buyPrice.setText( item.get("buyPrice").toString());
             Stock.setText( item.get("Stock").toString());
@@ -100,47 +79,72 @@ public class addProduct extends AppCompatActivity {
 
         }
 
-
         updateBtn.setOnClickListener(view -> {
-
+            updateProduct();
         });
 
 
 
-
-
-        updateBtn.setOnClickListener(view -> {
-            if(name.getText().toString().isEmpty()){
-                name.setError("Enter product name");
-            } else if (sellPrice.getText().toString().isEmpty()) {
-                sellPrice.setError("Enter selling price");
-            } else if (Stock.getText().toString().isEmpty()) {
-                Stock.setError("Add Stock information");
-
-            } else if (buyPrice.getText().toString().isEmpty()) {
-                buyPrice.setError("Enter buying price");
-            }else {
-                DatabaseReference myRef = database.getReference("ProductList");
-
-                Map<String, Object> userData = new HashMap<>();
-                userData.put("name", name.getText().toString());
-                userData.put("sellPrice", Integer.valueOf(String.valueOf(sellPrice.getText())));
-                userData.put("buyPrice", Integer.valueOf(String.valueOf(buyPrice.getText())));
-                userData.put("Stock", Integer.valueOf(String.valueOf(Stock.getText())));
-                if(!discount.getText().toString().isEmpty()){
-                    userData.put("Discount", Integer.valueOf(discount.getText().toString()));
-                }
-                if (!vat.getText().toString().isEmpty()){
-                    userData.put("vat", Integer.valueOf(vat.getText().toString()));
-                }
-                myRef.push().setValue(userData);
-
-
-            }
-        });
 
     }
 
 
+    private void updateProduct(){
+        if(name.getText().toString().isEmpty()){
+            name.setError("Enter product name");
+        } else if (sellPrice.getText().toString().isEmpty()) {
+            sellPrice.setError("Enter selling price");
+        } else if (Stock.getText().toString().isEmpty()) {
+            Stock.setError("Add Stock information");
 
+        } else if (buyPrice.getText().toString().isEmpty()) {
+            buyPrice.setError("Enter buying price");
+        }else {
+
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("name", name.getText().toString());
+            userData.put("sellPrice", Integer.valueOf(String.valueOf(sellPrice.getText())));
+            userData.put("buyPrice", Integer.valueOf(String.valueOf(buyPrice.getText())));
+            userData.put("Stock", Integer.valueOf(String.valueOf(Stock.getText())));
+            if(!discount.getText().toString().isEmpty()){
+                userData.put("Discount", Integer.valueOf(discount.getText().toString()));
+            }
+            if (!vat.getText().toString().isEmpty()){
+                userData.put("vat", Integer.valueOf(vat.getText().toString()));
+            }
+
+            if (editProduct){
+                myRef.child("ProductList").child(id).updateChildren(userData);
+            }else {
+                myRef.child("ProductList").push().setValue(userData);
+            }
+
+            alartDIalogue();
+
+        }
+    }
+
+
+
+
+    public void alartDIalogue(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (editProduct){
+            builder.setTitle("Product Updated")
+                    .setMessage("Your product has been successfully updated.");
+        }else {
+            builder.setTitle("Product Added")
+                    .setMessage("Your product has been successfully added.");
+        }
+        builder.setPositiveButton("OK", (dialog, which) -> {
+
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
