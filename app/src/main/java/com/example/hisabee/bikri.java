@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.hisabee;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class Fragment_bay extends Fragment {
+public class bikri extends Fragment {
 
     private Context context;
 
@@ -34,23 +34,23 @@ public class Fragment_bay extends Fragment {
         this.context = context;
     }
 
-    public Fragment_bay() {
+    public bikri() {
     }
 
-    public static Fragment_bay newInstance() {
-        Fragment_bay fragment = new Fragment_bay();
+    public static bikri newInstance() {
+        bikri fragment = new bikri();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bay, container, false);
+        View view = inflater.inflate(R.layout.fragment_baki, container, false);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.Fragment_bay_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new Fragment_bay.MyAdapter(denaPawna.filterItemsByWeek(getTime("month"),"give")));
+//        recyclerView.setAdapter(new bikri.MyAdapter((List<Map<String, Object>>) denaPawna.filterItemsByWeek(getTime("month"),"todaySell")));
 
         return view;
     }
@@ -87,7 +87,7 @@ public class Fragment_bay extends Fragment {
 
 
 
-    private class MyAdapter extends RecyclerView.Adapter<Fragment_bay.MyAdapter.ViewHolder> {
+    private class MyAdapter extends RecyclerView.Adapter<bikri.MyAdapter.ViewHolder> {
 
         private final List<Map<String, Object>> mData;
 
@@ -98,13 +98,13 @@ public class Fragment_bay extends Fragment {
 
         @NonNull
         @Override
-        public Fragment_bay.MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public bikri.MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dena_paona_recyclerview, parent, false);
-            return new Fragment_bay.MyAdapter.ViewHolder(view);
+            return new bikri.MyAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull Fragment_bay.MyAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull bikri.MyAdapter.ViewHolder holder, int position) {
 
             Map<String, Object> item = mData.get(position);
             holder.price.setText((String) item.get("details"));

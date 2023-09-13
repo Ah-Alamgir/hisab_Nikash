@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.hisabee;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -50,8 +50,7 @@ public class baki extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new baki.MyAdapter(denaPawna.filterItemsByWeek(getTime("month"),"Due")));
-
+        recyclerView.setAdapter(new baki.MyAdapter(denaPawna.filterItemsByWeek(getTime("month"),"todaySell")));
         return view;
     }
 
@@ -107,8 +106,8 @@ public class baki extends Fragment {
         public void onBindViewHolder(@NonNull baki.MyAdapter.ViewHolder holder, int position) {
 
             Map<String, Object> item = mData.get(position);
-            holder.price.setText((String) item.get("details"));
-            holder.details.setText(Objects.requireNonNull(item.get("price")).toString());
+            holder.price.setText((String) item.get("price"));
+            holder.details.setText(Objects.requireNonNull(item.get("details")).toString());
             holder.dates.setText(Objects.requireNonNull(item.get("date")).toString());
             holder.cardViews.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.anim1));
 

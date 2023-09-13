@@ -1,4 +1,4 @@
-package com.example.myapplication.recyclerView;
+package com.example.hisabee.recyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.R;
+import com.example.hisabee.R;
 
 import java.util.List;
 

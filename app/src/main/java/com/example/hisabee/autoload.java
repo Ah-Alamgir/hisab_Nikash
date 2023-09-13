@@ -1,13 +1,9 @@
-package com.example.myapplication;
-
-import android.util.Log;
+package com.example.hisabee;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -17,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -98,7 +93,7 @@ public class autoload {
         dates= dateFormat.format(calendar.getTime());
     }
 
-    public static void getDataToUpdate(String tag, int userInputtedCost){
+    public static void getDataToUpdate(String tag, int userInputtedCost, String userInputDetails){
         DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag);
 
         costRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,14 +101,18 @@ public class autoload {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(dates)) {
                     try {
-                        int currentValue = dataSnapshot.child(dates).getValue(Integer.class);
+                        int currentValue = dataSnapshot.child(dates).child("price").getValue(Integer.class);
+                        String details = dataSnapshot.child(dates).child("details").getValue(String.class);
                         int updatedValue = currentValue + userInputtedCost;
-                        autoload.singleValues.put("todaySell", updatedValue);
-                        costRef.setValue(updatedValue);
+
+                        details = details+ "\n" +userInputtedCost+ "টাকা খরচের বিবরন"+"\n"+ userInputDetails+ "-------------------------"+"\n";
+                        costRef.child(dates).child("price").setValue(updatedValue);
+                        costRef.child(dates).child("details").setValue(details);
                     }catch (Exception e) {}
 
                 }else {
-                    costRef.child(dates).setValue(userInputtedCost);
+                    costRef.child(dates).child("price").setValue(userInputtedCost);
+                    costRef.child(dates).child("details").setValue(userInputDetails);
                 }
             }
             @Override

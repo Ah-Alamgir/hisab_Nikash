@@ -1,15 +1,13 @@
-package com.example.myapplication;
+package com.example.hisabee;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,49 +19,38 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class denaPawna extends AppCompatActivity {
 
     Button newDue;
     private EditText editText, detailsText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switchButtonGive, switchButtonTake, switchButtonDue;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DenapaonaAdapter adapter = new DenapaonaAdapter(new ArrayList<>());
-    String date;
+    private Switch switchButtonGive, switchButtonDue;
+
+
     TabLayout tabLayout;
     private ViewPager2 viewPager;
-    static List<Map<String, Object>> filteredItems = new ArrayList<>();
+
+    private ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
     static int totalPrice = 0;
     TextView giveTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_dena_pawna);
 
-        setTitle("পাবেনঃ "+autoload.singleValues.get("take").toString()  + "       দিবেনঃ " +autoload.singleValues.get("give").toString()  );
+        setTitle(autoload.dates);
 
-        giveTextView= findViewById(R.id.give_take_textView);
-        giveTextView.setText(String.valueOf(Integer.valueOf(autoload.singleValues.get("take").toString())- Integer.valueOf(autoload.singleValues.get("give").toString())) );
+        giveTextView = findViewById(R.id.give_take_textView);
         newDue = findViewById(R.id.newDue);
 
         newDue.setOnClickListener(view -> showTextInputDialog());
-        date = autoload.dates;
-
 
 
         tabLayout = findViewById(R.id.tabLayout);
@@ -75,53 +62,18 @@ public class denaPawna extends AppCompatActivity {
 
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
-                    if (position==0) {
+                    if (position == 0) {
                         tab.setText("বাকি ");
 
-                    }else if(position==1) {
+                    } else if (position == 1) {
                         tab.setText("বিক্রি");
-                    }else if(position==2){
+                    } else if (position == 2) {
                         tab.setText("ব্যায় ");
                     }
                 }
         ).attach();
 
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void showTextInputDialog() {
@@ -147,39 +99,23 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
-    private void addData(){
-        if (!editText.getText().toString().isEmpty() && !detailsText.getText().toString().isEmpty()){
-            DatabaseReference myRef = database.getReference("denaPaona");
-            Map<String, Object> hisab = new HashMap<>();
-            hisab.put("price", editText.getText().toString());
-            hisab.put("details", detailsText.getText().toString());
-            hisab.put("date", date);
+    private void addData() {
+        if (!editText.getText().toString().isEmpty() && !detailsText.getText().toString().isEmpty()) {
+
             if (switchButtonGive.isChecked()) {
-                autoload.getDataToUpdate("todaySpend", Integer.valueOf(editText.getText().toString()));
-                myRef.child("singleValues").child("give").push().setValue(hisab);
-            } else if (switchButtonTake.isChecked()) {
-                myRef.child("singleValues").child("take").push().setValue(hisab);
+                autoload.getDataToUpdate("todaySpend", Integer.valueOf(editText.getText().toString()), detailsText.getText().toString());
             } else if (switchButtonDue.isChecked()) {
-                autoload.getDataToUpdate("todayDue",Integer.valueOf(editText.getText().toString()) );
-                myRef.child("singleValues").child("Due").push().setValue(hisab);
+                autoload.getDataToUpdate("todayDue", Integer.valueOf(editText.getText().toString()), detailsText.getText().toString());
             }
 
-        }else {
-            if (editText.getText().toString().isEmpty()){
+        } else {
+            if (editText.getText().toString().isEmpty()) {
                 editText.setError("দাম লিখুন");
-            } else if (!switchButtonTake.isChecked() || !switchButtonGive.isChecked()) {
-                Toast.makeText(this, "দিবেন না পাবেন নিশ্চিত করুন", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 detailsText.setError("বিবরণ লিখুন ");
             }
         }
     }
-
-
-
-
-
-
 
 
     private static class MyPagerAdapter extends FragmentStateAdapter {
@@ -211,35 +147,24 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
+    public static ArrayList<Map<String, Object>> filterItemsByWeek(String time, String id) {
+        ArrayList<Map<String, Object>> filteredItems = new ArrayList<>();
 
+        HashMap<String, Object> items = (HashMap<String, Object>) autoload.singleValues.get("todayDue");
 
-
-
-
-
-
-
-     public static List<Map<String, Object>> filterItemsByWeek(String time, String id) {
-        Map<String, Object> giveMap = (Map<String, Object>) autoload.singleValues.get(id);
         filteredItems.clear();
-        try {
-            for (Map.Entry<String, Object> entry : giveMap.entrySet()) {
-                Map<String, Object> item = (Map<String, Object>) entry.getValue();
-                String itemDateValue = (String) item.get("date");
-                if (itemDateValue.contains(time)) {
-                    int itemPrice = Integer.valueOf(item.get("price").toString()) ;
-                    totalPrice += itemPrice;
-                    filteredItems.add(item);
+        items.forEach((key, value) -> {
+            HashMap<String, Object> valueToArray = (HashMap<String, Object>) value;
+            HashMap<String, Object> itemToArray = new HashMap<>(); // Create a new map instance
 
-                }
-            }
-        }catch (Exception e) {
+            itemToArray.put("date", String.valueOf(key));
+            itemToArray.put("price", String.valueOf(valueToArray.get("price")));
+            itemToArray.put("details", String.valueOf(valueToArray.get("details")));
 
-        }
-
+            filteredItems.add(itemToArray);
+        });
         return filteredItems;
     }
 
+
 }
-
-

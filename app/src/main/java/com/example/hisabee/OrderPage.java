@@ -1,7 +1,6 @@
-package com.example.myapplication;
+package com.example.hisabee;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class OrderPage extends AppCompatActivity {
 
         startPrint.setOnClickListener(view -> {
 
-            autoload.getDataToUpdate("todaySell", priceTopay);
+            autoload.getDataToUpdate("todaySell", priceTopay, "");
             //update stock ammount in fireBase
 
             Map<String, Object> updateItem = new HashMap<String, Object>();
