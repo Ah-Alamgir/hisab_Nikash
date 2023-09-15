@@ -2,6 +2,7 @@ package com.example.hisabee;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,10 +10,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,7 @@ import java.util.List;
 
 public class profile extends AppCompatActivity {
     private RecyclerView recyclerView;
+    Button addButton;
     private DatabaseHelper databaseHelper;
 
 
@@ -32,14 +37,68 @@ public class profile extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        addButton = findViewById(R.id.addButton);
 
         databaseHelper = new DatabaseHelper(this);
 
         refreshRecyclerView();
 
-        Customer customer = new Customer(1, "John Doe", "123 Main St", "123-456-7890");
-        insertCustomer(customer);
+
+        setTitle("কাস্টমারের তথ্য ");
+
+        addButton.setOnClickListener(v -> {
+            showAddCustomerDialog();
+        });
     }
+
+
+
+
+
+
+    private void showAddCustomerDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_customer, null);
+        dialogBuilder.setView(dialogView);
+
+        EditText editTextName = dialogView.findViewById(R.id.editTextName);
+        EditText editTextAddress = dialogView.findViewById(R.id.editTextAddress);
+        EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
+
+        dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {
+                String name = editTextName.getText().toString().trim();
+                String address = editTextAddress.getText().toString().trim();
+                String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+
+                if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
+                    Customer customer = new Customer(0, name, address, phoneNumber);
+                    insertCustomer(customer);
+                    dialog.dismiss();
+                } else {
+                    // Show an error message or handle empty input fields
+
+            }
+        });
+
+        dialogBuilder.setNegativeButton("বাদ দিন", null);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void refreshRecyclerView() {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
