@@ -23,6 +23,11 @@ public class autoload {
         usersRef.child(id).removeValue();
     }
 
+    public static void deleteFragmentData(String id, String tag){
+        DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
+        usersRef.child(id).removeValue();
+    }
+
 
     public static void saveSingleData(String tag, String date, int price){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
@@ -105,14 +110,14 @@ public class autoload {
                         String details = dataSnapshot.child(dates).child("details").getValue(String.class);
                         int updatedValue = currentValue + userInputtedCost;
 
-                        details = details+ "\n" +userInputtedCost+ "টাকা খরচের বিবরন"+"\n"+ userInputDetails+ "-------------------------"+"\n";
+                        details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails+"\n";
                         costRef.child(dates).child("price").setValue(updatedValue);
                         costRef.child(dates).child("details").setValue(details);
                     }catch (Exception e) {}
 
                 }else {
                     costRef.child(dates).child("price").setValue(userInputtedCost);
-                    costRef.child(dates).child("details").setValue(userInputDetails);
+                    costRef.child(dates).child("details").setValue(userInputtedCost+ " টাকাঃ  "+"\n"+ userInputDetails+"\n");
                 }
             }
             @Override

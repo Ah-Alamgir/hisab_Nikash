@@ -3,12 +3,14 @@ package com.example.hisabee;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,34 +22,53 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class denaPawna extends AppCompatActivity {
 
     Button newDue;
+    public  static String titleText;
     private EditText editText, detailsText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchButtonGive, switchButtonDue;
-
+    public ActionBar actionBar;
 
     TabLayout tabLayout;
     private ViewPager2 viewPager;
 
     private ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
     static int totalPrice = 0;
-    TextView giveTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+
+        actionBar = getSupportActionBar();
+
         setContentView(R.layout.activity_dena_pawna);
+        titleText = getTime();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_calendar);
+        setTitle(titleText);
 
-        setTitle(autoload.dates);
 
-        giveTextView = findViewById(R.id.give_take_textView);
+
+
+
+
+
+
+
+
+
+
         newDue = findViewById(R.id.newDue);
 
         newDue.setOnClickListener(view -> showTextInputDialog());
@@ -76,6 +97,32 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            showDatePickerDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     private void showTextInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("দেনা পাওনার হিসাব");
@@ -83,8 +130,8 @@ public class denaPawna extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_text_input, null);
 
-        editText = view.findViewById(R.id.denaPawana_editText);
-        detailsText = view.findViewById(R.id.biboron_editText);
+        editText = view.findViewById(R.id.editTextName);
+        detailsText = view.findViewById(R.id.editTextPhoneNumber);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
         switchButtonDue = view.findViewById(R.id.switchButtonDue);
 
@@ -147,24 +194,81 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
-    public static ArrayList<Map<String, Object>> filterItemsByWeek(String time, String id) {
+    private String getTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat;
+
+        dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String dates = dateFormat.format(calendar.getTime());
+
+        return dates;
+    }
+
+
+    public static ArrayList<Map<String, Object>> filterItemsByWeek(String id) {
         ArrayList<Map<String, Object>> filteredItems = new ArrayList<>();
 
-        HashMap<String, Object> items = (HashMap<String, Object>) autoload.singleValues.get("todayDue");
+        HashMap<String, Object> items = (HashMap<String, Object>) autoload.singleValues.get(id);
 
         filteredItems.clear();
-        items.forEach((key, value) -> {
-            HashMap<String, Object> valueToArray = (HashMap<String, Object>) value;
-            HashMap<String, Object> itemToArray = new HashMap<>(); // Create a new map instance
+        try {
+            items.forEach((key, value) -> {
+                HashMap<String, Object> valueToArray = (HashMap<String, Object>) value;
+                HashMap<String, Object> itemToArray = new HashMap<>(); // Create a new map instance
 
-            itemToArray.put("date", String.valueOf(key));
-            itemToArray.put("price", String.valueOf(valueToArray.get("price")));
-            itemToArray.put("details", String.valueOf(valueToArray.get("details")));
+                totalPrice = totalPrice+ Integer.valueOf( String.valueOf(valueToArray.get("price")));
+                if (String.valueOf(key).contains(titleText)) {
+                    itemToArray.put("date", String.valueOf(key));
+                    itemToArray.put("price", String.valueOf(valueToArray.get("price")));
+                    itemToArray.put("details", String.valueOf(valueToArray.get("details")));
+                    filteredItems.add(itemToArray);
+                }
 
-            filteredItems.add(itemToArray);
-        });
+            });
+        } catch (Exception e) {
+
+        }
+
         return filteredItems;
     }
 
+
+    private void showDatePickerDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_date_picker, null);
+        builder.setView(dialogView);
+
+        final DatePicker datePicker = dialogView.findViewById(R.id.date_picker);
+        final Switch switchMonth = dialogView.findViewById(R.id.switch_month);
+        final Switch switchYear = dialogView.findViewById(R.id.switch_year);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String selectedYear = String.valueOf(datePicker.getYear());
+            int selectedMonth = datePicker.getMonth();
+            String selectedDay = String.valueOf(datePicker.getDayOfMonth());
+
+            if (switchYear.isChecked()) {
+                titleText = selectedYear;
+                setTitle(titleText);
+            } else if (switchMonth.isChecked()) {
+                titleText = getMonthName(selectedMonth);
+                setTitle(titleText);
+            } else {
+                titleText = selectedDay + " " + getMonthName(selectedMonth) + " " + selectedYear;
+                setTitle(titleText);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.create().show();
+    }
+
+    private String getMonthName(int month) {
+        DateFormatSymbols symbols = new DateFormatSymbols();
+        String[] monthNames = symbols.getMonths();
+        return monthNames[month];
+    }
 
 }

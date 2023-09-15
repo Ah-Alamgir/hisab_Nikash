@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Map;
 
 public class homePage extends AppCompatActivity {
-    CardView printerConnect,sell,buyBook,sellBook,dueBook,costBook,productList,stockManagement;
+    CardView printerConnect,sell,buyBook,sprofile,dueBook,costBook,productList,stockManagement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     static TextView sellToday, dueToday, spendToday;
 
@@ -26,7 +26,7 @@ public class homePage extends AppCompatActivity {
 
         printerConnect = findViewById(R.id.buying);
         sell = findViewById(R.id.selling);
-        buyBook = findViewById(R.id.buyBook);
+        sprofile = findViewById(R.id.profiles);
         dueBook = findViewById(R.id.dueBooks);
         costBook = findViewById(R.id.costBooks);
         stockManagement = findViewById(R.id.stockManage);
@@ -53,6 +53,7 @@ public class homePage extends AppCompatActivity {
         autoload.getCurrentMonthName();
 
         sell.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
+        sprofile.setOnClickListener(view -> startActivity(new Intent(homePage.this, profile.class)));
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));

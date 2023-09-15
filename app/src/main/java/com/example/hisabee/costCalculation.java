@@ -70,8 +70,8 @@ public class costCalculation extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_text_input, null);
 
-        editText = view.findViewById(R.id.denaPawana_editText);
-        detailsText = view.findViewById(R.id.biboron_editText);
+        editText = view.findViewById(R.id.editTextName);
+        detailsText = view.findViewById(R.id.editTextPhoneNumber);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
 
         switchButtonGive.setVisibility(View.GONE);

@@ -12,16 +12,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/details_denapaona_text_view"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="details"
+            android:layout_marginEnd="80dp"
+            android:paddingBottom="10dp"
+            android:text="Details"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorSecondary"
-            app:layout_constraintStart_toStartOf="@+id/price_denapaona_textview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/deleteBtnDenapaona"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/price_denapaona_textview" />
 
         <TextView
@@ -29,20 +35,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="Price"
             android:textColor="@color/colorSecondary"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/date_denapaona_text_view" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/date_denapaona_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="15,000"
             android:textColor="@color/colorSecondary"
-            app:layout_constraintBottom_toTopOf="@+id/deleteBtnDenapaona"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/deleteBtnDenapaona"
@@ -50,8 +60,8 @@
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="delete"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_denapaona_text_view"
             app:srcCompat="@drawable/baseline_delete_sweep_24"
             app:tint="@color/colorSecondary" />
 

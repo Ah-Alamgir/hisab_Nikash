@@ -18,11 +18,11 @@
             android:layout_height="48dp"
             android:layout_toLeftOf="@id/switchButtonGive"
             android:text="বাকি "
-            app:layout_constraintStart_toStartOf="@+id/details_textInput"
-            app:layout_constraintTop_toBottomOf="@+id/details_textInput" />
+            app:layout_constraintStart_toStartOf="@+id/details_"
+            app:layout_constraintTop_toBottomOf="@+id/details_" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/details_textInput"
+            android:id="@+id/details_"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/denapawna_textInput">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/biboron_editText"
+                android:id="@+id/editTextPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#673AB7" />
@@ -49,8 +49,8 @@
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:text="ব্যায় "
-            app:layout_constraintEnd_toEndOf="@+id/details_textInput"
-            app:layout_constraintTop_toBottomOf="@+id/details_textInput" />
+            app:layout_constraintEnd_toEndOf="@+id/details_"
+            app:layout_constraintTop_toBottomOf="@+id/details_" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/denapawna_textInput"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/denaPawana_editText"
+                android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"

@@ -32,7 +32,7 @@ public class addProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        name = findViewById(R.id.denaPawana_editText);
+        name = findViewById(R.id.editTextName);
         Stock = findViewById(R.id.stock);
         buyPrice = findViewById(R.id.sell_price_text_view);
         sellPrice = findViewById(R.id.sellingPrice);
