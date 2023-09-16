@@ -1,4 +1,4 @@
-package com.example.hisabee;
+package com.hanifsapp.hisabee;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -79,7 +79,7 @@ public class StockProduct extends AppCompatActivity {
         @NonNull
         @Override
         public StockProduct.MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stock_recycler_view, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_stock, parent, false);
             return new StockProduct.MyAdapter.ViewHolder(view);
         }
 

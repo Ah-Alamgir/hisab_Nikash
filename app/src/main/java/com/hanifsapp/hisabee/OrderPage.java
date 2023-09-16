@@ -1,4 +1,4 @@
-package com.example.hisabee;
+package com.hanifsapp.hisabee;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,7 +25,7 @@ public class OrderPage extends AppCompatActivity {
     public int priceTopay = 0;
     Button startPrint;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("denaPaona");
-
+    public String customerName;
 
 
     @Override
@@ -45,7 +45,7 @@ public class OrderPage extends AppCompatActivity {
 
         startPrint.setOnClickListener(view -> {
 
-            autoload.getDataToUpdate("todaySell", priceTopay, "");
+            autoload.getDataToUpdate("todaySell", priceTopay, customerName);
             //update stock ammount in fireBase
 
             Map<String, Object> updateItem = new HashMap<String, Object>();
@@ -54,11 +54,6 @@ public class OrderPage extends AppCompatActivity {
                 myRef.child("ProductList").child(item.get("id").toString()).updateChildren(updateItem);
             }
 
-            Map<String, Object> hisab = new HashMap<>();
-            hisab.put("price", priceTopay);
-            hisab.put("details", "");
-            hisab.put("date", autoload.dates);
-            myRef.child("singleValues").child("sell").push().setValue(hisab);
         });
 
     }
@@ -75,7 +70,7 @@ public class OrderPage extends AppCompatActivity {
         @NonNull
         @Override
         public OrderPage.MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_page_recycler, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_order_page, parent, false);
             return new OrderPage.MyAdapter.ViewHolder(view);
 
         }

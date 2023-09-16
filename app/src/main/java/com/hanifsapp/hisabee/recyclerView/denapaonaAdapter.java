@@ -1,4 +1,4 @@
-package com.example.hisabee.recyclerView;
+package com.hanifsapp.hisabee.recyclerView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hisabee.R;
-import com.example.hisabee.autoload;
+import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.autoload;
 
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
     @NonNull
     @Override
     public denapaonaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dena_paona_recyclerview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_dena_paona, parent, false);
         return new denapaonaAdapter.ViewHolder(view);
     }
 

@@ -1,8 +1,7 @@
-package com.example.hisabee;
+package com.hanifsapp.hisabee;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -240,16 +239,16 @@ public class profile extends AppCompatActivity {
         @NonNull
         @Override
         public CustomerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_customer, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_customer, parent, false);
             return new CustomerViewHolder(itemView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
             Customer customer = customerList.get(position);
-            holder.textViewName.setText(customer.getName());
-            holder.textViewAddress.setText(customer.getAddress());
-            holder.textViewPhoneNumber.setText(customer.getPhoneNumber());
+            holder.textViewName.setText("   নামঃ    "+customer.getName());
+            holder.textViewAddress.setText("    ঠিকানাঃ     " + customer.getAddress());
+            holder.textViewPhoneNumber.setText("    নাম্বারঃ    "+customer.getPhoneNumber());
         }
 
         @Override

@@ -1,15 +1,74 @@
 {
   "project_info": {
     "project_number": "1038767658321",
+    "firebase_url": "https://hisab-c55d9-default-rtdb.firebaseio.com",
     "project_id": "hisab-c55d9",
     "storage_bucket": "hisab-c55d9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1038767658321:android:ae4664082324112856ef70",
+        "mobilesdk_app_id": "1:1038767658321:android:28851ffac15936a256ef70",
         "android_client_info": {
           "package_name": "com.example.hisabee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOaOp2y2mdJJbvt3yLMtxyOFHKGFgwtY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038767658321:android:ae4664082324112856ef70",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOaOp2y2mdJJbvt3yLMtxyOFHKGFgwtY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038767658321-lvivgcu8qb0fh4jspiians38bvava5lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038767658321:android:0eaf19765ad7b22056ef70",
+        "android_client_info": {
+          "package_name": "com.hanifsapp.hisabee"
         }
       },
       "oauth_client": [

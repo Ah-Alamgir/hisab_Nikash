@@ -1,4 +1,4 @@
-package com.example.hisabee;
+package com.hanifsapp.hisabee;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,7 +61,7 @@ public class Sell extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sellrecycler, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_sell, parent, false);
             return new ViewHolder(view);
         }
 
