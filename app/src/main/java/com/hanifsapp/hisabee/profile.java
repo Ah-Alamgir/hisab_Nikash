@@ -162,14 +162,15 @@ public class profile extends AppCompatActivity {
         refreshRecyclerView();
     }
 
+
+
+
     private static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "customer.db";
         private static final int DATABASE_VERSION = 1;
-        private static final String TABLE_NAME = "customers";
-        private static final String COLUMN_ID = "_id";
-        private static final String COLUMN_NAME = "name";
-        private static final String COLUMN_ADDRESS = "address";
-        private static final String COLUMN_PHONE_NUMBER = "phone_number";
+        private static final String TABLE_NAME = "customers",COLUMN_ID = "_id",COLUMN_NAME = "name",COLUMN_ADDRESS = "address",
+                COLUMN_PHONE_NUMBER = "phone_number";
+
 
         private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -196,9 +197,8 @@ public class profile extends AppCompatActivity {
 
     public static class Customer {
         private int id;
-        private String name;
-        private String address;
-        private String phoneNumber;
+        private String name,address,phoneNumber;
+
 
         public Customer(int id, String name, String address, String phoneNumber) {
             this.id = id;
@@ -224,6 +224,9 @@ public class profile extends AppCompatActivity {
         }
     }
 
+
+
+
     public static class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
         private List<Customer> customerList;
         private OnDeleteClickListener onDeleteClickListener;
@@ -246,9 +249,9 @@ public class profile extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
             Customer customer = customerList.get(position);
-            holder.textViewName.setText("   নামঃ    "+customer.getName());
+            holder.textViewName.setText("   নামঃ           "+customer.getName());
             holder.textViewAddress.setText("    ঠিকানাঃ     " + customer.getAddress());
-            holder.textViewPhoneNumber.setText("    নাম্বারঃ    "+customer.getPhoneNumber());
+            holder.textViewPhoneNumber.setText("    নাম্বারঃ       "+customer.getPhoneNumber());
         }
 
         @Override
@@ -261,9 +264,7 @@ public class profile extends AppCompatActivity {
         }
 
         public class CustomerViewHolder extends RecyclerView.ViewHolder {
-            public TextView textViewName;
-            public TextView textViewAddress;
-            public TextView textViewPhoneNumber;
+            public TextView textViewName , textViewAddress,textViewPhoneNumber;
             public ImageButton buttonDelete;
 
             public CustomerViewHolder(View itemView) {
@@ -273,14 +274,11 @@ public class profile extends AppCompatActivity {
                 textViewPhoneNumber = itemView.findViewById(R.id.textViewPhoneNumber);
                 buttonDelete = itemView.findViewById(R.id.buttonDelete);
 
-                buttonDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION && onDeleteClickListener != null) {
-                            Customer customer = customerList.get(position);
-                            onDeleteClickListener.onDeleteClick(customer);
-                        }
+                buttonDelete.setOnClickListener(v -> {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && onDeleteClickListener != null) {
+                        Customer customer = customerList.get(position);
+                        onDeleteClickListener.onDeleteClick(customer);
                     }
                 });
             }

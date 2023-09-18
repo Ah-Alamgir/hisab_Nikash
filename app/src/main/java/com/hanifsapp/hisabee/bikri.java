@@ -40,7 +40,7 @@ public class bikri extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new denapaonaAdapter(denaPawna.filterItemsByWeek("todaySell"), context, "todaySell"));
+        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaysell, context, "todaySell"));
         return view;
     }
 

@@ -4,8 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="deleteButton"
     android:orientation="vertical"
     tools:context=".homePage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton">
+
+        <ImageButton
+            android:id="@+id/EditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="delete button"
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/businessname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="প্রতিষ্ঠানের  নাম "
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/address_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="প্রতিষ্ঠানের ঠিকানা"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessname" />
+
+        <TextView
+            android:id="@+id/phoneNumber_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="ফোন নাম্বার"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -25,7 +85,7 @@
                 android:id="@+id/todaySell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="500"
+                android:text="000"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -45,7 +105,7 @@
                 android:id="@+id/todayCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="500"
+                android:text="000"
                 android:textColor="#049F91"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
@@ -56,7 +116,7 @@
                 android:id="@+id/today_due"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="500"
+                android:text="000"
                 android:textColor="#049F91"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView4"
@@ -138,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="আপনার তথ্য "
+                android:text="কাস্টমারের তথ্য "
                 android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
@@ -255,5 +315,7 @@
                 app:srcCompat="@mipmap/onlineshopping" />
         </androidx.cardview.widget.CardView>
     </androidx.gridlayout.widget.GridLayout>
+
+
 
 </LinearLayout>

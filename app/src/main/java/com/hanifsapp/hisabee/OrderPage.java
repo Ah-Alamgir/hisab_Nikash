@@ -28,6 +28,7 @@ public class OrderPage extends AppCompatActivity {
     public String customerName;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +49,19 @@ public class OrderPage extends AppCompatActivity {
             autoload.getDataToUpdate("todaySell", priceTopay, customerName);
             //update stock ammount in fireBase
 
-            Map<String, Object> updateItem = new HashMap<String, Object>();
-            for (Map<String, Object> item: autoload.cardItem){
-                updateItem.put("Stock",Integer.valueOf(item.get("Stock").toString())- Integer.valueOf(item.get("Order").toString()) );
-                myRef.child("ProductList").child(item.get("id").toString()).updateChildren(updateItem);
-            }
-
+            autoload.getStockToUpdat(autoload.cardItem);
         });
 
     }
+
+
+
+
+
+
+
+
+
 
     private class MyAdapter extends RecyclerView.Adapter<OrderPage.MyAdapter.ViewHolder> {
 

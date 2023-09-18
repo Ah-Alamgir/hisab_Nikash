@@ -15,7 +15,7 @@ import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
 
 public class baki extends Fragment {
-
+    public static RecyclerView recyclerView;
     private static Context context;
 
     @Override
@@ -38,12 +38,11 @@ public class baki extends Fragment {
         View view = inflater.inflate(R.layout.fragment_baki, container, false);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
+        recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new denapaonaAdapter(denaPawna.filterItemsByWeek("todayDue"), context, "todayDue"));
+        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaydue, context, "todayDue"));
         return view;
     }
-
 
 
 

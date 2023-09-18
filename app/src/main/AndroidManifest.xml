@@ -24,9 +24,6 @@
             android:name=".profile"
             android:exported="false" />
         <activity
-            android:name=".BluetoothPrinterExample"
-            android:exported="false" />
-        <activity
             android:name=".denaPawna"
             android:exported="false" />
         <activity

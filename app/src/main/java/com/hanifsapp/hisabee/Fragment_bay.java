@@ -40,7 +40,7 @@ public class Fragment_bay extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new denapaonaAdapter(denaPawna.filterItemsByWeek("todaySpend"), context , "todaySpend"));
+        recyclerView.setAdapter(new denapaonaAdapter(autoload.todayspend, context , "todaySpend"));
         return view;
     }
 

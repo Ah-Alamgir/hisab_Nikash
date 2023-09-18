@@ -1,24 +1,35 @@
 package com.hanifsapp.hisabee;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Map;
-
 public class homePage extends AppCompatActivity {
-    CardView printerConnect,sell,buyBook,sprofile,dueBook,costBook,productList,stockManagement;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static TextView sellToday, dueToday, spendToday;
+    CardView printerConnect,sell,sprofile,dueBook,costBook,stockManagement;
+    public SharedPreferences sharedPreferences;
+
+    static TextView sellToday, dueToday, spendToday, businessName, businessAddress, bussinessPhone;
+
+
+    ImageButton editInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_home_page);
         setTitle("মাহি এন্টারপ্রাইজ");
 
@@ -33,19 +44,10 @@ public class homePage extends AppCompatActivity {
         sellToday = findViewById(R.id.todaySell);
         spendToday = findViewById(R.id.todayCost);
         dueToday = findViewById(R.id.today_due);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        editInfo= findViewById(R.id.EditInfo);
+        businessName = findViewById(R.id.businessname);
+        businessAddress = findViewById(R.id.address_home);
+        bussinessPhone = findViewById(R.id.phoneNumber_home);
 
 
 
@@ -57,7 +59,7 @@ public class homePage extends AppCompatActivity {
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
-        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, BluetoothPrinterExample.class)));
+        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, eps.class)));
 
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();
@@ -65,31 +67,74 @@ public class homePage extends AppCompatActivity {
             autoload.getData();
         }
 
-        setText();
 
+
+
+        sharedPreferences = getSharedPreferences("businessInfo", Context.MODE_PRIVATE);
+        editInfo.setOnClickListener(view -> showAddCustomerDialog());
+        updateBusinessInfo();
     }
+
 
     public static void setText(){
-        if(autoload.singleValues.size()>0){
-            try {
-
-                Map<String, Object> todayDueMap = (Map<String, Object>) autoload.singleValues.get("todayDue");
-                Map<String, Object> todaysellMap = (Map<String, Object>) autoload.singleValues.get("todaySell");
-                Map<String, Object> todaySpendMap = (Map<String, Object>) autoload.singleValues.get("todaySpend");
-                if (todayDueMap != null) {
-                    sellToday.setText(todaysellMap.get(autoload.dates).toString());
-                    spendToday.setText(todaySpendMap.get(autoload.dates).toString());
-                    dueToday.setText(todayDueMap.get(autoload.dates).toString());
-                }
-
-
-
-
-            }catch (Exception e){
-
-            }
-
-        }
+        dueToday.setText(autoload.todaydueamount);
+        spendToday.setText(autoload.todaycostamount);
+        sellToday.setText(autoload.todaysellamount);
     }
+
+
+
+
+
+
+
+
+
+
+    private void showAddCustomerDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_customer, null);
+        dialogBuilder.setView(dialogView);
+
+        EditText editTextName = dialogView.findViewById(R.id.editTextName);
+        EditText editTextAddress = dialogView.findViewById(R.id.editTextAddress);
+        EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
+
+        dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {
+            String name = editTextName.getText().toString().trim();
+            String address = editTextAddress.getText().toString().trim();
+            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+
+            if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
+
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.putString("name", name);
+                editor.putString("address", address);
+                editor.putString("phoneNumber", phoneNumber);
+                editor.apply();
+
+                dialog.dismiss();
+                updateBusinessInfo();
+            }
+        });
+
+        dialogBuilder.setNegativeButton("বাদ দিন", null);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
+
+
+    private void updateBusinessInfo(){
+        businessName.setText(sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম "));
+        businessAddress.setText(sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা"));
+        bussinessPhone.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
+    }
+
+
+
+
 
 }

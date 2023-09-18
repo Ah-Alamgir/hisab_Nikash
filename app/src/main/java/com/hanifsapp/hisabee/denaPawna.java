@@ -43,6 +43,7 @@ public class denaPawna extends AppCompatActivity {
     private ViewPager2 viewPager;
 
     private ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
+    int tabPosition = 0;
     static int totalPrice = 0;
 
 
@@ -84,11 +85,14 @@ public class denaPawna extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     if (position == 0) {
-                        tab.setText("বাকি ");
+                        tabPosition = 0;
+                        tab.setText("বাকি");
 
                     } else if (position == 1) {
+                        tabPosition = 1;
                         tab.setText("বিক্রি");
                     } else if (position == 2) {
+                        tabPosition = 2;
                         tab.setText("ব্যায় ");
                     }
                 }
@@ -143,6 +147,8 @@ public class denaPawna extends AppCompatActivity {
 
         builder.setNegativeButton("বাদ দিন", null);
         builder.show();
+
+        
     }
 
 
@@ -205,32 +211,6 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
-    public static ArrayList<Map<String, Object>> filterItemsByWeek(String id) {
-        ArrayList<Map<String, Object>> filteredItems = new ArrayList<>();
-
-        HashMap<String, Object> items = (HashMap<String, Object>) autoload.singleValues.get(id);
-
-        filteredItems.clear();
-        try {
-            items.forEach((key, value) -> {
-                HashMap<String, Object> valueToArray = (HashMap<String, Object>) value;
-                HashMap<String, Object> itemToArray = new HashMap<>(); // Create a new map instance
-
-                totalPrice = totalPrice+ Integer.valueOf( String.valueOf(valueToArray.get("price")));
-                if (String.valueOf(key).contains(titleText)) {
-                    itemToArray.put("date", String.valueOf(key));
-                    itemToArray.put("price", String.valueOf(valueToArray.get("price")));
-                    itemToArray.put("details", String.valueOf(valueToArray.get("details")));
-                    filteredItems.add(itemToArray);
-                }
-
-            });
-        } catch (Exception e) {
-
-        }
-
-        return filteredItems;
-    }
 
 
     private void showDatePickerDialog() {

@@ -1,5 +1,14 @@
 package com.hanifsapp.hisabee;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +42,20 @@ public class autoload {
         DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
         usersRef.child(date).setValue(price);
     }
+
+
     static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> todaydue = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> todayspend = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> todaysell = new ArrayList<>();
     static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
     static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
     public static List<String> cardItem_list = new ArrayList<String>();
-    static Map<String, Object> singleValues = new HashMap<>();
+
+
+    static String todaysellamount = "000";
+    static String todaydueamount= "000";
+    static String todaycostamount = "000";
 
     public static void getData(){
         // Create a DatabaseReference object
@@ -45,12 +63,14 @@ public class autoload {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 productLists.clear();
                 costCalculations.clear();
                 cardItem.clear();
+                todaydue.clear();
+                todaysell.clear();
+                todayspend.clear();
                 cardItem_list.clear();
-                singleValues.clear();
+
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String category = childSnapshot.getKey();
@@ -73,8 +93,46 @@ public class autoload {
                             break;
 
                         case "singleValues":
-                            singleValues = (Map<String, Object>) childSnapshot.getValue();
-                            homePage.setText();
+                            for(DataSnapshot keys: childSnapshot.getChildren()) {
+                                String key = keys.getKey();
+                                switch (key) {
+                                    case "todayDue":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
+                                            dues.put("date",costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)){
+                                                todaydueamount = String.valueOf(dues.get("price"));
+                                            }
+                                            todaydue.add(dues);
+                                        }
+                                        break;
+                                    case "todaySell":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
+                                            sells.put("date",costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)){
+                                                todaysellamount = String.valueOf(sells.get("price"));
+                                            }
+                                            todaysell.add(sells);
+                                        }
+                                        break;
+                                    case "todaySpend":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
+                                            spends.put("date",costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)){
+                                                todaycostamount = String.valueOf(spends.get("price"));
+                                            }
+                                            todayspend.add(spends);
+                                        }
+                                        break;
+                                }
+                                Log.d("TAG", "i am changed");
+                                homePage.setText();
+
+
+                            }
+
                             break;
                     }
                 }
@@ -98,32 +156,55 @@ public class autoload {
         dates= dateFormat.format(calendar.getTime());
     }
 
+
+
+
+
+
     public static void getDataToUpdate(String tag, int userInputtedCost, String userInputDetails){
         DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag);
 
-        costRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(dates)) {
-                    try {
-                        int currentValue = dataSnapshot.child(dates).child("price").getValue(Integer.class);
-                        String details = dataSnapshot.child(dates).child("details").getValue(String.class);
-                        int updatedValue = currentValue + userInputtedCost;
+        costRef.get().addOnCompleteListener(task -> {
+            if (task.getResult().hasChild(dates)) {
+                try {
+                    int currentValue = task.getResult().child(dates).child("price").getValue(Integer.class);
+                    String details = task.getResult().child(dates).child("details").getValue(String.class);
+                    int updatedValue = currentValue + userInputtedCost;
 
-                        details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails+"\n";
-                        costRef.child(dates).child("price").setValue(updatedValue);
-                        costRef.child(dates).child("details").setValue(details);
-                    }catch (Exception e) {}
+                    details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails+"\n";
+                    costRef.child(dates).child("price").setValue(updatedValue);
+                    costRef.child(dates).child("details").setValue(details);
+                }catch (Exception e) {}
 
-                }else {
-                    costRef.child(dates).child("price").setValue(userInputtedCost);
-                    costRef.child(dates).child("details").setValue(userInputtedCost+ " টাকাঃ  "+"\n"+ userInputDetails+"\n");
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+            }else {
+                costRef.child(dates).child("price").setValue(userInputtedCost);
+                costRef.child(dates).child("details").setValue(userInputtedCost+ " টাকাঃ  "+"\n"+ userInputDetails+"\n");
             }
         });
+    }
+
+
+
+
+
+
+
+    public static void getStockToUpdat(ArrayList<Map<String, Object>> cardItem){
+        DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("ProductList");
+        costRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                for(int i=0; i< cardItem_list.size(); i++) {
+                    if (task.getResult().hasChild(cardItem_list.get(i))){
+                        int stocks = Integer.valueOf(String.valueOf(task.getResult().child(cardItem_list.get(i)).child("Stock")));
+//                        stocks = stocks- Integer.valueOf(String.valueOf())
+
+                    }
+                }
+                }
+        });
+
+
     }
 
 }
