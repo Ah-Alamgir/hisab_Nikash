@@ -43,7 +43,7 @@ public class Sell extends AppCompatActivity {
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
 
-        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, OrderPage.class)));
+        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, printOrder.class)));
         setTitle("প্রোডাক্ট নির্বাচন করুন ");
 
     }

@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class homePage extends AppCompatActivity {
     CardView printerConnect,sell,sprofile,dueBook,costBook,stockManagement;
-    public SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
 
     static TextView sellToday, dueToday, spendToday, businessName, businessAddress, bussinessPhone;
 
@@ -59,7 +59,7 @@ public class homePage extends AppCompatActivity {
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
-        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, eps.class)));
+//        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, eps.class)));
 
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();

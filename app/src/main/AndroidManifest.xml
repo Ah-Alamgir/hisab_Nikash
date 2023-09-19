@@ -33,7 +33,7 @@
             android:name=".StockProduct"
             android:exported="false" />
         <activity
-            android:name=".OrderPage"
+            android:name=".printOrder"
             android:exported="false" />
         <activity
             android:name=".Sell"
