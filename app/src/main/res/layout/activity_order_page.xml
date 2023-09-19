@@ -4,27 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderPage">
+    tools:context=".printOrder">
 
     <TextView
-        android:id="@+id/priceShouldPay"
-        android:layout_width="wrap_content"
+        android:id="@+id/priceDetails"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="24dp"
         android:text="0000"
-        android:textColor="#050505"
-        android:textSize="20sp"
+        android:textAlignment="viewEnd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/businessDetails" />
 
     <TextView
-        android:id="@+id/orderInfo"
+        android:id="@+id/businessDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,7 @@
         android:textColor="#050505"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/businessDetails" />
 
     <Button
         android:id="@+id/startPrinting"
@@ -49,6 +50,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="প্রিন্ট করুন"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

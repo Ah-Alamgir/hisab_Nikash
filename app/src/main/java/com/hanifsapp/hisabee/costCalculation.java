@@ -63,7 +63,7 @@ public class costCalculation extends AppCompatActivity {
 
     private void showTextInputDialog(String title, String tag) {
         EditText editText, detailsText;
-        Switch switchButtonGive, switchButtonTake;
+        Switch switchButtonGive, switchButtonDue;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
 
@@ -73,8 +73,10 @@ public class costCalculation extends AppCompatActivity {
         editText = view.findViewById(R.id.editTextName);
         detailsText = view.findViewById(R.id.editTextPhoneNumber);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
+        switchButtonDue = view.findViewById(R.id.switchButtonDue);
 
         switchButtonGive.setVisibility(View.GONE);
+        switchButtonDue.setVisibility(View.GONE);
 
         builder.setView(view);
 

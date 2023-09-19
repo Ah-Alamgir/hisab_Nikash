@@ -1,31 +1,32 @@
 package com.hanifsapp.hisabee;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.text.Spanned;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 
-import com.dantsu.escposprinter.EscPosPrinter;
-import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
-import com.dantsu.escposprinter.textparser.PrinterTextParserImg;
 
 import java.util.Map;
 
 public class printOrder extends AppCompatActivity {
 
-    TextView priceSholPay, orderInfos;
+    TextView pricedetails, businessDetails;
     public int priceTopay = 0;
     public int totalPrice = 0;
     public int vatPrice= 0;
+    private boolean printed= false;
 
     Button startPrint;
     public String customerName;
@@ -43,33 +44,19 @@ public class printOrder extends AppCompatActivity {
         setContentView(R.layout.activity_order_page);
 
         setTitle("বিক্রয় বিবরণী");
-
+        printed = false; //handling for backpress;
 
         startPrint = findViewById(R.id.startPrinting);
-        priceSholPay = findViewById(R.id.priceShouldPay);
-        orderInfos = findViewById(R.id.orderInfo);
+        pricedetails = findViewById(R.id.priceDetails);
+        businessDetails = findViewById(R.id.businessDetails);
         getPermissions();
 
 
-        try {
-            readyText();
-        } catch (EscPosConnectionException | EscPosParserException | EscPosBarcodeException |
-                 EscPosEncodingException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-
-
-
-
-
+        readyText();
 
         startPrint.setOnClickListener(view -> {
 
             autoload.getDataToUpdate("todaySell", priceTopay, customerName);
-            autoload.getStockToUpdat(autoload.cardItem);
             try {
                 startPrint();
             } catch (EscPosEncodingException | EscPosConnectionException | EscPosParserException |
@@ -102,54 +89,57 @@ public class printOrder extends AppCompatActivity {
     }
 
 
+
+    int totdisc=0;
+    int totvat=0;
+    int totalPrices=0;
+
+
     String text = "";
     String customerInfo = "";
-    public void readyText() throws EscPosConnectionException, EscPosEncodingException, EscPosBarcodeException, EscPosParserException {
-        text =
-        "--------------------------------------------------------"+ "\n" +autoload.dates + "\n"+ "গ্রাহকঃ "+ customerInfo + "\n" +
-        "--------------------------------------------------------"+ "\n\n\n\n\n\n\n"+
-                "সর্বমোটঃ "+ totalPrice + "\n" +
-                "(-)ডিসকাঊন্টঃ "+ discountPrice +"\n"+
-                "ভ্যাট পরিমানঃ " + vatPrice + "\n"+
-                "মোট প্রদেয়ঃ" +  priceTopay;
-
-
-
-
-        text =  "[L]\n" +
-                "[C]<u><font size='big'>"+homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ") + "\n" +
+    public void readyText(){
+        text ="<b>"+ homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ "</b> <br>"+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
-               + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+"\n" +"</font></u>\n" +
-                "[L]\n" +
-                "[C]================================\n" +
-                "[L]\n" +
-                "[L]<b>BEAUTIFUL SHIRT</b>[R]9.99e\n" +
-                "[L]  + Size : S\n" +
-                "[L]\n" +
-                "[L]<b>AWESOME HAT</b>[R]24.99e\n" +
-                "[L]  + Size : 57/58\n" +
-                "[L]\n" +
-                "[C]--------------------------------\n" +
-                "[R]TOTAL PRICE :[R]34.98e\n" +
-                "[R]TAX :[R]4.23e\n" +
-                "[L]\n" +
-                "[C]================================\n" +
-                "[L]\n" +
-                "[L]<font size='tall'>Customer :</font>\n" +
+                + "<br>" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
+                "<br><b>================================</b><br><br>";
+
+
+
+//        doing something like recycler view for printing
+
+
+        for(Map<String, Object> entry: autoload.cardItem){
+            totalPrices = totalPrices + Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
+//            printtext = printtext + "[L]<b>"+entry.get("name")+"</b>" +"[C]"+ entry.get("sellPrice") + "\n"+
+//                    "[R]"+ totalPrices+
+//                    "[L] "+entry.get("Order")+" পিছ"+"\n";
+            totdisc = totdisc + (Integer.valueOf(entry.get("Discount").toString()) * Integer.valueOf(entry.get("Order").toString()));
+            totvat = totvat + (Integer.valueOf(entry.get("vat").toString()) * Integer.valueOf(entry.get("Order").toString()));
+            Log.d("datam", String.valueOf(totalPrices));
+
+        }
+//
+        String pricedetail =
+
+                "<b> সর্বমোটঃ "+ String.valueOf(totalPrices) +"</b><br>" +
+                "<b>ডিস্কাউন্টঃ  <b>"+ String.valueOf(totdisc)+"<br>" +
+                "<b>ভ্যাটঃ <b>"+totvat+"<br>" +
+                "-------------------------<br>"+
+                "<b>মোট প্রদেয়ঃ <b>"+ String.valueOf(totalPrices-totdisc-totvat) + "<br>" +
+
+
+
+                "[L]<font size='tall'>গ্রাহকঃ </font>\n" +
                 "[L]Raymond DUPONT\n" +
                 "[L]5 rue des girafes\n" +
                 "[L]31547 PERPETES\n" +
                 "[L]Tel : +33801201456\n" +
-                "[L]\n" +
-                "[C]<barcode type='ean13' height='10'>831254784551</barcode>\n" +
-                "[C]<qrcode size='20'>https://dantsu.com/</qrcode>";
-        orderInfos.setText(text);
+                "[L]\n" ;
 
-//        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
-//        printer
-//                .printFormattedText(
-//                        text
-//                );
+        Spanned styledTextBusiness = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        Spanned styledTextPrices = HtmlCompat.fromHtml(pricedetail, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        businessDetails.setText(styledTextBusiness);
+        pricedetails.setText(styledTextPrices);
     }
 
 
@@ -173,7 +163,6 @@ public class printOrder extends AppCompatActivity {
     public void startPrint() throws EscPosEncodingException, EscPosBarcodeException, EscPosParserException, EscPosConnectionException {
         int totalDiscount = 0;
         int totalVat = 0;
-        int priceAfterCutting = 0;
         printtext = "";
         printtext = "[L]\n" +
                 "[C]<u><font size='big'>"+homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ") + "\n" +
@@ -192,7 +181,7 @@ public class printOrder extends AppCompatActivity {
 
                 for(Map<String, Object> entry: autoload.cardItem){
                     int totalPrices = 0;
-                    totalPrices = Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("price").toString());
+                    totalPrices = Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
                     printtext = printtext + "[L]<b>"+entry.get("name")+"</b>" +"[C]"+ entry.get("sellPrice") + "\n"+
                             "[R]"+ totalPrices+
                     "[L] "+entry.get("Order")+" পিছ"+"\n";
@@ -218,13 +207,26 @@ public class printOrder extends AppCompatActivity {
                 "[L]Tel : +33801201456\n" +
                 "[L]\n" ;
 
-        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
-        printer
-                .printFormattedText(
-                        printtext
-                );
+                autoload.getStockToUpdat();
+
+            printed = autoload.getStockToUpdat();
+
+//        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
+//        printer
+//                .printFormattedText(
+//                        printtext
+//                );
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if(printed){
+            startActivity(new Intent(this, homePage.class));
+        }else {
+            super.onBackPressed();
+        }
+    }
 }
 

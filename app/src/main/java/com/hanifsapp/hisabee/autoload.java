@@ -1,14 +1,7 @@
 package com.hanifsapp.hisabee;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -93,46 +85,29 @@ public class autoload {
                             break;
 
                         case "singleValues":
-                            for(DataSnapshot keys: childSnapshot.getChildren()) {
+                            for (DataSnapshot keys : childSnapshot.getChildren()) {
                                 String key = keys.getKey();
-                                switch (key) {
-                                    case "todayDue":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
-                                            dues.put("date",costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)){
-                                                todaydueamount = String.valueOf(dues.get("price"));
-                                            }
-                                            todaydue.add(dues);
+                                for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                    Map<String, Object> data = (Map<String, Object>) costsnapshot.getValue();
+                                    data.put("date", costsnapshot.getKey());
+                                    if (costsnapshot.getKey().toString().contains(dates)) {
+                                        switch (key) {
+                                            case "todayDue":
+                                                todaydueamount = String.valueOf(data.get("price"));
+                                                todaydue.add(data);
+                                                break;
+                                            case "todaySell":
+                                                todaysellamount = String.valueOf(data.get("price"));
+                                                todaysell.add(data);
+                                                break;
+                                            case "todaySpend":
+                                                todaycostamount = String.valueOf(data.get("price"));
+                                                todayspend.add(data);
+                                                break;
                                         }
-                                        break;
-                                    case "todaySell":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
-                                            sells.put("date",costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)){
-                                                todaysellamount = String.valueOf(sells.get("price"));
-                                            }
-                                            todaysell.add(sells);
-                                        }
-                                        break;
-                                    case "todaySpend":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
-                                            spends.put("date",costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)){
-                                                todaycostamount = String.valueOf(spends.get("price"));
-                                            }
-                                            todayspend.add(spends);
-                                        }
-                                        break;
+                                    }
                                 }
-                                Log.d("TAG", "i am changed");
-                                homePage.setText();
-
-
                             }
-
                             break;
                     }
                 }
@@ -189,21 +164,15 @@ public class autoload {
 
 
 
-    public static void getStockToUpdat(ArrayList<Map<String, Object>> cardItem){
-        DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("ProductList");
-        costRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+    public static boolean getStockToUpdat(){
+        DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
+        for (Map<String, Object> cardItems : cardItem){
+            int updatedStock;
+            updatedStock  = Integer.valueOf(cardItems.get("Stock").toString()) - Integer.valueOf(cardItems.get("Order").toString());
+            usersRef.child(cardItems.get("id").toString()).child("Stock").setValue(updatedStock);
+        }
 
-                for(int i=0; i< cardItem_list.size(); i++) {
-                    if (task.getResult().hasChild(cardItem_list.get(i))){
-                        int stocks = Integer.valueOf(String.valueOf(task.getResult().child(cardItem_list.get(i)).child("Stock")));
-//                        stocks = stocks- Integer.valueOf(String.valueOf())
-
-                    }
-                }
-                }
-        });
-
+        return true;
 
     }
 
