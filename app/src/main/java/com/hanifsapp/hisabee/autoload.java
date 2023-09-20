@@ -1,6 +1,11 @@
 package com.hanifsapp.hisabee;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,12 +32,6 @@ public class autoload {
     public static void deleteFragmentData(String id, String tag){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
         usersRef.child(id).removeValue();
-    }
-
-
-    public static void saveSingleData(String tag, String date, int price){
-        DatabaseReference usersRef = rootRef.child("denaPaona").child("singleValues").child(tag);
-        usersRef.child(date).setValue(price);
     }
 
 
@@ -87,27 +86,40 @@ public class autoload {
                         case "singleValues":
                             for (DataSnapshot keys : childSnapshot.getChildren()) {
                                 String key = keys.getKey();
-                                for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                    Map<String, Object> data = (Map<String, Object>) costsnapshot.getValue();
-                                    data.put("date", costsnapshot.getKey());
-                                    if (costsnapshot.getKey().toString().contains(dates)) {
-                                        switch (key) {
-                                            case "todayDue":
-                                                todaydueamount = String.valueOf(data.get("price"));
-                                                todaydue.add(data);
-                                                break;
-                                            case "todaySell":
-                                                todaysellamount = String.valueOf(data.get("price"));
-                                                todaysell.add(data);
-                                                break;
-                                            case "todaySpend":
-                                                todaycostamount = String.valueOf(data.get("price"));
-                                                todayspend.add(data);
-                                                break;
+                                switch (key) {
+                                    case "todayDue":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
+                                            dues.put("date", costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                                todaydueamount = String.valueOf(dues.get("price"));
+                                            }
+                                            todaydue.add(dues);
                                         }
-                                    }
-                                }
-                            }
+                                        break;
+                                    case "todaySell":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
+                                            sells.put("date", costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                                todaysellamount = String.valueOf(sells.get("price"));
+
+                                            }
+                                            todaysell.add(sells);
+                                        }
+                                        break;
+                                    case "todaySpend":
+                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+                                            Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
+                                            spends.put("date", costsnapshot.getKey());
+                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                                todaycostamount = String.valueOf(spends.get("price"));
+                                            }
+                                            todayspend.add(spends);
+                                        }
+                                        homePage.setText();
+                                }}
+
                             break;
                     }
                 }
@@ -160,8 +172,24 @@ public class autoload {
 
 
 
+    public static void isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
+        boolean isDataConnectionAvailable = activeNetworkInfo != null && activeNetworkInfo.isConnected() &&
+                (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE ||
+                        activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI);
 
+        if (isDataConnectionAvailable) {
+            // Data connection is available
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Network Unavailable")
+                    .setMessage("Please check your internet connection.")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+    }
 
 
     public static boolean getStockToUpdat(){

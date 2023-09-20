@@ -19,13 +19,12 @@ import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class printOrder extends AppCompatActivity {
 
-    TextView pricedetails, businessDetails;
+    TextView pricedetails, businessDetails,customerdetails, nameTextview, amountTextview, dorTextview, totalTextview;
     public int priceTopay = 0;
-    public int totalPrice = 0;
-    public int vatPrice= 0;
     private boolean printed= false;
 
     Button startPrint;
@@ -49,6 +48,11 @@ public class printOrder extends AppCompatActivity {
         startPrint = findViewById(R.id.startPrinting);
         pricedetails = findViewById(R.id.priceDetails);
         businessDetails = findViewById(R.id.businessDetails);
+        nameTextview = findViewById(R.id.orderName);
+        amountTextview = findViewById(R.id.orderAmount);
+        dorTextview = findViewById(R.id.orderDor);
+        totalTextview = findViewById(R.id.orderDam);
+        customerdetails = findViewById(R.id.customerDetails);
         getPermissions();
 
 
@@ -56,7 +60,7 @@ public class printOrder extends AppCompatActivity {
 
         startPrint.setOnClickListener(view -> {
 
-            autoload.getDataToUpdate("todaySell", priceTopay, customerName);
+
             try {
                 startPrint();
             } catch (EscPosEncodingException | EscPosConnectionException | EscPosParserException |
@@ -93,11 +97,12 @@ public class printOrder extends AppCompatActivity {
     int totdisc=0;
     int totvat=0;
     int totalPrices=0;
-
+    StringBuilder name = new StringBuilder();
 
     String text = "";
-    String customerInfo = "";
+
     public void readyText(){
+
         text ="<b>"+ homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ "</b> <br>"+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
                 + "<br>" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
@@ -108,38 +113,51 @@ public class printOrder extends AppCompatActivity {
 //        doing something like recycler view for printing
 
 
+
+        StringBuilder dor = new StringBuilder();
+        StringBuilder amount = new StringBuilder();
+        StringBuilder dam = new StringBuilder();
+        name.append("<b> নাম </b><br><br>");
+        dor.append("<b> দর  </b><br><br>");
+        amount.append("<b> পিছ </b><br><br>");
+        dam.append("<b> মোট </b><br><br>");
         for(Map<String, Object> entry: autoload.cardItem){
             totalPrices = totalPrices + Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
-//            printtext = printtext + "[L]<b>"+entry.get("name")+"</b>" +"[C]"+ entry.get("sellPrice") + "\n"+
-//                    "[R]"+ totalPrices+
-//                    "[L] "+entry.get("Order")+" পিছ"+"\n";
+
+            name.append("<b>").append(entry.get("name").toString()).append("</b><br>");
+            dor.append(entry.get("sellPrice")).append("<br>");
+            dam.append(Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString())).append("<br>");
+            amount.append(entry.get("Order").toString()).append(" পিছ").append("<br>");
+
             totdisc = totdisc + (Integer.valueOf(entry.get("Discount").toString()) * Integer.valueOf(entry.get("Order").toString()));
             totvat = totvat + (Integer.valueOf(entry.get("vat").toString()) * Integer.valueOf(entry.get("Order").toString()));
-            Log.d("datam", String.valueOf(totalPrices));
+
 
         }
 //
         String pricedetail =
 
-                "<b> সর্বমোটঃ "+ String.valueOf(totalPrices) +"</b><br>" +
-                "<b>ডিস্কাউন্টঃ  <b>"+ String.valueOf(totdisc)+"<br>" +
+                "<b> সর্বমোটঃ "+ totalPrices +"</b><br>" +
+                "<b>ডিস্কাউন্টঃ  <b>"+ totdisc +"<br>" +
                 "<b>ভ্যাটঃ <b>"+totvat+"<br>" +
                 "-------------------------<br>"+
-                "<b>মোট প্রদেয়ঃ <b>"+ String.valueOf(totalPrices-totdisc-totvat) + "<br>" +
+                "<b>মোট প্রদেয়ঃ <b>"+ (totalPrices - totdisc - totvat) + "<br>";
 
 
+        String customer =
+                "<b>গ্রাহকঃ </b><br>" +
+                "Raymond DUPONT <br>" +
+                "5 rue des girafes <br>" +
+                "Tel : +33801201456 <br>";
 
-                "[L]<font size='tall'>গ্রাহকঃ </font>\n" +
-                "[L]Raymond DUPONT\n" +
-                "[L]5 rue des girafes\n" +
-                "[L]31547 PERPETES\n" +
-                "[L]Tel : +33801201456\n" +
-                "[L]\n" ;
-
-        Spanned styledTextBusiness = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY);
-        Spanned styledTextPrices = HtmlCompat.fromHtml(pricedetail, HtmlCompat.FROM_HTML_MODE_LEGACY);
-        businessDetails.setText(styledTextBusiness);
-        pricedetails.setText(styledTextPrices);
+        businessDetails.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        pricedetails.setText(HtmlCompat.fromHtml(pricedetail, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        nameTextview.setText(HtmlCompat.fromHtml(String.valueOf(name), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        dorTextview.setText(HtmlCompat.fromHtml(String.valueOf(dor), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        amountTextview.setText(HtmlCompat.fromHtml(String.valueOf(amount), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        totalTextview.setText(HtmlCompat.fromHtml(String.valueOf(dam), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        totalTextview.setText(HtmlCompat.fromHtml(String.valueOf(dam), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        customerdetails.setText(HtmlCompat.fromHtml(customer, HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
 
@@ -193,10 +211,10 @@ public class printOrder extends AppCompatActivity {
                 "[L]\n" +
                 "[C]--------------------------------\n"+
 
-                "[R] সর্বমোটঃ [R]"+ String.valueOf(priceTopay) +"\n" +
-                "[R]ডিস্কাউন্টঃ  [R]"+ String.valueOf(totalDiscount)+"\n" +
+                "[R] সর্বমোটঃ [R]"+ priceTopay +"\n" +
+                "[R]ডিস্কাউন্টঃ  [R]"+ totalDiscount +"\n" +
                 "[R]ভ্যাটঃ [R]"+totalVat+"\n" +
-                "[R]মোট প্রদেয়ঃ [R]"+ String.valueOf(priceTopay-totalDiscount-totalVat) + "\n" +
+                "[R]মোট প্রদেয়ঃ [R]"+ (priceTopay - totalDiscount - totalVat) + "\n" +
                 "[L]\n" +
                 "[C]================================\n" +
                 "[L]\n" +
@@ -207,9 +225,10 @@ public class printOrder extends AppCompatActivity {
                 "[L]Tel : +33801201456\n" +
                 "[L]\n" ;
 
-                autoload.getStockToUpdat();
+
 
             printed = autoload.getStockToUpdat();
+        autoload.getDataToUpdate("todaySell", priceTopay, String.valueOf(name));
 
 //        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
 //        printer

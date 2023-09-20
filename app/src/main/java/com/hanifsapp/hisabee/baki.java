@@ -1,5 +1,6 @@
 package com.hanifsapp.hisabee;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +19,12 @@ public class baki extends Fragment {
     public static RecyclerView recyclerView;
     private static Context context;
 
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+
     }
 
     public baki() {
@@ -41,6 +44,7 @@ public class baki extends Fragment {
         recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new denapaonaAdapter(autoload.todaydue, context, "todayDue"));
+
         return view;
     }
 

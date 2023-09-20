@@ -73,7 +73,15 @@ public class homePage extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("businessInfo", Context.MODE_PRIVATE);
         editInfo.setOnClickListener(view -> showAddCustomerDialog());
         updateBusinessInfo();
+
+        autoload.isNetworkAvailable(this);
     }
+
+
+
+
+
+
 
 
     public static void setText(){

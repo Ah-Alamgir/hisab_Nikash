@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +28,6 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,49 +38,29 @@ public class denaPawna extends AppCompatActivity {
     private EditText editText, detailsText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchButtonGive, switchButtonDue;
-    public ActionBar actionBar;
 
     TabLayout tabLayout;
     private ViewPager2 viewPager;
 
     private ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
     int tabPosition = 0;
-    static int totalPrice = 0;
+    public static TextView dateText,totalText;
+    ImageButton datePicker;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        actionBar = getSupportActionBar();
-
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_dena_pawna);
-        titleText = getTime();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_calendar);
-        setTitle(titleText);
-
-
-
-
-
-
-
-
-
-
-
 
         newDue = findViewById(R.id.newDue);
-
         newDue.setOnClickListener(view -> showTextInputDialog());
 
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
-
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
-
         viewPager.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager,
@@ -87,7 +68,6 @@ public class denaPawna extends AppCompatActivity {
                     if (position == 0) {
                         tabPosition = 0;
                         tab.setText("বাকি");
-
                     } else if (position == 1) {
                         tabPosition = 1;
                         tab.setText("বিক্রি");
@@ -97,6 +77,17 @@ public class denaPawna extends AppCompatActivity {
                     }
                 }
         ).attach();
+
+
+
+
+
+        datePicker = findViewById(R.id.imageButton2);
+        dateText = findViewById(R.id.date_TextView);
+        totalText = findViewById(R.id.hisab_textView);
+        dateText.setText(autoload.dates);
+
+        datePicker.setOnClickListener(v -> showDatePickerDialog());
 
     }
 
@@ -203,10 +194,8 @@ public class denaPawna extends AppCompatActivity {
     private String getTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat;
-
         dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         String dates = dateFormat.format(calendar.getTime());
-
         return dates;
     }
 
@@ -230,13 +219,13 @@ public class denaPawna extends AppCompatActivity {
 
             if (switchYear.isChecked()) {
                 titleText = selectedYear;
-                setTitle(titleText);
+                dateText.setText(titleText);
             } else if (switchMonth.isChecked()) {
                 titleText = getMonthName(selectedMonth);
-                setTitle(titleText);
+                dateText.setText(titleText);
             } else {
                 titleText = selectedDay + " " + getMonthName(selectedMonth) + " " + selectedYear;
-                setTitle(titleText);
+                dateText.setText(titleText);
             }
         });
 
@@ -251,4 +240,27 @@ public class denaPawna extends AppCompatActivity {
         return monthNames[month];
     }
 
+
+
+    public void setActivitySubtitle(String subtitle) {
+        getSupportActionBar().setSubtitle(subtitle);
+    }
 }
+
+
+
+    class MonthUse{
+    String titiles = "00";
+
+        public MonthUse(String titiles) {
+            this.titiles = titiles;
+        }
+
+        public void setTitiles(String titiles) {
+            this.titiles = titiles;
+        }
+
+        public String getTitiles() {
+            return titiles;
+        }
+    }

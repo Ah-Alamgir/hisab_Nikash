@@ -49,6 +49,7 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
         holder.dates.setText(Objects.requireNonNull(item.get("date")).toString());
         holder.cardViews.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.anim1));
 
+
         holder.deleteButton.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
             builder.setMessage("Are you sure you want to delete this item?")
