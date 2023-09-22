@@ -13,10 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 
 public class bikri extends Fragment {
 
-    private Context context;
+    private static Context context;
+    private static RecyclerView recyclerView;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -38,12 +42,15 @@ public class bikri extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bikri, container, false);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.baki_recycler);
+        recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new denapaonaAdapter(autoload.todaysell, context, "todaySell"));
         return view;
     }
 
+    static void Update(ArrayList<Map<String, Object>> list){
+        recyclerView.setAdapter(new denapaonaAdapter(list, context, "todaySell"));
+    }
 
 }
 

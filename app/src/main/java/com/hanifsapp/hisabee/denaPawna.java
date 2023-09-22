@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,18 +23,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 import java.util.Map;
 
 public class denaPawna extends AppCompatActivity {
 
     Button newDue;
-    public  static String titleText;
+    public static String titleText, fragmentName;
     private EditText editText, detailsText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchButtonGive, switchButtonDue;
@@ -42,7 +40,6 @@ public class denaPawna extends AppCompatActivity {
     TabLayout tabLayout;
     private ViewPager2 viewPager;
 
-    private final ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
     int tabPosition = 0;
     public static TextView dateText,totalText;
     ImageButton datePicker;
@@ -147,9 +144,9 @@ public class denaPawna extends AppCompatActivity {
         if (!editText.getText().toString().isEmpty() && !detailsText.getText().toString().isEmpty()) {
 
             if (switchButtonGive.isChecked()) {
-                autoload.getDataToUpdate("todaySpend", Integer.valueOf(editText.getText().toString()), detailsText.getText().toString());
+                autoload.getDataToUpdate("todaySpend", Integer.parseInt(editText.getText().toString()), detailsText.getText().toString());
             } else if (switchButtonDue.isChecked()) {
-                autoload.getDataToUpdate("todayDue", Integer.valueOf(editText.getText().toString()), detailsText.getText().toString());
+                autoload.getDataToUpdate("todayDue", Integer.parseInt(editText.getText().toString()), detailsText.getText().toString());
             }
 
         } else {
@@ -174,12 +171,16 @@ public class denaPawna extends AppCompatActivity {
             // Create and return a new Fragment instance based on the position
             switch (position) {
                 case 0:
+                    fragmentName = "baki";
                     return baki.newInstance();
                 case 1:
+                    fragmentName = "bikri";
                     return bikri.newInstance();
                 case 2:
+                    fragmentName = "bay";
                     return Fragment_bay.newInstance();
                 default:
+                    fragmentName = "baki";
                     return null;
             }
         }
@@ -191,13 +192,6 @@ public class denaPawna extends AppCompatActivity {
     }
 
 
-    private String getTime() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat;
-        dateFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-        String dates = dateFormat.format(calendar.getTime());
-        return dates;
-    }
 
 
 
@@ -209,8 +203,8 @@ public class denaPawna extends AppCompatActivity {
         builder.setView(dialogView);
 
         final DatePicker datePicker = dialogView.findViewById(R.id.date_picker);
-        final Switch switchMonth = dialogView.findViewById(R.id.switch_month);
-        final Switch switchYear = dialogView.findViewById(R.id.switch_year);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") final Switch switchMonth = dialogView.findViewById(R.id.switch_month);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") final Switch switchYear = dialogView.findViewById(R.id.switch_year);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
             String selectedYear = String.valueOf(datePicker.getYear());
@@ -227,12 +221,51 @@ public class denaPawna extends AppCompatActivity {
                 titleText = selectedDay + " " + getMonthName(selectedMonth) + " " + selectedYear;
                 dateText.setText(titleText);
             }
+
+
+            switch (fragmentName){
+                case "baki":
+                    baki.Update(Update(titleText , autoload.todaydue));
+                    totalText.setText(String.valueOf(amount));
+                    break;
+                case "bikri":
+                    bikri.Update(Update(titleText , autoload.todaysell));
+                    totalText.setText(String.valueOf(amount));
+                    break;
+                case "bay":
+                    Fragment_bay.Update(Update(titleText , autoload.todayspend));
+                    totalText.setText(String.valueOf(amount));
+                    break;
+            }
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
         builder.create().show();
     }
+
+
+
+    static int amount = 0;
+
+    static ArrayList<Map<String, Object>> Update(String date , ArrayList<Map<String, Object>> getFromArray){
+        amount = 0;
+        ArrayList<Map<String, Object>> list = new ArrayList<>();
+
+        for (Map<String, Object> entry: getFromArray){
+            if (entry.get("date").toString().contains(date)){
+                list.add(entry);
+                amount = Integer.parseInt(entry.get("price").toString()) + amount;
+            }
+        }
+        return list;
+    }
+
+
+
+
+
+
+
 
     private String getMonthName(int month) {
         DateFormatSymbols symbols = new DateFormatSymbols();
@@ -240,27 +273,7 @@ public class denaPawna extends AppCompatActivity {
         return monthNames[month];
     }
 
-
-
-    public void setActivitySubtitle(String subtitle) {
-        getSupportActionBar().setSubtitle(subtitle);
-    }
 }
 
 
 
-    class MonthUse{
-    String titiles = "00";
-
-        public MonthUse(String titiles) {
-            this.titiles = titiles;
-        }
-
-        public void setTitiles(String titiles) {
-            this.titiles = titiles;
-        }
-
-        public String getTitiles() {
-            return titiles;
-        }
-    }

@@ -14,10 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 
 public class baki extends Fragment {
     public static RecyclerView recyclerView;
     private static Context context;
+
+
 
 
     @Override
@@ -46,6 +51,11 @@ public class baki extends Fragment {
         recyclerView.setAdapter(new denapaonaAdapter(autoload.todaydue, context, "todayDue"));
 
         return view;
+    }
+
+
+    static void Update(ArrayList<Map<String, Object>> list ){
+        recyclerView.setAdapter(new denapaonaAdapter(list, context, "todayDue"));
     }
 
 

@@ -112,7 +112,6 @@ public class profile extends AppCompatActivity {
                 sqopenHelper.deleteData(position);
                 notifyItemRemoved(position);
 
-
             });
         }
 
