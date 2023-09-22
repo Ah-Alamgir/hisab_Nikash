@@ -3,7 +3,6 @@ package com.hanifsapp.hisabee;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 

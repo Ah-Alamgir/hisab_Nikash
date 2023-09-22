@@ -66,7 +66,7 @@ public class SqopenHelper extends SQLiteOpenHelper {
 
         while (cursor.moveToNext()){
             String dataset ="\n"+ "নামঃ   " + cursor.getString(1)+"\n" + "ঠিকানাঃ   " +cursor.getString(2)+"\n"+
-                    "নাম্বারঃ " + cursor.getString(3);
+                    "নাম্বারঃ " + cursor.getString(3) +"\n"+" id:"+ cursor.getInt(0);
             customerInfo.add(dataset);
         }
         cursor.close();
@@ -74,7 +74,6 @@ public class SqopenHelper extends SQLiteOpenHelper {
 
         return customerInfo;
     }
-
 
 
 

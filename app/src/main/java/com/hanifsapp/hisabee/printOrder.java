@@ -98,8 +98,8 @@ public class printOrder extends AppCompatActivity {
         listView.setDivider(this.getDrawable(R.drawable.divider_white));
         listView.setDividerHeight(1);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().replace("\n", "<br>");
-            customerdetails.setText(HtmlCompat.fromHtml(selectedItemText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            String selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().split("id:")[0];
+            customerdetails.setText(HtmlCompat.fromHtml(selectedItemText.replace("\n", "<br>"), HtmlCompat.FROM_HTML_MODE_LEGACY));
             drawerLayout.closeDrawer(GravityCompat.START, true);
         });
     }

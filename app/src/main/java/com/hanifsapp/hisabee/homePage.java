@@ -14,9 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class homePage extends AppCompatActivity {
     CardView printerConnect,sell,sprofile,dueBook,costBook,stockManagement;
     public static SharedPreferences sharedPreferences;

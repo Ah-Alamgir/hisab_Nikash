@@ -87,6 +87,19 @@ public class profile extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
         private final ArrayList<String> customerList;
         public SqopenHelper sqopenHelper;
@@ -107,9 +120,10 @@ public class profile extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
-            holder.textViewName.setText(customerList.get(position));
+            holder.textViewName.setText(customerList.get(position).split("id")[0]);
             holder.buttonDelete.setOnClickListener(v -> {
-                sqopenHelper.deleteData(position);
+                sqopenHelper.deleteData(Integer.parseInt(customerList.get(position).split("id:")[1]));
+                customerList.remove(position);
                 notifyItemRemoved(position);
 
             });
