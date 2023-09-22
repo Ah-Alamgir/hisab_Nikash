@@ -23,27 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewAddress"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/colorSecondary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
-
-        <TextView
-            android:id="@+id/textViewPhoneNumber"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewAddress" />
-
         <ImageButton
             android:id="@+id/buttonDelete"
             android:layout_width="48dp"

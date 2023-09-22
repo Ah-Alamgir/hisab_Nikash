@@ -1,11 +1,9 @@
 package com.hanifsapp.hisabee;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +18,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hanifsapp.hisabee.recyclerView.DataMap;
+import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
+
 
 public class profile extends AppCompatActivity {
     private RecyclerView recyclerView;
     Button addButton;
-    private DatabaseHelper databaseHelper;
+    static SqopenHelper sqopenHelper;
+
 
 
     @Override
@@ -38,7 +41,7 @@ public class profile extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addButton = findViewById(R.id.addButton);
 
-        databaseHelper = new DatabaseHelper(this);
+        sqopenHelper = new SqopenHelper(this);
 
         refreshRecyclerView();
 
@@ -71,8 +74,9 @@ public class profile extends AppCompatActivity {
                 String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
                 if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
-                    Customer customer = new Customer(0, name, address, phoneNumber);
-                    insertCustomer(customer);
+
+                    sqopenHelper.addtoDatabase(name, address, phoneNumber);
+                    refreshRecyclerView();
                     dialog.dismiss();
                 } else {
                     // Show an error message or handle empty input fields
@@ -100,144 +104,25 @@ public class profile extends AppCompatActivity {
 
 
     private void refreshRecyclerView() {
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
-
-        List<Customer> customerList = new ArrayList<>();
-
-        if (cursor.moveToFirst()) {
-            int columnIndexId = cursor.getColumnIndex(DatabaseHelper.COLUMN_ID);
-            int columnIndexName = cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME);
-            int columnIndexAddress = cursor.getColumnIndex(DatabaseHelper.COLUMN_ADDRESS);
-            int columnIndexPhoneNumber = cursor.getColumnIndex(DatabaseHelper.COLUMN_PHONE_NUMBER);
-
-
-            do {
-                int id = cursor.getInt(columnIndexId);
-                String name = cursor.getString(columnIndexName);
-                String address = cursor.getString(columnIndexAddress);
-                String phoneNumber = cursor.getString(columnIndexPhoneNumber);
-
-                Customer customer = new Customer(id, name, address, phoneNumber);
-                customerList.add(customer);
-            } while (cursor.moveToNext());
-
-            // Process the customerList as needed
-        } else {
-            // Handle empty cursor or no data found
-        }
-
-        cursor.close();
-        db.close();
-
-        CustomerAdapter adapter = new CustomerAdapter(customerList);
-        adapter.setOnDeleteClickListener(customer -> deleteCustomer(customer));
+        CustomerAdapter adapter = new CustomerAdapter(sqopenHelper.getDataList(), this);
         recyclerView.setAdapter(adapter);
     }
 
-    private void insertCustomer(Customer customer) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_NAME, customer.getName());
-        values.put(DatabaseHelper.COLUMN_ADDRESS, customer.getAddress());
-        values.put(DatabaseHelper.COLUMN_PHONE_NUMBER, customer.getPhoneNumber());
-
-        db.insert(DatabaseHelper.TABLE_NAME, null, values);
-        db.close();
-
-        refreshRecyclerView();
-    }
-
-    private void deleteCustomer(Customer customer) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-
-        String selection = DatabaseHelper.COLUMN_ID + " = ?";
-        String[] selectionArgs = {String.valueOf(customer.getId())};
-
-        db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-        db.close();
-
-        refreshRecyclerView();
-    }
-
-
-
-
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String DATABASE_NAME = "customer.db";
-        private static final int DATABASE_VERSION = 1;
-        private static final String TABLE_NAME = "customers",COLUMN_ID = "_id",COLUMN_NAME = "name",COLUMN_ADDRESS = "address",
-                COLUMN_PHONE_NUMBER = "phone_number";
-
-
-        private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NAME + " TEXT, " +
-                COLUMN_ADDRESS + " TEXT, " +
-                COLUMN_PHONE_NUMBER + " TEXT" +
-                ")";
-
-        public DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_TABLE_QUERY);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
-        }
-    }
-
-    public static class Customer {
-        private int id;
-        private String name,address,phoneNumber;
-
-
-        public Customer(int id, String name, String address, String phoneNumber) {
-            this.id = id;
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-    }
 
 
 
 
     public static class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
-        private List<Customer> customerList;
-        private OnDeleteClickListener onDeleteClickListener;
+        private ArrayList<String> customerList;
+        public SqopenHelper sqopenHelper;
 
-        public CustomerAdapter(List<Customer> customerList) {
+        public CustomerAdapter(ArrayList<String> customerList, Context context) {
             this.customerList = customerList;
+            sqopenHelper = new SqopenHelper(context);
         }
 
-        public void setOnDeleteClickListener(OnDeleteClickListener listener) {
-            onDeleteClickListener = listener;
-        }
+
 
         @NonNull
         @Override
@@ -248,10 +133,11 @@ public class profile extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
-            Customer customer = customerList.get(position);
-            holder.textViewName.setText("   নামঃ           "+customer.getName());
-            holder.textViewAddress.setText("    ঠিকানাঃ     " + customer.getAddress());
-            holder.textViewPhoneNumber.setText("    নাম্বারঃ       "+customer.getPhoneNumber());
+            holder.textViewName.setText(customerList.get(position));
+            holder.buttonDelete.setOnClickListener(v -> {
+                sqopenHelper.deleteData(position);
+
+            });
         }
 
         @Override
@@ -259,28 +145,16 @@ public class profile extends AppCompatActivity {
             return customerList.size();
         }
 
-        public interface OnDeleteClickListener {
-            void onDeleteClick(Customer customer);
-        }
 
         public class CustomerViewHolder extends RecyclerView.ViewHolder {
-            public TextView textViewName , textViewAddress,textViewPhoneNumber;
+            public TextView textViewName ;
             public ImageButton buttonDelete;
 
             public CustomerViewHolder(View itemView) {
                 super(itemView);
                 textViewName = itemView.findViewById(R.id.textViewName);
-                textViewAddress = itemView.findViewById(R.id.textViewAddress);
-                textViewPhoneNumber = itemView.findViewById(R.id.textViewPhoneNumber);
                 buttonDelete = itemView.findViewById(R.id.buttonDelete);
 
-                buttonDelete.setOnClickListener(v -> {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && onDeleteClickListener != null) {
-                        Customer customer = customerList.get(position);
-                        onDeleteClickListener.onDeleteClick(customer);
-                    }
-                });
             }
         }
     }

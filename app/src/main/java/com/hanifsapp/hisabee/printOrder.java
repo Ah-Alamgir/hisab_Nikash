@@ -3,32 +3,44 @@ package com.hanifsapp.hisabee;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.text.Spanned;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
+import com.hanifsapp.hisabee.recyclerView.DataMap;
+import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class printOrder extends AppCompatActivity {
 
-    TextView pricedetails, businessDetails,customerdetails, nameTextview, amountTextview, dorTextview, totalTextview;
+    TextView pricedetails, businessDetails, customerdetails, nameTextview, amountTextview, dorTextview, totalTextview;
     public int priceTopay = 0;
-    private boolean printed= false;
+    private boolean printed = false;
+    SqopenHelper sqopenHelper;
 
     Button startPrint;
-    public String customerName;
+    private DrawerLayout drawerLayout;
+    private ListView listView;
+    private ActionBarDrawerToggle drawerToggle;
+    ArrayList<String> arrayListCustomerInfos;
 
     public final int PERMISSION_BLUETOOTH = 1;
     public final int PERMISSION_BLUETOOTH_ADMIN = 2;
@@ -36,14 +48,14 @@ public class printOrder extends AppCompatActivity {
     public final int PERMISSION_BLUETOOTH_SCAN = 4;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
-
-        setTitle("বিক্রয় বিবরণী");
         printed = false; //handling for backpress;
+        setTitle("");
+        sqopenHelper = new SqopenHelper(this);
+
 
         startPrint = findViewById(R.id.startPrinting);
         pricedetails = findViewById(R.id.priceDetails);
@@ -54,6 +66,8 @@ public class printOrder extends AppCompatActivity {
         totalTextview = findViewById(R.id.orderDam);
         customerdetails = findViewById(R.id.customerDetails);
         getPermissions();
+        arrayListCustomerInfos = sqopenHelper.getDataList();
+
 
 
         readyText();
@@ -68,14 +82,40 @@ public class printOrder extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         });
+        setDrawerLayout();
+
 
     }
 
 
 
 
+    private void setDrawerLayout() {
+
+        drawerLayout = findViewById(R.id.drawer_layout);
 
 
+
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        listView = findViewById(R.id.customerList);
+
+
+        ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this,R.layout.recycler_list_extview, arrayListCustomerInfos);
+        listView.setAdapter(userAdapter);
+        listView.setDividerHeight(1);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
@@ -94,6 +134,10 @@ public class printOrder extends AppCompatActivity {
 
 
 
+
+
+
+
     int totdisc=0;
     int totvat=0;
     int totalPrices=0;
@@ -106,7 +150,7 @@ public class printOrder extends AppCompatActivity {
         text ="<b>"+ homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ "</b> <br>"+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
                 + "<br>" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
-                "<br><b>================================</b><br><br>";
+                "<br><b>============================</b><br><br>";
 
 
 
