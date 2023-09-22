@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -66,7 +65,7 @@ public class SqopenHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         while (cursor.moveToNext()){
-            String dataset = "নামঃ   " + cursor.getString(1)+"\n" + "ঠিকানাঃ   " +cursor.getString(2)+"\n"+
+            String dataset ="\n"+ "নামঃ   " + cursor.getString(1)+"\n" + "ঠিকানাঃ   " +cursor.getString(2)+"\n"+
                     "নাম্বারঃ " + cursor.getString(3);
             customerInfo.add(dataset);
         }
@@ -82,7 +81,7 @@ public class SqopenHelper extends SQLiteOpenHelper {
 
     public void deleteData(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME,DataMap.id + "=" + id, null);
+        db.delete(TABLE_NAME,COLUMN_ID + "=" + id, null);
     }
 
 }

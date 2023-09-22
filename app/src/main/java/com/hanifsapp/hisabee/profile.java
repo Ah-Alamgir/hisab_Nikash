@@ -1,9 +1,7 @@
 package com.hanifsapp.hisabee;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hanifsapp.hisabee.recyclerView.DataMap;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 public class profile extends AppCompatActivity {
     private RecyclerView recyclerView;
     Button addButton;
     static SqopenHelper sqopenHelper;
-
 
 
     @Override
@@ -54,10 +49,6 @@ public class profile extends AppCompatActivity {
     }
 
 
-
-
-
-
     private void showAddCustomerDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -69,17 +60,17 @@ public class profile extends AppCompatActivity {
         EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
 
         dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {
-                String name = editTextName.getText().toString().trim();
-                String address = editTextAddress.getText().toString().trim();
-                String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+            String name = editTextName.getText().toString().trim();
+            String address = editTextAddress.getText().toString().trim();
+            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
-                if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
+            if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
 
-                    sqopenHelper.addtoDatabase(name, address, phoneNumber);
-                    refreshRecyclerView();
-                    dialog.dismiss();
-                } else {
-                    // Show an error message or handle empty input fields
+                sqopenHelper.addtoDatabase(name, address, phoneNumber);
+                refreshRecyclerView();
+                dialog.dismiss();
+            } else {
+                // Show an error message or handle empty input fields
 
             }
         });
@@ -90,38 +81,21 @@ public class profile extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void refreshRecyclerView() {
         CustomerAdapter adapter = new CustomerAdapter(sqopenHelper.getDataList(), this);
         recyclerView.setAdapter(adapter);
     }
 
 
-
-
-
-
     public static class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
-        private ArrayList<String> customerList;
+        private final ArrayList<String> customerList;
         public SqopenHelper sqopenHelper;
+
 
         public CustomerAdapter(ArrayList<String> customerList, Context context) {
             this.customerList = customerList;
             sqopenHelper = new SqopenHelper(context);
         }
-
 
 
         @NonNull
@@ -136,6 +110,8 @@ public class profile extends AppCompatActivity {
             holder.textViewName.setText(customerList.get(position));
             holder.buttonDelete.setOnClickListener(v -> {
                 sqopenHelper.deleteData(position);
+                notifyItemRemoved(position);
+
 
             });
         }
@@ -147,7 +123,7 @@ public class profile extends AppCompatActivity {
 
 
         public class CustomerViewHolder extends RecyclerView.ViewHolder {
-            public TextView textViewName ;
+            public TextView textViewName;
             public ImageButton buttonDelete;
 
             public CustomerViewHolder(View itemView) {

@@ -91,7 +91,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
                                             dues.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                            if (costsnapshot.getKey().contains(dates)) {
                                                 todaydueamount = String.valueOf(dues.get("price"));
                                             }
                                             todaydue.add(dues);
@@ -101,7 +101,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
                                             sells.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                            if (costsnapshot.getKey().contains(dates)) {
                                                 todaysellamount = String.valueOf(sells.get("price"));
 
                                             }
@@ -112,7 +112,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
                                             spends.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().toString().contains(dates)) {
+                                            if (costsnapshot.getKey().contains(dates)) {
                                                 todaycostamount = String.valueOf(spends.get("price"));
                                             }
                                             todayspend.add(spends);

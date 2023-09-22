@@ -23,7 +23,7 @@ public class baki extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context = context;
+        baki.context = context;
 
     }
 

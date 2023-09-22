@@ -42,7 +42,7 @@ public class denaPawna extends AppCompatActivity {
     TabLayout tabLayout;
     private ViewPager2 viewPager;
 
-    private ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
+    private final ArrayList<Map<String, Object>> itemsList = new ArrayList<>();
     int tabPosition = 0;
     public static TextView dateText,totalText;
     ImageButton datePicker;

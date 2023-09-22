@@ -77,28 +77,32 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/colorTextView3" />
 
             <TextView
                 android:id="@+id/orderDor"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/colorTextView3" />
 
             <TextView
                 android:id="@+id/orderAmount"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/colorTextView3" />
 
             <TextView
                 android:id="@+id/orderDam"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/colorTextView3" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +118,10 @@
             android:id="@+id/customerList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorSecondary" />
+            android:background="@color/colorSecondary"
+            android:dividerHeight="2dp"
+            android:headerDividersEnabled="true"
+            android:paddingLeft="20dp" />
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

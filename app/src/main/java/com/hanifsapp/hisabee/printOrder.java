@@ -3,11 +3,9 @@ package com.hanifsapp.hisabee;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,17 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
-import com.hanifsapp.hisabee.recyclerView.DataMap;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class printOrder extends AppCompatActivity {
@@ -42,10 +39,8 @@ public class printOrder extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     ArrayList<String> arrayListCustomerInfos;
 
-    public final int PERMISSION_BLUETOOTH = 1;
-    public final int PERMISSION_BLUETOOTH_ADMIN = 2;
-    public final int PERMISSION_BLUETOOTH_CONNECT = 3;
-    public final int PERMISSION_BLUETOOTH_SCAN = 4;
+    public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
+
 
 
     @Override
@@ -73,8 +68,6 @@ public class printOrder extends AppCompatActivity {
         readyText();
 
         startPrint.setOnClickListener(view -> {
-
-
             try {
                 startPrint();
             } catch (EscPosEncodingException | EscPosConnectionException | EscPosParserException |
@@ -93,9 +86,6 @@ public class printOrder extends AppCompatActivity {
     private void setDrawerLayout() {
 
         drawerLayout = findViewById(R.id.drawer_layout);
-
-
-
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
@@ -105,7 +95,13 @@ public class printOrder extends AppCompatActivity {
 
         ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this,R.layout.recycler_list_extview, arrayListCustomerInfos);
         listView.setAdapter(userAdapter);
+        listView.setDivider(this.getDrawable(R.drawable.divider_white));
         listView.setDividerHeight(1);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().replace("\n", "<br>");
+            customerdetails.setText(HtmlCompat.fromHtml(selectedItemText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            drawerLayout.closeDrawer(GravityCompat.START, true);
+        });
     }
 
     @Override
