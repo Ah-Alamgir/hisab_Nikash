@@ -85,7 +85,7 @@ public class costCalculation extends AppCompatActivity {
                 Map<String, Object> costHisab = new HashMap<>();
                 costHisab.put("Cost", editText.getText().toString());
                 costHisab.put("details", detailsText.getText().toString());
-                rootRef.child("denaPaona").child("costCalculation").child(date_TextView.getText().toString()).child(tag).push().setValue(costHisab);
+                rootRef.child("denaPaona").child("singleValues").child(autoload.dates).push().setValue(costHisab);
 
             }else {
                 if (editText.getText().toString().isEmpty()){
@@ -101,52 +101,8 @@ public class costCalculation extends AppCompatActivity {
     }
 
     public void calculateCost(String date){
-        int totalCostBill = 0;
-        int totalCostRent = 0;
-        int totalCostSalary = 0;
-        int totalCostBuy = 0;
 
-
-        for (Map<String, Object> item :autoload.costCalculations) {
-
-            if (item.get("id").toString().equals(date)) {
-
-
-                Map<String, Object> bill = (Map<String, Object>) item.get("bill");
-                for (Map.Entry<String, Object> entry : bill.entrySet()) {
-                    Map<String, Object> billDetails = (Map<String, Object>) entry.getValue();
-                    int cost = Integer.parseInt(billDetails.get("Cost").toString()) ;
-                    totalCostBill += cost;
-                }
-
-                Map<String, Object> rent = (Map<String, Object>) item.get("rent");
-                for (Map.Entry<String, Object> entry : rent.entrySet()) {
-                    Map<String, Object> rentDetails = (Map<String, Object>) entry.getValue();
-                    int cost = Integer.parseInt(rentDetails.get("Cost").toString());
-                    totalCostRent += cost;
-                }
-
-                Map<String, Object> salary = (Map<String, Object>) item.get("salary");
-                for (Map.Entry<String, Object> entry : salary.entrySet()) {
-                    Map<String, Object> salaryDetails = (Map<String, Object>) entry.getValue();
-                    int cost = Integer.parseInt(salaryDetails.get("Cost").toString());
-                    totalCostSalary += cost;
-                }
-
-                Map<String, Object> buy = (Map<String, Object>) item.get("buy");
-                for (Map.Entry<String, Object> entry : buy.entrySet()) {
-                    Map<String, Object> buyDetails = (Map<String, Object>) entry.getValue();
-                    int cost = Integer.parseInt(buyDetails.get("Cost").toString());
-                    totalCostBuy += cost;
-                }
-            }
         }
 
-        totalCost_textView.setText(String.valueOf(totalCostBill + totalCostRent + totalCostSalary + totalCostBuy));
-        salary_textView.setText(String.valueOf(totalCostSalary));
-        bought_TextView.setText(String.valueOf(totalCostBuy));
-        bill_textView.setText(String.valueOf(totalCostBill));
-        rent_textView.setText(String.valueOf(totalCostRent));
-    }
 
 }

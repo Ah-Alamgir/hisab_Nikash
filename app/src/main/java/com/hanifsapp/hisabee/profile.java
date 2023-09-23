@@ -1,5 +1,6 @@
 package com.hanifsapp.hisabee;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,14 +17,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class profile extends AppCompatActivity {
     private RecyclerView recyclerView;
-    Button addButton;
+    Button addButton, FETCH_BUTTON;
     static SqopenHelper sqopenHelper;
 
 
@@ -35,6 +40,7 @@ public class profile extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addButton = findViewById(R.id.addButton);
+        FETCH_BUTTON = findViewById(R.id.GETFIREBASE);
 
         sqopenHelper = new SqopenHelper(this);
 
@@ -43,8 +49,14 @@ public class profile extends AppCompatActivity {
 
         setTitle("কাস্টমারের তথ্য ");
 
-        addButton.setOnClickListener(v -> {
-            showAddCustomerDialog();
+        addButton.setOnClickListener(v -> showAddCustomerDialog());
+
+        FETCH_BUTTON.setOnClickListener(v -> {
+            for (Map<String, Object> map : autoload.CustomerInfo){
+
+                sqopenHelper.addtoDatabase(String.valueOf(map.get("name")), String.valueOf(map.get("address")),String.valueOf(map.get("phoneNumber")));
+            }
+            refreshRecyclerView();
         });
     }
 
@@ -67,8 +79,22 @@ public class profile extends AppCompatActivity {
             if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
 
                 sqopenHelper.addtoDatabase(name, address, phoneNumber);
+
+
+
+
+                //add to firebase
+                Map<String, Object> userData = new HashMap<>();
+                userData.put("name",name);
+                userData.put("address",address);
+                userData.put("phoneNumber", phoneNumber);
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
+                databaseReference.child("singleValues").child("CustomarList").push().setValue(userData);
+
                 refreshRecyclerView();
                 dialog.dismiss();
+
             } else {
                 // Show an error message or handle empty input fields
 

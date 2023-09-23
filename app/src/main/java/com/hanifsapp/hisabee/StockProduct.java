@@ -60,7 +60,7 @@ public class StockProduct extends AppCompatActivity {
 
         for (Map<String, Object> map : autoload.productLists) {
             totalStock_var = Integer.parseInt(map.get("Stock").toString()) + totalStock_var;
-            totalStock_valueVar = (Integer.parseInt(map.get("buyPrice").toString())* totalStock_var) + totalStock_valueVar;
+            totalStock_valueVar = (Integer.parseInt(map.get("buyPrice").toString())*  Integer.parseInt(map.get("Stock").toString())) + totalStock_valueVar;
         }
         totoalStock_textview.setText(String.valueOf(totalStock_var));
         totalStock_value_textView.setText(String.valueOf(totalStock_valueVar));

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 
@@ -25,7 +27,7 @@ public class bikri extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context = context;
+        bikri.context = context;
     }
 
     public bikri() {
@@ -44,7 +46,7 @@ public class bikri extends Fragment {
 
         recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaysell, context, "todaySell"));
+        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaysell , context, "todaySell"));
         return view;
     }
 

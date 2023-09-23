@@ -3,6 +3,7 @@ package com.hanifsapp.hisabee;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,11 +38,12 @@ public class autoload {
 
     static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaydue = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> CustomerInfo = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todayspend = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaysell = new ArrayList<>();
     static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
     static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
-    public static List<String> cardItem_list = new ArrayList<String>();
+    public static List<String> cardItem_list = new ArrayList<>();
 
 
     static String todaysellamount = "000";
@@ -60,6 +63,7 @@ public class autoload {
                 todaysell.clear();
                 todayspend.clear();
                 cardItem_list.clear();
+                CustomerInfo.clear();
 
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
@@ -73,19 +77,17 @@ public class autoload {
                             }
                             break;
 
-
-                        case "costCalculation":
-                            for (DataSnapshot productSnapshot : childSnapshot.getChildren()) {
-                                Map<String, Object> cost = (Map<String, Object>) productSnapshot.getValue();
-                                cost.put("id",productSnapshot.getKey());
-                                costCalculations.add(cost);
-                            }
-                            break;
-
                         case "singleValues":
                             for (DataSnapshot keys : childSnapshot.getChildren()) {
                                 String key = keys.getKey();
                                 switch (key) {
+                                    case "CustomarList":
+                                        for (DataSnapshot dataSnapshot1: keys.getChildren()) {
+                                            CustomerInfo.add((Map<String, Object>) dataSnapshot1.getValue());
+                                            Log.d("datamks", CustomerInfo.toString());
+                                        }
+                                        break;
+
                                     case "todayDue":
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
@@ -95,6 +97,7 @@ public class autoload {
                                             }
                                             todaydue.add(dues);
                                         }
+                                        Collections.reverse(todaydue);
                                         break;
                                     case "todaySell":
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
@@ -102,10 +105,10 @@ public class autoload {
                                             sells.put("date", costsnapshot.getKey());
                                             if (costsnapshot.getKey().contains(dates)) {
                                                 todaysellamount = String.valueOf(sells.get("price"));
-
                                             }
                                             todaysell.add(sells);
                                         }
+                                        Collections.reverse(todaysell);
                                         break;
                                     case "todaySpend":
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
@@ -116,7 +119,11 @@ public class autoload {
                                             }
                                             todayspend.add(spends);
                                         }
+                                        Collections.reverse(todayspend);
                                         homePage.setText();
+                                        break;
+
+
                                 }}
 
                             break;
@@ -157,14 +164,14 @@ public class autoload {
                     String details = task.getResult().child(dates).child("details").getValue(String.class);
                     int updatedValue = currentValue + userInputtedCost;
 
-                    details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails+"\n";
+                    details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails.replace("<b>","")+"\n\n";
                     costRef.child(dates).child("price").setValue(updatedValue);
                     costRef.child(dates).child("details").setValue(details);
                 }catch (Exception e) {}
 
             }else {
                 costRef.child(dates).child("price").setValue(userInputtedCost);
-                costRef.child(dates).child("details").setValue(userInputtedCost+ " টাকাঃ  "+"\n"+ userInputDetails+"\n");
+                costRef.child(dates).child("details").setValue(userInputtedCost+ " টাকাঃ  "+"\n"+ userInputDetails.replace("</b>", "")+"\n");
             }
         });
     }

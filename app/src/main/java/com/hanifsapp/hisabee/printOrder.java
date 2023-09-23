@@ -17,6 +17,8 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.dantsu.escposprinter.EscPosPrinter;
+import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
@@ -82,7 +84,7 @@ public class printOrder extends AppCompatActivity {
 
 
 
-
+String selectedItemText="";
     private void setDrawerLayout() {
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -98,7 +100,8 @@ public class printOrder extends AppCompatActivity {
         listView.setDivider(this.getDrawable(R.drawable.divider_white));
         listView.setDividerHeight(1);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().split("id:")[0];
+            selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().split("id:")[0];
+            customerInfo = selectedItemText;
             customerdetails.setText(HtmlCompat.fromHtml(selectedItemText.replace("\n", "<br>"), HtmlCompat.FROM_HTML_MODE_LEGACY));
             drawerLayout.closeDrawer(GravityCompat.START, true);
         });
@@ -138,6 +141,7 @@ public class printOrder extends AppCompatActivity {
     int totvat=0;
     int totalPrices=0;
     StringBuilder name = new StringBuilder();
+
 
     String text = "";
 
@@ -216,22 +220,20 @@ public class printOrder extends AppCompatActivity {
 
 
 
-    String printtext ="";
 
+    String customerInfo= "";
     public void startPrint() throws EscPosEncodingException, EscPosBarcodeException, EscPosParserException, EscPosConnectionException {
+        String printtext ="";
+        int priceAftervat=0;
         int totalDiscount = 0;
         int totalVat = 0;
         printtext = "";
+
         printtext = "[L]\n" +
-                "[C]<u><font size='big'>"+homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ") + "\n" +
-                homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
-               + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+"\n" +"</font></u>\n" +
-                "[L]\n" +
-                "[C]================================\n" +
-                "[L]\n" +
-                "[L]<b> নাম <b>"+
-                "[C]<b> দর <b>"+
-                "[R]<b> মোট দাম <b>" + "\n";
+                "[C]<b>"+homePage.sharedPreferences.getString("name", "Business name") +
+                "\n[C]" + homePage.sharedPreferences.getString("address", "Address") +
+               "\n[C]" + homePage.sharedPreferences.getString("phoneNumber", "Phone Number")+"<b>\n" +
+                "[C]================================\n" ;
 
 
 //        doing something like recycler view for printing
@@ -240,41 +242,42 @@ public class printOrder extends AppCompatActivity {
                 for(Map<String, Object> entry: autoload.cardItem){
                     int totalPrices = 0;
                     totalPrices = Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
-                    printtext = printtext + "[L]<b>"+entry.get("name")+"</b>" +"[C]"+ entry.get("sellPrice") + "\n"+
-                            "[R]"+ totalPrices+
-                    "[L] "+entry.get("Order")+" পিছ"+"\n";
+                    priceTopay = priceTopay+ totalPrices;
+
+                    printtext =
+                            printtext+
+                                    "[L]<b>"+entry.get("name")+"</b>[R]"+totalPrices+"\n" +
+                                    "[L]  + Piece : "+entry.get("Order")+"\n" +"Unit price:"+ entry.get("sellPrice")+"\n\n";
+
+
+
                     totalDiscount = totalDiscount + (Integer.valueOf(entry.get("Discount").toString()) * Integer.valueOf(entry.get("Order").toString()));
                     totalVat = totalVat + (Integer.valueOf(entry.get("vat").toString()) * Integer.valueOf(entry.get("Order").toString()));
                 }
 
+                priceAftervat = priceTopay - totalDiscount - totalVat;
                 printtext = printtext +
                 "[L]\n" +
                 "[C]--------------------------------\n"+
 
-                "[R] সর্বমোটঃ [R]"+ priceTopay +"\n" +
-                "[R]ডিস্কাউন্টঃ  [R]"+ totalDiscount +"\n" +
-                "[R]ভ্যাটঃ [R]"+totalVat+"\n" +
-                "[R]মোট প্রদেয়ঃ [R]"+ (priceTopay - totalDiscount - totalVat) + "\n" +
+                "[C] Sotal price [R]"+ priceTopay +"\n" +
+                "[C]Discount:  [R]"+ totalDiscount +"\n" +
+                "[C]Vat [R]"+totalVat+"\n\n" +
+                "[C]<b>Price to Pay [R]"+ (priceAftervat) +"<b>"+ "\n" +
                 "[L]\n" +
-                "[C]================================\n" +
                 "[L]\n" +
-                "[L]<font size='tall'>গ্রাহকঃ </font>\n" +
-                "[L]Raymond DUPONT\n" +
-                "[L]5 rue des girafes\n" +
-                "[L]31547 PERPETES\n" +
-                "[L]Tel : +33801201456\n" +
-                "[L]\n" ;
+                "[L]" + selectedItemText+"\n"; //customer Details
 
 
 
-            printed = autoload.getStockToUpdat();
-        autoload.getDataToUpdate("todaySell", priceTopay, String.valueOf(name));
+                printed = autoload.getStockToUpdat();
+        autoload.getDataToUpdate("todaySell", priceAftervat, String.valueOf(customerInfo));
 
-//        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
-//        printer
-//                .printFormattedText(
-//                        printtext
-//                );
+        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
+        printer
+                .printFormattedText(
+                        printtext
+                );
 
     }
 
@@ -282,7 +285,13 @@ public class printOrder extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(printed){
-            startActivity(new Intent(this, homePage.class));
+            autoload.cardItem_list.clear();
+            autoload.cardItem.clear();
+            Intent intent = new Intent(this, Sell.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
         }else {
             super.onBackPressed();
         }

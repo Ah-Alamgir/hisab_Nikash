@@ -25,7 +25,7 @@ public class Fragment_bay extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context = context;
+        Fragment_bay.context = context;
     }
 
     public Fragment_bay() {
