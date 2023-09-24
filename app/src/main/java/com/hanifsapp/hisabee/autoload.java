@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -68,7 +70,7 @@ public class autoload {
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String category = childSnapshot.getKey();
-                    switch (category) {
+                    switch (Objects.requireNonNull(category)) {
                         case "ProductList":
                             for (DataSnapshot productSnapshot : childSnapshot.getChildren()) {
                                 Map<String, Object> product = (Map<String, Object>) productSnapshot.getValue();
@@ -92,7 +94,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
                                             dues.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().contains(dates)) {
+                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
                                                 todaydueamount = String.valueOf(dues.get("price"));
                                             }
                                             todaydue.add(dues);
@@ -103,7 +105,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
                                             sells.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().contains(dates)) {
+                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
                                                 todaysellamount = String.valueOf(sells.get("price"));
                                             }
                                             todaysell.add(sells);
@@ -114,7 +116,7 @@ public class autoload {
                                         for (DataSnapshot costsnapshot : keys.getChildren()) {
                                             Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
                                             spends.put("date", costsnapshot.getKey());
-                                            if (costsnapshot.getKey().contains(dates)) {
+                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
                                                 todaycostamount = String.valueOf(spends.get("price"));
                                             }
                                             todayspend.add(spends);
@@ -133,7 +135,7 @@ public class autoload {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -167,7 +169,7 @@ public class autoload {
                     details = details+ "\n" +userInputtedCost+ " টাকাঃ"+"\n"+ userInputDetails.replace("<b>","")+"\n\n";
                     costRef.child(dates).child("price").setValue(updatedValue);
                     costRef.child(dates).child("details").setValue(details);
-                }catch (Exception e) {}
+                }catch (Exception ignored) {}
 
             }else {
                 costRef.child(dates).child("price").setValue(userInputtedCost);
@@ -186,9 +188,7 @@ public class autoload {
                 (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE ||
                         activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI);
 
-        if (isDataConnectionAvailable) {
-            // Data connection is available
-        } else {
+        if(!isDataConnectionAvailable) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Network Unavailable")
                     .setMessage("Please check your internet connection.")
@@ -202,8 +202,8 @@ public class autoload {
         DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
         for (Map<String, Object> cardItems : cardItem){
             int updatedStock;
-            updatedStock  = Integer.valueOf(cardItems.get("Stock").toString()) - Integer.valueOf(cardItems.get("Order").toString());
-            usersRef.child(cardItems.get("id").toString()).child("Stock").setValue(updatedStock);
+            updatedStock  = Integer.parseInt(String.valueOf(cardItems.get("Stock"))) - Integer.parseInt(String.valueOf(cardItems.get("Order")));
+            usersRef.child(String.valueOf(cardItems.get("id"))).child("Stock").setValue(updatedStock);
         }
 
         return true;

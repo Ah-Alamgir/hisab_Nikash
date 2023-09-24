@@ -77,16 +77,16 @@ public class Sell extends AppCompatActivity {
 
             holder.plusBtn.setOnClickListener(view -> {
                 itemCountVar = itemCountVar+1;
-                holder.pieceAmount.setText(String.valueOf(Integer.valueOf(holder.pieceAmount.getText().toString())+1));
-                addtoCard(String.valueOf(item.get("id")), position, Integer.valueOf(item.get("sellPrice").toString()) , Integer.valueOf(holder.pieceAmount.getText().toString()));
+                holder.pieceAmount.setText(String.valueOf(Integer.parseInt(holder.pieceAmount.getText().toString())+1));
+                addtoCard(String.valueOf(item.get("id")), position, Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.pieceAmount.getText())));
 
 
             });
             holder.minusBtn.setOnClickListener(view -> {
-                if(!(Integer.valueOf(holder.pieceAmount.getText().toString()) <=0)){
+                if(!(Integer.parseInt(holder.pieceAmount.getText().toString()) <=0)){
                     itemCountVar = itemCountVar-1;
-                    holder.pieceAmount.setText(String.valueOf(Integer.valueOf(holder.pieceAmount.getText().toString())-1));
-                    addtoCard(String.valueOf(item.get("id")), position, -Integer.valueOf(item.get("sellPrice").toString()) , Integer.valueOf(holder.pieceAmount.getText().toString()));
+                    holder.pieceAmount.setText(String.valueOf(Integer.parseInt(holder.pieceAmount.getText().toString())-1));
+                    addtoCard(String.valueOf(item.get("id")), position, -Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.pieceAmount.getText()) ));
 
                 }
             });
@@ -125,8 +125,8 @@ public class Sell extends AppCompatActivity {
     public void addtoCard(String id, int position, int price,int orderAmount){
 
         totalPriceVar = totalPriceVar+ price;
-        totalPrice_textView.setText(totalPriceVar.toString());
-        totalItemBtn.setText(itemCountVar.toString());
+        totalPrice_textView.setText(String.valueOf(totalPriceVar));
+        totalItemBtn.setText(String.valueOf(itemCountVar));
 
 
         if(!autoload.cardItem_list.contains(id)){

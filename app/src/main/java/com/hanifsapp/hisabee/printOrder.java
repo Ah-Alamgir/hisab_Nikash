@@ -27,6 +27,7 @@ import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class printOrder extends AppCompatActivity {
 
@@ -166,15 +167,15 @@ String selectedItemText="";
         amount.append("<b> পিছ </b><br><br>");
         dam.append("<b> মোট </b><br><br>");
         for(Map<String, Object> entry: autoload.cardItem){
-            totalPrices = totalPrices + Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
+            totalPrices = totalPrices + Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")));
 
-            name.append("<b>").append(entry.get("name").toString()).append("</b><br>");
+            name.append("<b>").append(entry.get("name")).append("</b><br>");
             dor.append(entry.get("sellPrice")).append("<br>");
-            dam.append(Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString())).append("<br>");
-            amount.append(entry.get("Order").toString()).append(" পিছ").append("<br>");
+            dam.append(Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")))).append("<br>");
+            amount.append(String.valueOf(entry.get("Order"))).append(" পিছ").append("<br>");
 
-            totdisc = totdisc + (Integer.valueOf(entry.get("Discount").toString()) * Integer.valueOf(entry.get("Order").toString()));
-            totvat = totvat + (Integer.valueOf(entry.get("vat").toString()) * Integer.valueOf(entry.get("Order").toString()));
+            totdisc = totdisc + (Integer.parseInt(String.valueOf(entry.get("Discount"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
+            totvat = totvat + (Integer.parseInt(String.valueOf(entry.get("vat"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
 
 
         }
@@ -223,17 +224,17 @@ String selectedItemText="";
 
     String customerInfo= "";
     public void startPrint() throws EscPosEncodingException, EscPosBarcodeException, EscPosParserException, EscPosConnectionException {
-        String printtext ="";
-        int priceAftervat=0;
+        String printText ="";
+        int priceAfterVat=0;
         int totalDiscount = 0;
         int totalVat = 0;
-        printtext = "";
+        printText = "";
 
-        printtext = "[L]\n" +
+        printText = "[L]\n" +
                 "[C]<b>"+homePage.sharedPreferences.getString("name", "Business name") +
                 "\n[C]" + homePage.sharedPreferences.getString("address", "Address") +
                "\n[C]" + homePage.sharedPreferences.getString("phoneNumber", "Phone Number")+"<b>\n" +
-                "[C]================================\n" ;
+                "[C]================================\n"+"[L]<b>name[L]   Rate [R]  Pcs [R]Total</b>\n";
 
 
 //        doing something like recycler view for printing
@@ -241,42 +242,37 @@ String selectedItemText="";
 
                 for(Map<String, Object> entry: autoload.cardItem){
                     int totalPrices = 0;
-                    totalPrices = Integer.valueOf(entry.get("Order").toString()) * Integer.valueOf(entry.get("sellPrice").toString());
+                    totalPrices = Integer.parseInt(String.valueOf(entry.get("Order") ))* Integer.parseInt(String.valueOf(entry.get("sellPrice")));
                     priceTopay = priceTopay+ totalPrices;
 
-                    printtext =
-                            printtext+
-                                    "[L]<b>"+entry.get("name")+"</b>[R]"+totalPrices+"\n" +
-                                    "[L]  + Piece : "+entry.get("Order")+"\n" +"Unit price:"+ entry.get("sellPrice")+"\n\n";
+                    printText =
+                            printText+
+                                    "[L]<b>"+entry.get("name")+"[L]   "+ entry.get("sellPrice")+
+                                    "[L]    "+entry.get("Order")+"</b>[R]"+totalPrices+"\n";
 
 
 
-                    totalDiscount = totalDiscount + (Integer.valueOf(entry.get("Discount").toString()) * Integer.valueOf(entry.get("Order").toString()));
-                    totalVat = totalVat + (Integer.valueOf(entry.get("vat").toString()) * Integer.valueOf(entry.get("Order").toString()));
+                    totalDiscount = totalDiscount + (Integer.parseInt(Objects.requireNonNull(entry.get("Discount")).toString()) * Integer.parseInt(Objects.requireNonNull(entry.get("Order")).toString()));
+                    totalVat = totalVat + (Integer.parseInt(Objects.requireNonNull(entry.get("vat")).toString()) * Integer.parseInt(Objects.requireNonNull(entry.get("Order")).toString()));
                 }
 
-                priceAftervat = priceTopay - totalDiscount - totalVat;
-                printtext = printtext +
-                "[L]\n" +
+                priceAfterVat = priceTopay - totalDiscount - totalVat;
+                printText = printText +
                 "[C]--------------------------------\n"+
 
-                "[C] Sotal price [R]"+ priceTopay +"\n" +
-                "[C]Discount:  [R]"+ totalDiscount +"\n" +
-                "[C]Vat [R]"+totalVat+"\n\n" +
-                "[C]<b>Price to Pay [R]"+ (priceAftervat) +"<b>"+ "\n" +
-                "[L]\n" +
-                "[L]\n" +
-                "[L]" + selectedItemText+"\n"; //customer Details
-
-
+                "[R]   Total: [R]"+ priceTopay +"\n" +
+                "[R]Discount: [R]"+ totalDiscount +"\n" +
+                "[R]     Vat: [R]"+totalVat+"\n" +
+                "[R]<b>Please Pay: [R]"+ (priceAfterVat) +"</b>\n"+
+                "[L]" + selectedItemText;
 
                 printed = autoload.getStockToUpdat();
-        autoload.getDataToUpdate("todaySell", priceAftervat, String.valueOf(customerInfo));
+        autoload.getDataToUpdate("todaySell", priceAfterVat, String.valueOf(customerInfo));
 
         EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
         printer
                 .printFormattedText(
-                        printtext
+                        printText
                 );
 
     }

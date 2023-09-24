@@ -250,9 +250,9 @@ public class denaPawna extends AppCompatActivity {
         ArrayList<Map<String, Object>> list = new ArrayList<>();
 
         for (Map<String, Object> entry: getFromArray){
-            if (entry.get("date").toString().contains(date)){
+            if (String.valueOf(entry.get("date")).contains(date)){
                 list.add(entry);
-                amount = Integer.parseInt(entry.get("price").toString()) + amount;
+                amount = Integer.parseInt(String.valueOf(entry.get("price"))) + amount;
             }
         }
         return list;

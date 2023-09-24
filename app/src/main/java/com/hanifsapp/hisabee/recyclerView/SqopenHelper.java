@@ -65,8 +65,8 @@ public class SqopenHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         while (cursor.moveToNext()){
-            String dataset ="\n"+ "নামঃ   " + cursor.getString(1)+"\n" + "ঠিকানাঃ   " +cursor.getString(2)+"\n"+
-                    "নাম্বারঃ " + cursor.getString(3) +"\n"+" id:"+ cursor.getInt(0);
+            String dataset ="নামঃ   " + cursor.getString(1)+"\n" + "ঠিকানাঃ   " +cursor.getString(2)+"\n"+
+                    "নাম্বারঃ " + cursor.getString(3) +" id:"+ cursor.getInt(0);
             customerInfo.add(dataset);
         }
         cursor.close();

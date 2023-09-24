@@ -114,6 +114,7 @@ public class StockProduct extends AppCompatActivity {
             });
 
             holder.editButton.setOnClickListener(view -> {
+                addProduct.edit_position = holder.getAdapterPosition();
                 addProduct.editProduct = true;
                 startActivity(new Intent(StockProduct.this, addProduct.class));
                 finish();

@@ -1,6 +1,5 @@
 package com.hanifsapp.hisabee;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -90,15 +89,13 @@ public class profile extends AppCompatActivity {
                 userData.put("phoneNumber", phoneNumber);
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
-                databaseReference.child("singleValues").child("CustomarList").push().setValue(userData);
+                databaseReference.child("singleValues").child("CustomerList").push().setValue(userData);
 
                 refreshRecyclerView();
                 dialog.dismiss();
 
-            } else {
-                // Show an error message or handle empty input fields
+            }  // Show an error message or handle empty input fields
 
-            }
         });
 
         dialogBuilder.setNegativeButton("বাদ দিন", null);

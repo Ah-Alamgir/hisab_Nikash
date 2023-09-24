@@ -44,7 +44,7 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
     public void onBindViewHolder(@NonNull denapaonaAdapter.ViewHolder holder, int position) {
 
         Map<String, Object> item = mData.get(position);
-        holder.price.setText("মোটঃ "+ item.get("price").toString());
+        holder.price.setText("মোটঃ "+ String.valueOf(item.get("price")));
         holder.details.setText(Objects.requireNonNull(item.get("details")).toString());
         holder.dates.setText(Objects.requireNonNull(item.get("date")).toString());
         holder.cardViews.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.anim1));

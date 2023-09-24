@@ -18,7 +18,8 @@ public class homePage extends AppCompatActivity {
     CardView printerConnect,sell,sprofile,dueBook,costBook,stockManagement;
     public static SharedPreferences sharedPreferences;
 
-    static TextView sellToday, dueToday, spendToday, businessName, businessAddress, bussinessPhone;
+    static TextView sellToday, dueToday, spendToday;
+    TextView  businessName, businessAddress, businessPhone;
 
 
     ImageButton editInfo;
@@ -44,7 +45,7 @@ public class homePage extends AppCompatActivity {
         editInfo= findViewById(R.id.EditInfo);
         businessName = findViewById(R.id.businessname);
         businessAddress = findViewById(R.id.address_home);
-        bussinessPhone = findViewById(R.id.phoneNumber_home);
+        businessPhone = findViewById(R.id.phoneNumber_home);
 
 
 
@@ -135,7 +136,7 @@ public class homePage extends AppCompatActivity {
     private void updateBusinessInfo(){
         businessName.setText(sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম "));
         businessAddress.setText(sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা"));
-        bussinessPhone.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
+        businessPhone.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
     }
 
 
