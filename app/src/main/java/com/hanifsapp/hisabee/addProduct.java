@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -125,7 +127,7 @@ public class addProduct extends AppCompatActivity {
 
 
 
-    public void alartDIalogue(){
+    private void alartDIalogue(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (editProduct){
             builder.setTitle("Product Updated")
@@ -141,8 +143,5 @@ public class addProduct extends AppCompatActivity {
         dialog.show();
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+
 }

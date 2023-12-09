@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,12 @@ public class StockProduct extends AppCompatActivity {
         setTitle("মোট পণ্য সংখ্যাঃ "+ autoload.productLists.size());
         count();
 
+        OnBackPressedCallback callbacks = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
 
     }
 
@@ -154,8 +161,5 @@ public class StockProduct extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+
 }

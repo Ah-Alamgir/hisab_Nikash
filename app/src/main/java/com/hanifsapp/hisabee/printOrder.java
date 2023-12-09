@@ -1,16 +1,25 @@
 package com.hanifsapp.hisabee;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
@@ -67,21 +76,46 @@ public class printOrder extends AppCompatActivity {
         arrayListCustomerInfos = sqopenHelper.getDataList();
 
 
+        ConstraintLayout layout_tobePrint = (ConstraintLayout) findViewById(R.id.printLayout_orderpage);
+
+
 
         readyText();
 
         startPrint.setOnClickListener(view -> {
             try {
-                startPrint();
+                printEpos.generatePdf(layout_tobePrint, this);
             } catch (EscPosEncodingException | EscPosConnectionException | EscPosParserException |
                      EscPosBarcodeException e) {
-                throw new RuntimeException(e);
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         setDrawerLayout();
 
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true){
+
+            @Override
+            public void handleOnBackPressed() {
+                if(printed){
+                    autoload.cardItem_list.clear();
+                    autoload.cardItem.clear();
+                    Intent intent = new Intent(printOrder.this, Sell.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    setEnabled(false);
+
+                }
+            }
+        };
     }
+
+
+
+
+
 
 
 
@@ -92,7 +126,7 @@ String selectedItemText="";
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         listView = findViewById(R.id.customerList);
 
 
@@ -109,7 +143,7 @@ String selectedItemText="";
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -223,74 +257,6 @@ String selectedItemText="";
 
 
     String customerInfo= "";
-    public void startPrint() throws EscPosEncodingException, EscPosBarcodeException, EscPosParserException, EscPosConnectionException {
-        String printText ="";
-        int priceAfterVat=0;
-        int totalDiscount = 0;
-        int totalVat = 0;
-        printText = "";
 
-        printText = "[L]\n" +
-                "[C]<b>"+homePage.sharedPreferences.getString("name", "Business name") +
-                "\n[C]" + homePage.sharedPreferences.getString("address", "Address") +
-               "\n[C]" + homePage.sharedPreferences.getString("phoneNumber", "Phone Number")+"<b>\n" +
-                "[C]================================\n"+"[L]<b>name[L]   Rate [R]  Pcs [R]Total</b>\n";
-
-
-//        doing something like recycler view for printing
-
-
-                for(Map<String, Object> entry: autoload.cardItem){
-                    int totalPrices = 0;
-                    totalPrices = Integer.parseInt(String.valueOf(entry.get("Order") ))* Integer.parseInt(String.valueOf(entry.get("sellPrice")));
-                    priceTopay = priceTopay+ totalPrices;
-
-                    printText =
-                            printText+
-                                    "[L]<b>"+entry.get("name")+"[L]   "+ entry.get("sellPrice")+
-                                    "[L]    "+entry.get("Order")+"</b>[R]"+totalPrices+"\n";
-
-
-
-                    totalDiscount = totalDiscount + (Integer.parseInt(Objects.requireNonNull(entry.get("Discount")).toString()) * Integer.parseInt(Objects.requireNonNull(entry.get("Order")).toString()));
-                    totalVat = totalVat + (Integer.parseInt(Objects.requireNonNull(entry.get("vat")).toString()) * Integer.parseInt(Objects.requireNonNull(entry.get("Order")).toString()));
-                }
-
-                priceAfterVat = priceTopay - totalDiscount - totalVat;
-                printText = printText +
-                "[C]--------------------------------\n"+
-
-                "[R]   Total: [R]"+ priceTopay +"\n" +
-                "[R]Discount: [R]"+ totalDiscount +"\n" +
-                "[R]     Vat: [R]"+totalVat+"\n" +
-                "[R]<b>Please Pay: [R]"+ (priceAfterVat) +"</b>\n"+
-                "[L]" + selectedItemText;
-
-                printed = autoload.getStockToUpdat();
-        autoload.getDataToUpdate("todaySell", priceAfterVat, String.valueOf(customerInfo));
-
-        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
-        printer
-                .printFormattedText(
-                        printText
-                );
-
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if(printed){
-            autoload.cardItem_list.clear();
-            autoload.cardItem.clear();
-            Intent intent = new Intent(this, Sell.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else {
-            super.onBackPressed();
-        }
-    }
 }
 

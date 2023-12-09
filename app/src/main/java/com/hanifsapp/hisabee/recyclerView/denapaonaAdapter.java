@@ -47,7 +47,6 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
         holder.price.setText("মোটঃ "+ String.valueOf(item.get("price")));
         holder.details.setText(Objects.requireNonNull(item.get("details")).toString());
         holder.dates.setText(Objects.requireNonNull(item.get("date")).toString());
-        holder.cardViews.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.anim1));
 
 
         holder.deleteButton.setOnClickListener(view -> {

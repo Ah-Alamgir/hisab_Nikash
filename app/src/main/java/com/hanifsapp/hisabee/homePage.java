@@ -57,7 +57,7 @@ public class homePage extends AppCompatActivity {
         stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
         costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
         dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
-//        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, eps.class)));
+        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, wish_printer.class)));
 
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();

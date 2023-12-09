@@ -57,7 +57,7 @@ public class costCalculation extends AppCompatActivity {
             showTextInputDialog("ভারা বাবদ খরচ ", "rent");
         });
 
-        calculateCost(date_TextView.getText().toString());
+
     }
 
 
@@ -100,9 +100,7 @@ public class costCalculation extends AppCompatActivity {
         builder.show();
     }
 
-    public void calculateCost(String date){
 
-        }
 
 
 }

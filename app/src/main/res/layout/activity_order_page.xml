@@ -6,105 +6,112 @@
     android:layout_height="match_parent">
 
     <!-- Main content view -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/businessDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorSecondary"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/priceDetails"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:text="0000"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        <TextView
-            android:id="@+id/customerDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="serif"
-            android:textColor="@color/colorSecondary"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/priceDetails" />
-
-        <Button
-            android:id="@+id/startPrinting"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="প্রিন্ট করুন"
-            app:cornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessDetails">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/printLayout_orderpage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/orderName"
-                android:layout_width="90dp"
+                android:id="@+id/businessDetails"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorTextView3" />
+                android:textColor="@color/colorSecondary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/orderDor"
-                android:layout_width="90dp"
+                android:id="@+id/priceDetails"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextView3" />
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="0000"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <TextView
-                android:id="@+id/orderAmount"
-                android:layout_width="90dp"
+                android:id="@+id/customerDetails"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextView3" />
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="serif"
+                android:textColor="@color/colorSecondary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/priceDetails" />
 
-            <TextView
-                android:id="@+id/orderDam"
-                android:layout_width="90dp"
+            <Button
+                android:id="@+id/startPrinting"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextView3" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="প্রিন্ট করুন"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/businessDetails">
+
+                <TextView
+                    android:id="@+id/orderName"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextView3" />
+
+                <TextView
+                    android:id="@+id/orderDor"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextView3" />
+
+                <TextView
+                    android:id="@+id/orderAmount"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextView3" />
+
+                <TextView
+                    android:id="@+id/orderDam"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextView3" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <!-- Navigation drawer view -->
     <LinearLayout
