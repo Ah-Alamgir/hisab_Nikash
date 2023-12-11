@@ -24,13 +24,12 @@ public class wish_printer extends AppCompatActivity {
 
         Button btn =  findViewById(R.id.button_wish);
         EditText editText = findViewById(R.id.editText_wish);
-        TextView textt = findViewById(R.id.textView6);
 
         btn.setOnClickListener(v -> {
 
-            textt.setText(editText.getText());
+
             try {
-                printEpos.generatePdf(textt, wish_printer.this);
+                printEpos.generatePdf(editText, wish_printer.this);
             } catch (EscPosEncodingException | EscPosParserException | EscPosBarcodeException |
                      EscPosConnectionException e) {
                 throw new RuntimeException(e);
