@@ -182,10 +182,10 @@ String selectedItemText="";
 
     public void readyText(){
 
-        text ="<b>"+ homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ "</b> <br>"+
+        text =homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ ("\n")+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
-                + "<br>" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
-                "<br><b>============================</b><br><br>";
+                + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
+                "\n============================\n\n";
 
 
 
@@ -196,17 +196,17 @@ String selectedItemText="";
         StringBuilder dor = new StringBuilder();
         StringBuilder amount = new StringBuilder();
         StringBuilder dam = new StringBuilder();
-        name.append("<b> নাম </b><br><br>");
-        dor.append("<b> দর  </b><br><br>");
-        amount.append("<b> পিছ </b><br><br>");
-        dam.append("<b> মোট </b><br><br>");
+        name.append(" নাম \n\n");
+        dor.append("দর  \n\n");
+        amount.append("পিছ \n\n");
+        dam.append("মোট \n\n");
         for(Map<String, Object> entry: autoload.cardItem){
             totalPrices = totalPrices + Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")));
 
-            name.append("<b>").append(entry.get("name")).append("</b><br>");
-            dor.append(entry.get("sellPrice")).append("<br>");
-            dam.append(Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")))).append("<br>");
-            amount.append(String.valueOf(entry.get("Order"))).append(" পিছ").append("<br>");
+            name.append(entry.get("name")).append("\n");
+            dor.append(entry.get("sellPrice")).append("\n");
+            dam.append(Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")))).append("\n");
+            amount.append(entry.get("Order")).append(" পিছ").append("\n");
 
             totdisc = totdisc + (Integer.parseInt(String.valueOf(entry.get("Discount"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
             totvat = totvat + (Integer.parseInt(String.valueOf(entry.get("vat"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
@@ -216,27 +216,25 @@ String selectedItemText="";
 //
         String pricedetail =
 
-                "<b> সর্বমোটঃ "+ totalPrices +"</b><br>" +
-                "<b>ডিস্কাউন্টঃ  <b>"+ totdisc +"<br>" +
-                "<b>ভ্যাটঃ <b>"+totvat+"<br>" +
-                "-------------------------<br>"+
-                "<b>মোট প্রদেয়ঃ <b>"+ (totalPrices - totdisc - totvat) + "<br>";
+                "সর্বমোটঃ "+ totalPrices +"\n" +
+                "ডিস্কাউন্টঃ  "+ totdisc +"\n" +
+                "ভ্যাটঃ "+totvat+"\n" +
+                "-------------------------\n"+
+                "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) + "\n";
 
 
         String customer =
-                "<b>গ্রাহকঃ </b><br>" +
-                "Raymond DUPONT <br>" +
-                "5 rue des girafes <br>" +
-                "Tel : +33801201456 <br>";
+                "গ্রাহকঃ \n" +
+                "5 rue des girafes \n" +
+                "Tel : +33801201456 \n";
 
-        businessDetails.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
-        pricedetails.setText(HtmlCompat.fromHtml(pricedetail, HtmlCompat.FROM_HTML_MODE_LEGACY));
-        nameTextview.setText(HtmlCompat.fromHtml(String.valueOf(name), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        dorTextview.setText(HtmlCompat.fromHtml(String.valueOf(dor), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        amountTextview.setText(HtmlCompat.fromHtml(String.valueOf(amount), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        totalTextview.setText(HtmlCompat.fromHtml(String.valueOf(dam), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        totalTextview.setText(HtmlCompat.fromHtml(String.valueOf(dam), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        customerdetails.setText(HtmlCompat.fromHtml(customer, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        businessDetails.setText(text);
+        pricedetails.setText(pricedetail);
+        nameTextview.setText(name);
+        dorTextview.setText(dor);
+        amountTextview.setText(amount);
+        totalTextview.setText(dam);
+//        customerdetails.setText(customer);
     }
 
 

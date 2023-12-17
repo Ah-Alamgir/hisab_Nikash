@@ -23,18 +23,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/printLayout_orderpage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/businessDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
                 android:background="@color/white"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,10 +42,11 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginRight="20dp"
                 android:background="@color/white"
                 android:text="0000"
                 android:textAlignment="viewEnd"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -55,20 +54,18 @@
                 android:id="@+id/customerDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginLeft="20dp"
                 android:background="@color/white"
                 android:fontFamily="serif"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/priceDetails" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:background="@color/white"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
@@ -78,36 +75,64 @@
 
                 <TextView
                     android:id="@+id/orderName"
-                    android:layout_width="90dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="TextView"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/orderDor"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="58dp" />
 
                 <TextView
                     android:id="@+id/orderDor"
-                    android:layout_width="90dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="TextView"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/orderAmount"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/orderName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="58dp" />
 
                 <TextView
                     android:id="@+id/orderAmount"
-                    android:layout_width="90dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="TextView"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/orderDam"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/orderDor"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="58dp" />
 
                 <TextView
                     android:id="@+id/orderDam"
-                    android:layout_width="90dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="TextView"
-                    android:textAlignment="center" />
-            </LinearLayout>
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/orderAmount"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="58dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
