@@ -1,8 +1,10 @@
 package com.hanifsapp.hisabee;
 
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,12 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
@@ -29,6 +34,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class wish_printer extends AppCompatActivity {
     ArrayAdapter<String> adapter;
@@ -89,8 +96,23 @@ public class wish_printer extends AppCompatActivity {
         RadioButton boltButton = views.findViewById(R.id.radioButton);
         Spinner spinner = views.findViewById(R.id.spinner_wish);
         spinner.setAdapter(adapter);
-//        spinner.setOnItemClickListener((parent, view, position, id) -> {
-//            editText.setTextSize(Float.parseFloat(spinner.getSelectedItem().toString()));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedText = parent.getItemAtPosition(position).toString();
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(selectedText));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+//        CardView cardView  = views.findViewById(R.id.saveButton);
+//        cardView.setOnClickListener(v -> {
+//            SharedPreferences sp = new SharePre
 //        });
 
         boltButton.setOnClickListener(v -> {

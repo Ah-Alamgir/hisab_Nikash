@@ -174,7 +174,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="প্রিন্ট করুন "
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 
@@ -201,7 +200,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="কাস্টমারের তথ্য "
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 
@@ -228,7 +226,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="দেনা পাওনা"
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 
@@ -255,7 +252,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="বিক্রি"
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 
@@ -282,7 +278,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="খরচের খাতা"
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 
@@ -309,7 +304,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="স্টক ম্যানেজমেন্ট"
-                android:textColor="@color/colorSecondary"
                 android:textSize="16sp" />
 
 

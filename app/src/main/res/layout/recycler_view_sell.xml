@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="৳"
-            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sell_price_text"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Poco M2"
-            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="15,000"
-            android:textColor="@color/colorTextView3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -79,8 +76,7 @@
                 android:backgroundTintMode="add"
                 android:contentDescription="add"
                 android:visibility="visible"
-                app:srcCompat="@drawable/plush"
-                app:tint="@color/colorSecondary" />
+                app:srcCompat="@drawable/plush"/>
 
             <TextView
                 android:id="@+id/pieceText"
@@ -88,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="00"
-                android:textColor="@color/colorTextView3"
                 android:textSize="22sp" />
 
             <ImageButton
@@ -99,8 +94,7 @@
                 android:backgroundTintMode="add"
                 android:contentDescription="add"
                 android:visibility="visible"
-                app:srcCompat="@drawable/baseline_horizontal_rule_24"
-                app:tint="@color/colorSecondary" />
+                app:srcCompat="@drawable/baseline_horizontal_rule_24"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"

@@ -46,7 +46,6 @@ public class denaPawna extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_dena_pawna);
 
         newDue = findViewById(R.id.newDue);

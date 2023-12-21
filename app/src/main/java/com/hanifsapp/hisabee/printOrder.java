@@ -1,33 +1,18 @@
 package com.hanifsapp.hisabee;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.text.HtmlCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.dantsu.escposprinter.EscPosPrinter;
-import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
@@ -36,19 +21,16 @@ import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 public class printOrder extends AppCompatActivity {
 
-    TextView pricedetails, businessDetails, customerdetails, nameTextview, amountTextview, dorTextview, totalTextview;
-    public int priceTopay = 0;
+    TextView pricedetails, businessDetails, nameTextview, amountTextview, dorTextview, totalTextview;
+
     private boolean printed = false;
     SqopenHelper sqopenHelper;
 
     Button startPrint;
-    private DrawerLayout drawerLayout;
-    private ListView listView;
-    private ActionBarDrawerToggle drawerToggle;
+
     ArrayList<String> arrayListCustomerInfos;
 
     public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
@@ -71,12 +53,12 @@ public class printOrder extends AppCompatActivity {
         amountTextview = findViewById(R.id.orderAmount);
         dorTextview = findViewById(R.id.orderDor);
         totalTextview = findViewById(R.id.orderDam);
-        customerdetails = findViewById(R.id.customerDetails);
+
         getPermissions();
         arrayListCustomerInfos = sqopenHelper.getDataList();
 
 
-        ConstraintLayout layout_tobePrint = (ConstraintLayout) findViewById(R.id.printLayout_orderpage);
+        LinearLayout layout_tobePrint = (LinearLayout) findViewById(R.id.printLayout_orderpage);
 
 
 
@@ -90,7 +72,7 @@ public class printOrder extends AppCompatActivity {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-        setDrawerLayout();
+//        setDrawerLayout();
 
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true){
@@ -118,38 +100,6 @@ public class printOrder extends AppCompatActivity {
 
 
 
-
-String selectedItemText="";
-    private void setDrawerLayout() {
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        listView = findViewById(R.id.customerList);
-
-
-        ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this,R.layout.recycler_list_extview, arrayListCustomerInfos);
-        listView.setAdapter(userAdapter);
-        listView.setDivider(this.getDrawable(R.drawable.divider_white));
-        listView.setDividerHeight(1);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            selectedItemText = "<b>গ্রাহকঃ </b>" + parent.getItemAtPosition(position).toString().split("id:")[0];
-            customerInfo = selectedItemText;
-            customerdetails.setText(HtmlCompat.fromHtml(selectedItemText.replace("\n", "<br>"), HtmlCompat.FROM_HTML_MODE_LEGACY));
-            drawerLayout.closeDrawer(GravityCompat.START, true);
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
 
@@ -185,7 +135,7 @@ String selectedItemText="";
         text =homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ ("\n")+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
                 + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
-                "\n============================\n\n";
+                "\n============================";
 
 
 
@@ -196,10 +146,10 @@ String selectedItemText="";
         StringBuilder dor = new StringBuilder();
         StringBuilder amount = new StringBuilder();
         StringBuilder dam = new StringBuilder();
-        name.append(" নাম \n\n");
-        dor.append("দর  \n\n");
-        amount.append("পিছ \n\n");
-        dam.append("মোট \n\n");
+        name.append(" নাম \n");
+        dor.append("দর  \n");
+        amount.append("পিছ \n");
+        dam.append("মোট \n");
         for(Map<String, Object> entry: autoload.cardItem){
             totalPrices = totalPrices + Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")));
 
@@ -220,7 +170,7 @@ String selectedItemText="";
                 "ডিস্কাউন্টঃ  "+ totdisc +"\n" +
                 "ভ্যাটঃ "+totvat+"\n" +
                 "-------------------------\n"+
-                "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) + "\n";
+                "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
 
 
         String customer =
@@ -236,25 +186,6 @@ String selectedItemText="";
         totalTextview.setText(dam);
 //        customerdetails.setText(customer);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    String customerInfo= "";
 
 }
 

@@ -27,7 +27,6 @@ public class homePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_home_page);
         setTitle("মাহি এন্টারপ্রাইজ");
 

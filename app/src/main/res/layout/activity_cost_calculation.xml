@@ -27,7 +27,6 @@
         android:backgroundTint="@color/white"
         android:text="বেতন "
         android:textColor="@color/colorPrimary"
-        app:cornerRadius="8dp"
         app:icon="@mipmap/subjective"
         app:iconGravity="top"
         app:iconTintMode="multiply"
@@ -98,7 +97,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorSecondary">
+            android:background="@color/colorPrimary">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
@@ -152,7 +151,6 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="বেতন "
-                    android:textColor="@color/colorSecondary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -187,7 +185,6 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="ক্রয় "
-                    android:textColor="@color/colorSecondary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -222,7 +219,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date_textVIew" />
@@ -235,7 +232,6 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="মোট খরচ "
-                android:textColor="@color/colorTextView2"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -269,7 +265,6 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="বিল "
-                    android:textColor="@color/colorSecondary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
