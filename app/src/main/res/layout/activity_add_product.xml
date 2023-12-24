@@ -5,7 +5,7 @@
     android:id="@+id/Quantity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addProduct">
+    tools:context=".activity.addProduct">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -86,7 +86,7 @@
                 app:boxBackgroundMode="outline">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sell_price_text_view"
+                    android:id="@+id/buyPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"/>

@@ -19,6 +19,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hanifsapp.hisabee.activity.addProduct;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

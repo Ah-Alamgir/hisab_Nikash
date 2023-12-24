@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sellCardView"
     android:layout_width="match_parent"
     android:layout_height="70dp"
@@ -11,62 +10,29 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@+id/plusBtn"
-        app:layout_constraintStart_toStartOf="@+id/plusBtn">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="৳"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/sell_price_text"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
-
-        <TextView
-            android:id="@+id/name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Poco M2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/sell_price_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="15,000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.549" />
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleY=".8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
             app:srcCompat="@mipmap/mobileapp" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Poco M2" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_marginStart="60dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_gravity="center"
+            app:cardCornerRadius="8dp">
 
 
             <ImageButton
@@ -76,7 +42,7 @@
                 android:backgroundTintMode="add"
                 android:contentDescription="add"
                 android:visibility="visible"
-                app:srcCompat="@drawable/plush"/>
+                app:srcCompat="@drawable/plush" />
 
             <TextView
                 android:id="@+id/pieceText"
@@ -94,7 +60,7 @@
                 android:backgroundTintMode="add"
                 android:contentDescription="add"
                 android:visibility="visible"
-                app:srcCompat="@drawable/baseline_horizontal_rule_24"/>
+                app:srcCompat="@drawable/baseline_horizontal_rule_24" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
@@ -117,6 +83,21 @@
 
         </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="   ৳ "/>
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/sell_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="15,000" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

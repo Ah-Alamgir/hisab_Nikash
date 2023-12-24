@@ -6,13 +6,14 @@
     android:layout_height="220dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
+    app:contentPadding="15dp"
     tools:context=".denaPawna">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchButtonDue"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
@@ -26,28 +27,22 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:hint="বিবরন"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/colorPrimary"
-            app:hintTextColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/denapawna_textInput">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextPhoneNumber"
+                android:id="@+id/denapawna_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#673AB7" />
+                android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Switch
             android:id="@+id/switchButtonGive"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_alignParentRight="true"
             android:text="ব্যায় "
             app:layout_constraintEnd_toEndOf="@+id/details_"
             app:layout_constraintTop_toBottomOf="@+id/details_" />
@@ -57,23 +52,17 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:hint="টাকার পরিমান "
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/colorPrimary"
-            app:hintTextColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextName"
+                android:id="@+id/denapawna_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="#673AB7" />
+                android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

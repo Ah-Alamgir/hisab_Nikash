@@ -1,4 +1,4 @@
-package com.hanifsapp.hisabee;
+package com.hanifsapp.hisabee.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,55 +8,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+
+import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.StockProduct;
+import com.hanifsapp.hisabee.autoload;
+import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
+import com.hanifsapp.hisabee.denaPawna;
+import com.hanifsapp.hisabee.profile;
 
 public class homePage extends AppCompatActivity {
-    CardView printerConnect,sell,sprofile,dueBook,costBook,stockManagement;
     public static SharedPreferences sharedPreferences;
 
-    static TextView sellToday, dueToday, spendToday;
-    TextView  businessName, businessAddress, businessPhone;
 
 
-    ImageButton editInfo;
+
+
+    private ActivityHomePageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        binding =  ActivityHomePageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setTitle("মাহি এন্টারপ্রাইজ");
-
-
-
-        printerConnect = findViewById(R.id.buying);
-        sell = findViewById(R.id.selling);
-        sprofile = findViewById(R.id.profiles);
-        dueBook = findViewById(R.id.dueBooks);
-        costBook = findViewById(R.id.costBooks);
-        stockManagement = findViewById(R.id.stockManage);
-        sellToday = findViewById(R.id.todaySell);
-        spendToday = findViewById(R.id.todayCost);
-        dueToday = findViewById(R.id.today_due);
-        editInfo= findViewById(R.id.EditInfo);
-        businessName = findViewById(R.id.businessname);
-        businessAddress = findViewById(R.id.address_home);
-        businessPhone = findViewById(R.id.phoneNumber_home);
 
 
 
 
         autoload.getCurrentMonthName();
 
-        sell.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
-        sprofile.setOnClickListener(view -> startActivity(new Intent(homePage.this, profile.class)));
-        stockManagement.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
-        costBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
-        dueBook.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
-        printerConnect.setOnClickListener(view -> startActivity(new Intent(homePage.this, wish_printer.class)));
+        binding.sellBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
+        binding.contactBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, profile.class)));
+        binding.stockManageBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
+        binding.costBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
+        binding.dueBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
+        binding.wishBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, wish_printer.class)));
 
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();
@@ -68,7 +57,7 @@ public class homePage extends AppCompatActivity {
 
 
         sharedPreferences = getSharedPreferences("businessInfo", Context.MODE_PRIVATE);
-        editInfo.setOnClickListener(view -> showAddCustomerDialog());
+        binding.EditInfo.setOnClickListener(view -> showAddCustomerDialog());
         updateBusinessInfo();
 
         autoload.isNetworkAvailable(this);
@@ -82,9 +71,9 @@ public class homePage extends AppCompatActivity {
 
 
     public static void setText(){
-        dueToday.setText(autoload.todaydueamount);
-        spendToday.setText(autoload.todaycostamount);
-        sellToday.setText(autoload.todaysellamount);
+//        dueToday.setText(autoload.todaydueamount);
+//        spendToday.setText(autoload.todaycostamount);
+//        sellToday.setText(autoload.todaysellamount);
     }
 
 
@@ -133,9 +122,9 @@ public class homePage extends AppCompatActivity {
 
 
     private void updateBusinessInfo(){
-        businessName.setText(sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম "));
-        businessAddress.setText(sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা"));
-        businessPhone.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
+        binding.businessnameTextView.setText(sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম "));
+        binding.addressTextView.setText(sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা"));
+        binding.phoneNumberTextView.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
     }
 
 

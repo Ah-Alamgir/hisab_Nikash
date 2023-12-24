@@ -19,7 +19,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".wish_printer"
+            android:name=".activity.wish_printer"
             android:exported="false" />
         <activity
             android:name=".profile"
@@ -28,7 +28,7 @@
             android:name=".denaPawna"
             android:exported="false" />
         <activity
-            android:name=".costCalculation"
+            android:name=".activity.costCalculation"
             android:exported="false" />
         <activity
             android:name=".StockProduct"
@@ -37,10 +37,10 @@
             android:name=".printOrder"
             android:exported="false" />
         <activity
-            android:name=".Sell"
+            android:name=".activity.Sell"
             android:exported="false" />
         <activity
-            android:name=".homePage"
+            android:name=".activity.homePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".addProduct"
+            android:name=".activity.addProduct"
             android:exported="false" />
     </application>
 

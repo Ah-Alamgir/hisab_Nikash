@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hanifsapp.hisabee.activity.homePage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,13 +39,13 @@ public class autoload {
     }
 
 
-    static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaydue = new ArrayList<>();
     public static ArrayList<Map<String, Object>> CustomerInfo = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todayspend = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaysell = new ArrayList<>();
     static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
-    static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
+    public static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
     public static List<String> cardItem_list = new ArrayList<>();
 
 

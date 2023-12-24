@@ -17,6 +17,8 @@ import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
+import com.hanifsapp.hisabee.activity.Sell;
+import com.hanifsapp.hisabee.activity.homePage;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
@@ -132,7 +134,7 @@ public class printOrder extends AppCompatActivity {
 
     public void readyText(){
 
-        text =homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ ("\n")+
+        text = homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ ("\n")+
                 homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
                 + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
                 "\n============================";
@@ -173,18 +175,12 @@ public class printOrder extends AppCompatActivity {
                 "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
 
 
-        String customer =
-                "গ্রাহকঃ \n" +
-                "5 rue des girafes \n" +
-                "Tel : +33801201456 \n";
-
         businessDetails.setText(text);
         pricedetails.setText(pricedetail);
         nameTextview.setText(name);
         dorTextview.setText(dor);
         amountTextview.setText(amount);
         totalTextview.setText(dam);
-//        customerdetails.setText(customer);
     }
 
 }

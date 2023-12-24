@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:contentDescription="deleteButton"
     android:orientation="vertical"
-    tools:context=".homePage">
+    tools:context=".activity.homePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/businessname"
+            android:id="@+id/businessname_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="প্রতিষ্ঠানের  নাম "
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/address_home"
+            android:id="@+id/address_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="প্রতিষ্ঠানের ঠিকানা"
@@ -50,10 +50,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessname" />
+            app:layout_constraintTop_toBottomOf="@+id/businessname_textView" />
 
         <TextView
-            android:id="@+id/phoneNumber_home"
+            android:id="@+id/phoneNumber_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -63,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/address_home" />
+            app:layout_constraintTop_toBottomOf="@+id/address_textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,7 +160,7 @@
         app:columnOrderPreserved="false">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/buying"
+            android:id="@+id/wishBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
@@ -186,7 +186,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/profiles"
+            android:id="@+id/contactBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
@@ -212,7 +212,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/dueBooks"
+            android:id="@+id/dueBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
@@ -238,7 +238,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/selling"
+            android:id="@+id/sellBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
@@ -264,7 +264,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/costBooks"
+            android:id="@+id/costBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
@@ -290,7 +290,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/stockManage"
+            android:id="@+id/stockManageBtn"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"

@@ -1,8 +1,7 @@
-package com.hanifsapp.hisabee;
+package com.hanifsapp.hisabee.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,11 +9,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.autoload;
+import com.hanifsapp.hisabee.databinding.RecyclerViewSellBinding;
+import com.hanifsapp.hisabee.printOrder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +39,7 @@ public class Sell extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.pdRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(autoload.productLists));
+        recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
 
 
         totalItemBtn = findViewById(R.id.orderPage);
@@ -49,20 +51,22 @@ public class Sell extends AppCompatActivity {
     }
 
 
-
+//57-127, 151
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         private final List<Map<String, Object>> mData;
-        public MyAdapter(List<Map<String, Object>> data) {
+        private final LayoutInflater mInflater;
+        public MyAdapter(List<Map<String, Object>> data, LayoutInflater mInflater) {
             mData = data;
+            this.mInflater = mInflater;
         }
 
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_sell, parent, false);
-            return new ViewHolder(view);
+            RecyclerViewSellBinding binding1 = RecyclerViewSellBinding.inflate(mInflater, parent, false);
+            return new ViewHolder(binding1);
         }
 
         @SuppressLint("SetTextI18n")
@@ -70,23 +74,23 @@ public class Sell extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
             Map<String, Object> item = mData.get(position);
-            holder.textName.setText( String.valueOf(item.get("name")) );
-            holder.pieceAmount.setText("0");
-            holder.textSellPrice.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
-            holder.finalStock.setText(Objects.requireNonNull(item.get("Stock")).toString());
+            holder.binding.nameText.setText( String.valueOf(item.get("name")) );
+            holder.binding.sellPriceText.setText("0");
+            holder.binding.sellPriceText.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
+            holder.binding.stockamountTextView.setText(Objects.requireNonNull(item.get("Stock")).toString());
 
-            holder.plusBtn.setOnClickListener(view -> {
+            holder.binding.plusBtn.setOnClickListener(view -> {
                 itemCountVar = itemCountVar+1;
-                holder.pieceAmount.setText(String.valueOf(Integer.parseInt(holder.pieceAmount.getText().toString())+1));
-                addtoCard(String.valueOf(item.get("id")), position, Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.pieceAmount.getText())));
+                holder.binding.sellPriceText.setText(String.valueOf(Integer.parseInt(holder.binding.sellPriceText.getText().toString())+1));
+                addtoCard(String.valueOf(item.get("id")), position, Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.binding.pieceText.getText())));
 
 
             });
-            holder.minusBtn.setOnClickListener(view -> {
-                if(!(Integer.parseInt(holder.pieceAmount.getText().toString()) <=0)){
+            holder.binding.minusBtn.setOnClickListener(view -> {
+                if(!(Integer.parseInt(holder.binding.sellPriceText.getText().toString()) <=0)){
                     itemCountVar = itemCountVar-1;
-                    holder.pieceAmount.setText(String.valueOf(Integer.parseInt(holder.pieceAmount.getText().toString())-1));
-                    addtoCard(String.valueOf(item.get("id")), position, -Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.pieceAmount.getText()) ));
+                    holder.binding.sellPriceText.setText(String.valueOf(Integer.parseInt(holder.binding.sellPriceText.getText().toString())-1));
+                    addtoCard(String.valueOf(item.get("id")), position, -Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.binding.sellPriceText.getText()) ));
 
                 }
             });
@@ -100,27 +104,19 @@ public class Sell extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textName, textSellPrice, pieceAmount, finalStock;
-            ImageButton plusBtn, minusBtn;
+            RecyclerViewSellBinding binding;
 
-            CardView cardView;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                textName = itemView.findViewById(R.id.name_text);
-                textSellPrice = itemView.findViewById(R.id.sell_price_text);
-                cardView = itemView.findViewById(R.id.sellCardView);
-                plusBtn = itemView.findViewById(R.id.plusBtn);
-                minusBtn = itemView.findViewById(R.id.minusBtn);
-                pieceAmount = itemView.findViewById(R.id.pieceText);
-                finalStock = itemView.findViewById(R.id.stockamount_text_view);
+            public ViewHolder(RecyclerViewSellBinding binding) {
+                super(binding.getRoot());
+                this.binding = binding;
 
             }
-
-
         }
-
     }
+
+
+
+
 
     public void addtoCard(String id, int position, int price,int orderAmount){
 

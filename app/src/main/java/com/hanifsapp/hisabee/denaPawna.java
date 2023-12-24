@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -18,10 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.hanifsapp.hisabee.databinding.ActivityDenaPawnaBinding;
+import com.hanifsapp.hisabee.databinding.DialogTextInputBinding;
+import com.hanifsapp.hisabee.fragments.baki;
+import com.hanifsapp.hisabee.fragments.bikri;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -29,35 +28,29 @@ import java.util.Map;
 
 public class denaPawna extends AppCompatActivity {
 
-    Button newDue;
-    public static String titleText, fragmentName;
-    private EditText editText, detailsText;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch switchButtonGive, switchButtonDue;
-
-    TabLayout tabLayout;
-    private ViewPager2 viewPager;
-
+    private ActivityDenaPawnaBinding binding;
     int tabPosition = 0;
-    public static TextView dateText,totalText;
-    ImageButton datePicker;
 
+
+    public static String titleText, fragmentName;
+    public static TextView dateText,totalText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dena_pawna);
-
-        newDue = findViewById(R.id.newDue);
-        newDue.setOnClickListener(view -> showTextInputDialog());
+        binding = ActivityDenaPawnaBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+
+
+        binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
-        viewPager.setAdapter(adapter);
+        binding.viewPager.setAdapter(adapter);
+        binding.dateTextView.setText(autoload.dates);
+        binding.datePickBtn.setOnClickListener(v -> showDatePickerDialog());
 
-        new TabLayoutMediator(tabLayout, viewPager,
+        new TabLayoutMediator(binding.tabLayout, binding.viewPager,
                 (tab, position) -> {
                     if (position == 0) {
                         tabPosition = 0;
@@ -73,15 +66,6 @@ public class denaPawna extends AppCompatActivity {
         ).attach();
 
 
-
-
-
-        datePicker = findViewById(R.id.imageButton2);
-        dateText = findViewById(R.id.date_TextView);
-        totalText = findViewById(R.id.hisab_textView);
-        dateText.setText(autoload.dates);
-
-        datePicker.setOnClickListener(v -> showDatePickerDialog());
 
     }
 
@@ -113,16 +97,13 @@ public class denaPawna extends AppCompatActivity {
 
 
     private void showTextInputDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("দেনা পাওনার হিসাব");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_text_input, null);
 
-        editText = view.findViewById(R.id.editTextName);
-        detailsText = view.findViewById(R.id.editTextPhoneNumber);
-        switchButtonGive = view.findViewById(R.id.switchButtonGive);
-        switchButtonDue = view.findViewById(R.id.switchButtonDue);
 
         builder.setView(view);
 
@@ -132,25 +113,25 @@ public class denaPawna extends AppCompatActivity {
 
         builder.setNegativeButton("বাদ দিন", null);
         builder.show();
-
-        
     }
 
 
     private void addData() {
-        if (!editText.getText().toString().isEmpty() && !detailsText.getText().toString().isEmpty()) {
+        DialogTextInputBinding binding1 = DialogTextInputBinding.inflate(LayoutInflater.from(this));
+        String amountText = binding1.denapawnaAmount.getText().toString(), details =  binding1.denapawnaDetails.getText().toString();
 
-            if (switchButtonGive.isChecked()) {
-                autoload.getDataToUpdate("todaySpend", Integer.parseInt(editText.getText().toString()), detailsText.getText().toString());
-            } else if (switchButtonDue.isChecked()) {
-                autoload.getDataToUpdate("todayDue", Integer.parseInt(editText.getText().toString()), detailsText.getText().toString());
+        if (!amountText.isEmpty() && !details.isEmpty()) {
+            if (binding1.switchButtonGive.isChecked()) {
+                autoload.getDataToUpdate("todaySpend", Integer.parseInt(amountText), details);
+            } else if (binding1.switchButtonDue.isChecked()) {
+                autoload.getDataToUpdate("todayDue", Integer.parseInt(amountText), details);
             }
 
         } else {
-            if (editText.getText().toString().isEmpty()) {
-                editText.setError("দাম লিখুন");
+            if (amountText.isEmpty()) {
+                binding1.denapawnaAmount.setError("দাম লিখুন");
             } else {
-                detailsText.setError("বিবরণ লিখুন ");
+                binding1.denapawnaDetails.setError("বিবরণ লিখুন ");
             }
         }
     }
