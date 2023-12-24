@@ -1,97 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".denaPawna">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/supportedAction"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical"
+        android:paddingStart="10dp">
 
         <ImageButton
             android:id="@+id/datePick_Btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_calendar" />
+            android:src="@drawable/baseline_calendar" />
 
         <TextView
             android:id="@+id/date_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="September"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageButton2"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/hisab_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0000"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/date_TextView"
-            app:layout_constraintTop_toBottomOf="@+id/date_TextView" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
-        app:cardCornerRadius="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/newDue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/supportedAction">
+        android:layout_weight="1"
+        app:cardCornerRadius="6dp">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed">
+            android:id="@+id/tableLayout"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="বাকি" />
+                android:text="Monday" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="বিক্রি" />
+                android:text="Tuesday" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ব্যায়" />
+                android:text="Wednesday" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+            android:id="@+id/viewPager3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -104,16 +83,9 @@
 
     <Button
         android:id="@+id/newDue_Btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:text="নতুন হিসাব যোগ করুন "
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:text="নতুন হিসাব যোগ করুন " />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -3,11 +3,9 @@ package com.hanifsapp.hisabee;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.hanifsapp.hisabee.databinding.ActivityDenaPawnaBinding;
 import com.hanifsapp.hisabee.databinding.DialogTextInputBinding;
@@ -33,7 +33,7 @@ public class denaPawna extends AppCompatActivity {
 
 
     public static String titleText, fragmentName;
-    public static TextView dateText,totalText;
+//    public static TextView dateText,totalText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +41,14 @@ public class denaPawna extends AppCompatActivity {
         binding = ActivityDenaPawnaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
-
         binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
-        binding.viewPager.setAdapter(adapter);
+        binding.viewPager3.setAdapter(adapter);
         binding.dateTextView.setText(autoload.dates);
         binding.datePickBtn.setOnClickListener(v -> showDatePickerDialog());
 
-        new TabLayoutMediator(binding.tabLayout, binding.viewPager,
+
+        new TabLayoutMediator(binding.tableLayout,binding.viewPager3,
                 (tab, position) -> {
                     if (position == 0) {
                         tabPosition = 0;
@@ -68,32 +66,6 @@ public class denaPawna extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            showDatePickerDialog();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-
-
-
-
-
-
 
 
     private void showTextInputDialog() {
@@ -191,28 +163,28 @@ public class denaPawna extends AppCompatActivity {
 
             if (switchYear.isChecked()) {
                 titleText = selectedYear;
-                dateText.setText(titleText);
+                binding.dateTextView.setText(titleText);
             } else if (switchMonth.isChecked()) {
                 titleText = getMonthName(selectedMonth);
-                dateText.setText(titleText);
+                binding.dateTextView.setText(titleText);
             } else {
                 titleText = selectedDay + " " + getMonthName(selectedMonth) + " " + selectedYear;
-                dateText.setText(titleText);
+                binding.dateTextView.setText(titleText);
             }
 
 
             switch (fragmentName){
                 case "baki":
                     baki.Update(Update(titleText , autoload.todaydue));
-                    totalText.setText(String.valueOf(amount));
+                    binding.hisabTextView.setText(String.valueOf(amount));
                     break;
                 case "bikri":
                     bikri.Update(Update(titleText , autoload.todaysell));
-                    totalText.setText(String.valueOf(amount));
+                    binding.hisabTextView.setText(String.valueOf(amount));
                     break;
                 case "bay":
                     Fragment_bay.Update(Update(titleText , autoload.todayspend));
-                    totalText.setText(String.valueOf(amount));
+                    binding.hisabTextView.setText(String.valueOf(amount));
                     break;
             }
         });
