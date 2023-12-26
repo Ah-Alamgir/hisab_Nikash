@@ -18,11 +18,12 @@ import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.hanifsapp.hisabee.activity.Sell;
-import com.hanifsapp.hisabee.activity.homePage;
+import com.hanifsapp.hisabee.localDb.localStore;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
+
 
 public class printOrder extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class printOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page);
+        setContentView(R.layout.activity_invoice);
         printed = false; //handling for backpress;
         setTitle("");
         sqopenHelper = new SqopenHelper(this);
@@ -60,7 +61,7 @@ public class printOrder extends AppCompatActivity {
         arrayListCustomerInfos = sqopenHelper.getDataList();
 
 
-        LinearLayout layout_tobePrint = (LinearLayout) findViewById(R.id.printLayout_orderpage);
+        LinearLayout layout_tobePrint = (LinearLayout) findViewById(R.id.printLayout);
 
 
 
@@ -74,7 +75,6 @@ public class printOrder extends AppCompatActivity {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-//        setDrawerLayout();
 
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true){
@@ -134,10 +134,10 @@ public class printOrder extends AppCompatActivity {
 
     public void readyText(){
 
-        text = homePage.sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম ")+ ("\n")+
-                homePage.sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা")
-                + "\n" + homePage.sharedPreferences.getString("phoneNumber", "ফোন নাম্বার")+
-                "\n============================";
+        text =  localStore.settings.get(2)+ ("\n")+
+                localStore.settings.get(3)
+                + "\n" + localStore.settings.get(4)+
+                "\n----------------------";
 
 
 
@@ -171,7 +171,7 @@ public class printOrder extends AppCompatActivity {
                 "সর্বমোটঃ "+ totalPrices +"\n" +
                 "ডিস্কাউন্টঃ  "+ totdisc +"\n" +
                 "ভ্যাটঃ "+totvat+"\n" +
-                "-------------------------\n"+
+                "-----------------------\n"+
                 "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
 
 

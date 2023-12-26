@@ -2,7 +2,6 @@ package com.hanifsapp.hisabee;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.View;
 
 import com.dantsu.escposprinter.EscPosPrinter;
@@ -20,10 +19,6 @@ public class printEpos {
         Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
         view.setDrawingCacheEnabled(false);
         startPrint(bitmap, context);
-        startPrint(bitmap, context
-
-
-        );
     }
 
 

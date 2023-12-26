@@ -1,29 +1,38 @@
 package com.hanifsapp.hisabee.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.SuccessContinuation;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.StockProduct;
 import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
+import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.denaPawna;
 import com.hanifsapp.hisabee.profile;
+import com.hanifsapp.hisabee.localDb.localStore;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import ir.mahozad.android.PieChart;
+
 
 public class homePage extends AppCompatActivity {
-    public static SharedPreferences sharedPreferences;
-
-
-
 
 
     private ActivityHomePageBinding binding;
@@ -31,15 +40,13 @@ public class homePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding =  ActivityHomePageBinding.inflate(getLayoutInflater());
+        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setTitle("মাহি এন্টারপ্রাইজ");
 
 
-
-
         autoload.getCurrentMonthName();
-
+        localStore.getDatas(this);
         binding.sellBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
         binding.contactBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, profile.class)));
         binding.stockManageBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockProduct.class)));
@@ -47,19 +54,16 @@ public class homePage extends AppCompatActivity {
         binding.dueBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
         binding.wishBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, wish_printer.class)));
 
+
         autoload.cardItem_list.clear();
         autoload.cardItem.clear();
-        if(autoload.productLists.isEmpty()){
+        if (autoload.productLists.isEmpty()) {
             autoload.getData();
         }
 
 
-
-
-        sharedPreferences = getSharedPreferences("businessInfo", Context.MODE_PRIVATE);
         binding.EditInfo.setOnClickListener(view -> showAddCustomerDialog());
         updateBusinessInfo();
-
         autoload.isNetworkAvailable(this);
     }
 
@@ -70,65 +74,43 @@ public class homePage extends AppCompatActivity {
 
 
 
-    public static void setText(){
-//        dueToday.setText(autoload.todaydueamount);
-//        spendToday.setText(autoload.todaycostamount);
-//        sellToday.setText(autoload.todaysellamount);
-    }
 
 
 
-
-
-
-
-
-
+    DialogAddCustomerBinding dialogBinding;
 
     private void showAddCustomerDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_add_customer, null);
-        dialogBuilder.setView(dialogView);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        dialogBinding = DialogAddCustomerBinding.inflate(getLayoutInflater());
+        bottomSheetDialog.setContentView(dialogBinding.getRoot());
+        bottomSheetDialog.show();
 
-        EditText editTextName = dialogView.findViewById(R.id.editTextName);
-        EditText editTextAddress = dialogView.findViewById(R.id.editTextAddress);
-        EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
 
-        dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {
-            String name = editTextName.getText().toString().trim();
-            String address = editTextAddress.getText().toString().trim();
-            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+        dialogBinding.addInfoButton.setOnClickListener(v -> {
+            String name = Objects.requireNonNull(dialogBinding.nam.getText()).toString();
+            String address = Objects.requireNonNull(dialogBinding.thikana.getText().toString());
+            String phoneNumber = Objects.requireNonNull(dialogBinding.editTextPhoneNumber.getText().toString());
 
             if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
 
+                boolean done = localStore.putAddress(name, address, phoneNumber, this);
+                if (done) {
+                    localStore.getDatas(this);
+                    updateBusinessInfo();
+                    bottomSheetDialog.dismiss();
+                }
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.putString("name", name);
-                editor.putString("address", address);
-                editor.putString("phoneNumber", phoneNumber);
-                editor.apply();
 
-                dialog.dismiss();
-                updateBusinessInfo();
             }
         });
-
-        dialogBuilder.setNegativeButton("বাদ দিন", null);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
     }
 
 
-    private void updateBusinessInfo(){
-        binding.businessnameTextView.setText(sharedPreferences.getString("name", "প্রতিষ্ঠানের  নাম "));
-        binding.addressTextView.setText(sharedPreferences.getString("address", "প্রতিষ্ঠানের ঠিকানা"));
-        binding.phoneNumberTextView.setText(sharedPreferences.getString("phoneNumber", "ফোন নাম্বার"));
+    private void updateBusinessInfo() {
+        binding.businessnameTextView.setText(localStore.settings.get(4));
+        binding.addressTextView.setText(localStore.settings.get(2));
+        binding.phoneNumberTextView.setText(localStore.settings.get(3));
     }
-
-
-
 
 
 }

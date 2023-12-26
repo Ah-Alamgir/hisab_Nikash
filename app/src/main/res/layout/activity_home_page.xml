@@ -8,6 +8,11 @@
     android:orientation="vertical"
     tools:context=".activity.homePage">
 
+    <ir.mahozad.android.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -315,7 +320,6 @@
                 app:srcCompat="@mipmap/onlineshopping" />
         </androidx.cardview.widget.CardView>
     </androidx.gridlayout.widget.GridLayout>
-
 
 
 </LinearLayout>

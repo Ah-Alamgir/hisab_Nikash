@@ -1,5 +1,6 @@
 package com.hanifsapp.hisabee.activity;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
@@ -22,11 +24,16 @@ import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.databinding.BottomNavigationWishPrinterBinding;
+import com.hanifsapp.hisabee.localDb.localStore;
 import com.hanifsapp.hisabee.printEpos;
+
+import java.util.ArrayList;
 
 public class wish_printer extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     EditText editText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,8 @@ public class wish_printer extends AppCompatActivity {
 
 
 
+
+        setEditText();
         setting.setOnClickListener(v -> showSetting());
 
         btn.setOnClickListener(v -> {
@@ -58,36 +67,37 @@ public class wish_printer extends AppCompatActivity {
         });
 
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true){
-            @Override
-            public void handleOnBackPressed() {
-                finish();
-            }
-        };
-
-
 
 
     }
 
 
+    private void setEditText(){
+
+        editText.setTextSize(22);
+        if (Boolean.parseBoolean(localStore.settings.get(1))){
+            editText.setTypeface(null, Typeface.BOLD);
+
+        }
+
+    }
 
     private void showSetting(){
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
-        View views = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_navigation_wish_printer, null);
 
-        dialog.setContentView(views);
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        BottomNavigationWishPrinterBinding wishDialouge = BottomNavigationWishPrinterBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(wishDialouge.getRoot());
         dialog.show();
 
 
-        RadioButton boltButton = views.findViewById(R.id.radioButton);
-        Spinner spinner = views.findViewById(R.id.spinner_wish);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        wishDialouge.spinnerWish.setAdapter(adapter);
+        wishDialouge.spinnerWish.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedText = parent.getItemAtPosition(position).toString();
-                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(selectedText));
+                editText.setTextSize(Integer.parseInt(selectedText));
             }
 
             @Override
@@ -97,19 +107,22 @@ public class wish_printer extends AppCompatActivity {
         });
 
 
-//        CardView cardView  = views.findViewById(R.id.saveButton);
-//        cardView.setOnClickListener(v -> {
-//            SharedPreferences sp = new SharePre
-//        });
+        wishDialouge.saveButton.setOnClickListener(v -> {
+            localStore.putSettings(this, String.valueOf(editText.getTextSize()), String.valueOf(wishDialouge.radioButton.isChecked()));
+        });
 
-        boltButton.setOnClickListener(v -> {
-            if(boltButton.isChecked()) {
+
+        wishDialouge.radioButton.setOnClickListener(v -> {
+            if(wishDialouge.radioButton.isChecked()) {
                 editText.setTypeface(null, Typeface.BOLD);
             }else {
                 editText.setTypeface(null, Typeface.NORMAL);
             }
         });
     }
+
+
+
 
 
 }

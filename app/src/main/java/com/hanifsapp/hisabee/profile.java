@@ -66,8 +66,8 @@ public class profile extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_add_customer, null);
         dialogBuilder.setView(dialogView);
 
-        EditText editTextName = dialogView.findViewById(R.id.editTextName);
-        EditText editTextAddress = dialogView.findViewById(R.id.editTextAddress);
+        EditText editTextName = dialogView.findViewById(R.id.nam);
+        EditText editTextAddress = dialogView.findViewById(R.id.thikana);
         EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
 
         dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {

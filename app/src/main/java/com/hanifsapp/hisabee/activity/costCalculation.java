@@ -54,6 +54,7 @@ public class costCalculation extends AppCompatActivity {
     }
 
 
+
     private void showTextInputDialog(String title, String tag) {
         EditText editText, detailsText;
         Switch switchButtonGive, switchButtonDue;
@@ -63,7 +64,7 @@ public class costCalculation extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_text_input, null);
 
-        editText = view.findViewById(R.id.editTextName);
+        editText = view.findViewById(R.id.nam);
         detailsText = view.findViewById(R.id.editTextPhoneNumber);
         switchButtonGive = view.findViewById(R.id.switchButtonGive);
         switchButtonDue = view.findViewById(R.id.switchButtonDue);

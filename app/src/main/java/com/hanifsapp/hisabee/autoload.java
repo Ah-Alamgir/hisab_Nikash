@@ -123,7 +123,6 @@ public class autoload {
                                             todayspend.add(spends);
                                         }
                                         Collections.reverse(todayspend);
-                                        homePage.setText();
                                         break;
 
 

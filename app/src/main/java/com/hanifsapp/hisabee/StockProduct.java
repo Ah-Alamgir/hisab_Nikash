@@ -36,9 +36,7 @@ public class StockProduct extends AppCompatActivity {
         setContentView(R.layout.activity_stock_product);
 
 
-        RecyclerView recyclerView = findViewById(R.id.stockRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new StockProduct.MyAdapter(autoload.productLists));
+
 
         totoalStock_textview = findViewById(R.id.total_stock_textView);
         totalStock_value_textView = findViewById(R.id.total_stock_value_text);
@@ -62,6 +60,17 @@ public class StockProduct extends AppCompatActivity {
         };
 
     }
+
+
+
+    @Override
+    protected void onStart() {
+        RecyclerView recyclerView = findViewById(R.id.stockRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new StockProduct.MyAdapter(autoload.productLists));
+        super.onStart();
+    }
+
 
 
     private void count(){

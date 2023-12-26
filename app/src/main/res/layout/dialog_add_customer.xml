@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:paddingTop="20dp"
+    android:paddingHorizontal="30dp"
+    android:paddingBottom="20dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/denapawna_textInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:hint="নাম "
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextName"
+            android:id="@+id/nam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#673AB7" />
@@ -26,13 +26,11 @@
         android:id="@+id/details_t"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:hint="ঠিকানা"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextAddress"
+            android:id="@+id/thikana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#673AB7" />
@@ -42,8 +40,6 @@
         android:id="@+id/details_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:hint="নাম্বার"
         app:boxBackgroundMode="outline">
 
@@ -54,5 +50,12 @@
             android:inputType="phone"
             android:textColor="#673AB7" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginTop="20dp"
+        android:id="@+id/addInfo_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="যোগ করুন" />
 
 </LinearLayout>

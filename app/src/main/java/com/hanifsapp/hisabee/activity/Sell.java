@@ -37,10 +37,6 @@ public class Sell extends AppCompatActivity {
 
 
 
-        RecyclerView recyclerView = findViewById(R.id.pdRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
-
 
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
@@ -51,7 +47,16 @@ public class Sell extends AppCompatActivity {
     }
 
 
-//57-127, 151
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        RecyclerView recyclerView = findViewById(R.id.pdRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
+    }
+
+    //57-127, 151
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         private final List<Map<String, Object>> mData;
