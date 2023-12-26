@@ -31,7 +31,10 @@ public class printEpos {
         printer
                 .printFormattedText(
                         "[C]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmap)+"</img>\n"
-
                 );
+
+
+
+
     }
 }

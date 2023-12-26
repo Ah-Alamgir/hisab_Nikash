@@ -8,10 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.homePage">
 
-    <ir.mahozad.android.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -71,6 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/address_textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

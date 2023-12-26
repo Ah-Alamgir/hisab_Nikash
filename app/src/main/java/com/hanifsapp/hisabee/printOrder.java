@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -27,7 +26,7 @@ import java.util.Map;
 
 public class printOrder extends AppCompatActivity {
 
-    TextView pricedetails, businessDetails, nameTextview, amountTextview, dorTextview, totalTextview;
+//    TextView pricedetails, businessDetails, nameTextview, amountTextview, dorTextview, totalTextview;
 
     private boolean printed = false;
     SqopenHelper sqopenHelper;
@@ -43,29 +42,29 @@ public class printOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invoice);
+        setContentView(R.layout.invoice);
         printed = false; //handling for backpress;
         setTitle("");
         sqopenHelper = new SqopenHelper(this);
 
 
-        startPrint = findViewById(R.id.startPrinting);
-        pricedetails = findViewById(R.id.priceDetails);
-        businessDetails = findViewById(R.id.businessDetails);
-        nameTextview = findViewById(R.id.orderName);
-        amountTextview = findViewById(R.id.orderAmount);
-        dorTextview = findViewById(R.id.orderDor);
-        totalTextview = findViewById(R.id.orderDam);
+        startPrint = findViewById(R.id.buttonPrint);
+//        pricedetails = findViewById(R.id.priceDetails);
+//        businessDetails = findViewById(R.id.businessDetails);
+//        nameTextview = findViewById(R.id.orderName);
+//        amountTextview = findViewById(R.id.orderAmount);
+//        dorTextview = findViewById(R.id.orderDor);
+//        totalTextview = findViewById(R.id.orderDam);
 
         getPermissions();
         arrayListCustomerInfos = sqopenHelper.getDataList();
 
 
-        LinearLayout layout_tobePrint = (LinearLayout) findViewById(R.id.printLayout);
+        LinearLayout layout_tobePrint = (LinearLayout) findViewById(R.id.layout_print);
 
 
 
-        readyText();
+//        readyText();
 
         startPrint.setOnClickListener(view -> {
             try {
@@ -174,13 +173,13 @@ public class printOrder extends AppCompatActivity {
                 "-----------------------\n"+
                 "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
 
-
-        businessDetails.setText(text);
-        pricedetails.setText(pricedetail);
-        nameTextview.setText(name);
-        dorTextview.setText(dor);
-        amountTextview.setText(amount);
-        totalTextview.setText(dam);
+//
+//        businessDetails.setText(text);
+//        pricedetails.setText(pricedetail);
+//        nameTextview.setText(name);
+//        dorTextview.setText(dor);
+//        amountTextview.setText(amount);
+//        totalTextview.setText(dam);
     }
 
 }

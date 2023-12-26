@@ -1,35 +1,20 @@
 package com.hanifsapp.hisabee.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.SuccessContinuation;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.StockProduct;
 import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
 import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.denaPawna;
-import com.hanifsapp.hisabee.profile;
 import com.hanifsapp.hisabee.localDb.localStore;
+import com.hanifsapp.hisabee.profile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-
-import ir.mahozad.android.PieChart;
 
 
 public class homePage extends AppCompatActivity {
@@ -66,6 +51,14 @@ public class homePage extends AppCompatActivity {
         updateBusinessInfo();
         autoload.isNetworkAvailable(this);
     }
+
+
+
+
+
+
+
+
 
 
 
