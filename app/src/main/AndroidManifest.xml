@@ -37,6 +37,9 @@
             android:name=".printOrder"
             android:exported="false" />
         <activity
+            android:name=".activity.invoice"
+            android:exported="false" />
+        <activity
             android:name=".activity.Sell"
             android:exported="false" />
         <activity

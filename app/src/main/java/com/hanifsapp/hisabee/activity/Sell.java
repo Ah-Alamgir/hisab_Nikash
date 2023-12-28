@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.RecyclerViewSellBinding;
-import com.hanifsapp.hisabee.printOrder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Sell extends AppCompatActivity {
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
 
-        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, printOrder.class)));
+        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, invoice.class)));
         setTitle("প্রোডাক্ট নির্বাচন করুন ");
 
     }
@@ -80,13 +79,13 @@ public class Sell extends AppCompatActivity {
 
             Map<String, Object> item = mData.get(position);
             holder.binding.nameText.setText( String.valueOf(item.get("name")) );
-            holder.binding.sellPriceText.setText("0");
+            holder.binding.pieceText.setText("00");
             holder.binding.sellPriceText.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
             holder.binding.stockamountTextView.setText(Objects.requireNonNull(item.get("Stock")).toString());
 
             holder.binding.plusBtn.setOnClickListener(view -> {
                 itemCountVar = itemCountVar+1;
-                holder.binding.sellPriceText.setText(String.valueOf(Integer.parseInt(holder.binding.sellPriceText.getText().toString())+1));
+                holder.binding.pieceText.setText(String.valueOf(Integer.parseInt(holder.binding.pieceText.getText().toString())+1));
                 addtoCard(String.valueOf(item.get("id")), position, Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.binding.pieceText.getText())));
 
 
@@ -94,8 +93,8 @@ public class Sell extends AppCompatActivity {
             holder.binding.minusBtn.setOnClickListener(view -> {
                 if(!(Integer.parseInt(holder.binding.sellPriceText.getText().toString()) <=0)){
                     itemCountVar = itemCountVar-1;
-                    holder.binding.sellPriceText.setText(String.valueOf(Integer.parseInt(holder.binding.sellPriceText.getText().toString())-1));
-                    addtoCard(String.valueOf(item.get("id")), position, -Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.binding.sellPriceText.getText()) ));
+                    holder.binding.pieceText.setText(String.valueOf(Integer.parseInt(holder.binding.pieceText.getText().toString())-1));
+                    addtoCard(String.valueOf(item.get("id")), position, -Integer.parseInt(String.valueOf(item.get("sellPrice"))) , Integer.parseInt(String.valueOf(holder.binding.pieceText.getText()) ));
 
                 }
             });

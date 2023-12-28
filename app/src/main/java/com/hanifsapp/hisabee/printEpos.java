@@ -3,6 +3,7 @@ package com.hanifsapp.hisabee;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dantsu.escposprinter.EscPosPrinter;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
@@ -27,14 +28,16 @@ public class printEpos {
 
 
     private static void startPrint(Bitmap bitmap, Context context) throws EscPosConnectionException, EscPosEncodingException, EscPosBarcodeException, EscPosParserException {
-        EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
-        printer
-                .printFormattedText(
-                        "[C]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmap)+"</img>\n"
-                );
 
-
-
+        try {
+            EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
+            printer
+                    .printFormattedText(
+                            "[C]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmap)+"</img>\n"
+                    );
+        }catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

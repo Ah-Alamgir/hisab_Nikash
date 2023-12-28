@@ -26,7 +26,7 @@
             android:layout_marginTop="8dp"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="delete button"
-            android:src="@android:drawable/ic_menu_edit"
+            android:src="@drawable/baseline_edit_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
