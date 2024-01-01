@@ -19,25 +19,26 @@ public class printEpos {
         view.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
         view.setDrawingCacheEnabled(false);
-        startPrint(bitmap, context);
+
+
+        try {
+            startPrint(bitmap);
+        }catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
 
 
 
+    private static void startPrint(Bitmap bitmap) throws Exception {
 
-    private static void startPrint(Bitmap bitmap, Context context) throws EscPosConnectionException, EscPosEncodingException, EscPosBarcodeException, EscPosParserException {
-
-        try {
             EscPosPrinter printer = new EscPosPrinter(BluetoothPrintersConnections.selectFirstPaired(), 203, 48f, 32);
             printer
                     .printFormattedText(
                             "[C]<img>" + PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmap)+"</img>\n"
                     );
-        }catch (Exception e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
 
     }
 }

@@ -7,5 +7,13 @@
     <string name="setting">setting</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup">Enter your e-mail for \nSign up or Sign in</string>
+    <string name="signupBtn">Sign Up </string>
+
+    <string name="have_an_account">Already have an account?</string>
+    <string name="sign_In">Sign In</string>
+    <string name="todo">todo</string>
+    <string name="enterYourEmail">Please Enter your email</string>
+    <string name="enter_phone_number">Enter the verification code</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

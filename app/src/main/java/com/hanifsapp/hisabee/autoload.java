@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hanifsapp.hisabee.activity.homePage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,9 +48,24 @@ public class autoload {
     public static List<String> cardItem_list = new ArrayList<>();
 
 
+
+
+    // using rx java
     static String todaysellamount = "000";
     static String todaydueamount= "000";
     static String todaycostamount = "000";
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void getData(){
         // Create a DatabaseReference object
@@ -59,6 +73,7 @@ public class autoload {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("entry", String.valueOf(dataSnapshot));
                 productLists.clear();
                 costCalculations.clear();
                 cardItem.clear();
@@ -198,7 +213,7 @@ public class autoload {
     }
 
 
-    public static boolean getStockToUpdat(){
+    public static boolean getStockToUpdate(){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
         for (Map<String, Object> cardItems : cardItem){
             int updatedStock;
@@ -207,7 +222,6 @@ public class autoload {
         }
 
         return true;
-
     }
 
 }

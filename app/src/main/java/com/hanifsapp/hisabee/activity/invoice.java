@@ -21,62 +21,41 @@ import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.autoload;
+import com.hanifsapp.hisabee.databinding.InvoiceBinding;
 import com.hanifsapp.hisabee.localDb.localStore;
 import com.hanifsapp.hisabee.printEpos;
 
 import java.util.Map;
 
 public class invoice extends AppCompatActivity {
-    private TextView header, footer, name, price, amount, total;
-    private Button print;
     public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
     LinearLayout layout_tobePrint;
     private boolean printed;
 
+    InvoiceBinding binding;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.invoice);
+        binding = InvoiceBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         printed = false;
 
-        header = findViewById(R.id.textView_Header);
-        footer = findViewById(R.id.textView_footer);
-        name = findViewById(R.id.textView_name);
-        price = findViewById(R.id.textView_price);
-        amount = findViewById(R.id.textView_amount);
-        total = findViewById(R.id.textView_total);
-        print = findViewById(R.id.buttonPrint);
+
         layout_tobePrint = (LinearLayout) findViewById(R.id.layout_print);
         getPermissions();
         readyText();
 
 
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true){
-
-            @Override
-            public void handleOnBackPressed() {
-                if(printed){
-                    autoload.cardItem_list.clear();
-                    autoload.cardItem.clear();
-                    Intent intent = new Intent(invoice.this, Sell.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    setEnabled(false);
-
-                }
-            }
-        };
     }
+
 
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        print.setOnClickListener(view -> {
+        binding.buttonPrint.setOnClickListener(view -> {
             try {
                 printEpos.generatePdf(layout_tobePrint, this);
             } catch (EscPosEncodingException | EscPosConnectionException | EscPosParserException |
@@ -112,7 +91,8 @@ public class invoice extends AppCompatActivity {
 
 
     public void readyText(){
-        Log.d("entry", String.valueOf(autoload.cardItem));
+
+
 
         text =  localStore.settings.get(2)+ ("\n")+
                 localStore.settings.get(3)
@@ -152,13 +132,12 @@ public class invoice extends AppCompatActivity {
                         "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
 
 
-        header.setText(text);
-        name.setText(nameString);
-        price.setText(dorString);
-        amount.setText(amountString);
-        total.setText(damString);
-        footer.setText(pricedetail);
-
+        binding.textViewHeader.setText(text);
+        binding.textViewName.setText(nameString);
+        binding.textViewPrice.setText(dorString);
+        binding.textViewAmount.setText(amountString);
+       binding.textViewTotal.setText(damString);
+        binding.textViewFooter.setText(pricedetail);
 
     }
 

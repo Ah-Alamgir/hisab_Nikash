@@ -40,7 +40,9 @@ public class Sell extends AppCompatActivity {
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
 
-        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, invoice.class)));
+        totalItemBtn.setOnClickListener(view ->{
+                    startActivity(new Intent(Sell.this, invoice.class));
+        });
         setTitle("প্রোডাক্ট নির্বাচন করুন ");
 
     }
@@ -54,6 +56,13 @@ public class Sell extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
 
     //57-127, 151
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
