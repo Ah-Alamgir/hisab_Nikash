@@ -1,12 +1,11 @@
 package com.hanifsapp.hisabee.activity;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.databinding.ActivitySignUpBinding;
 import com.hanifsapp.hisabee.localDb.GoogleSignUp;
 
 public class SignUp extends AppCompatActivity {
@@ -15,23 +14,26 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         googleSignUp = new GoogleSignUp(SignUp.this);
 
-        EditText emailTextview =  findViewById(R.id.signUpEmail);
-        Button signUpButton = findViewById(R.id.button5);
-        signUpButton.setOnClickListener(v -> {
-            String email = emailTextview.getText().toString();
-            googleSignUp.sendSignInLink(email);
+
+        binding.SIGNUPBTN.setOnClickListener(v -> {
+            String email = binding.signUpEmail.getText().toString();
+            String password = binding.signUppassword.getText().toString();
+            if (email.isEmpty()) {
+                Toast.makeText(SignUp.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            } else if (password.isEmpty()) {
+                Toast.makeText(SignUp.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            } else{
+                googleSignUp.createUserWithEmailAndPassword(email, password);
+            }
 
         });
+
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        googleSignUp.verifySignInLink(getIntent());
-    }
 }

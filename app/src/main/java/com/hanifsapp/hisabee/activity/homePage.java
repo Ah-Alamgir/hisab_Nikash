@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.StockProduct;
 import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
@@ -53,21 +54,14 @@ public class homePage extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            startActivity(new Intent(homePage.this, SignUp.class));
+        }
+    }
 
 
     DialogAddCustomerBinding dialogBinding;
@@ -92,8 +86,6 @@ public class homePage extends AppCompatActivity {
                     updateBusinessInfo();
                     bottomSheetDialog.dismiss();
                 }
-
-
             }
         });
     }

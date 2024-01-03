@@ -14,7 +14,7 @@
         app:cardCornerRadius="60dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView">
 
         <ImageView
@@ -29,17 +29,27 @@
 
 
     <Button
-        android:id="@+id/SignIn"
+        android:id="@+id/SignUP_Btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/sign_In"
+        android:layout_marginBottom="16dp"
+        android:text="@string/signupBtn"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
+    <Button
+        android:id="@+id/Forget_Btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/forget_password"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -49,8 +59,9 @@
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="18dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -65,7 +76,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/signUpEmail"
+                android:id="@+id/signInEmail"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
@@ -75,7 +86,7 @@
 
 
             <EditText
-                android:id="@+id/signUppassword"
+                android:id="@+id/signInpassword"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
@@ -89,20 +100,15 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/signup"
+        android:text="Welcome Back"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/cardView2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -110,11 +116,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/have_an_account"
-        app:layout_constraintBottom_toTopOf="@+id/SignIn"
+        android:text="@string/dont_have_an_account"
+        app:layout_constraintBottom_toTopOf="@+id/SignUP_Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/SignIn" />
+        app:layout_constraintStart_toStartOf="@+id/SignUP_Btn" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -122,14 +128,14 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="9dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <Button
-            android:id="@+id/SIGNUP_BTN"
+            android:id="@+id/SIGNUIN_BTNS"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/signupBtn" />
+            android:text="@string/sign_In" />
     </androidx.cardview.widget.CardView>
 
 

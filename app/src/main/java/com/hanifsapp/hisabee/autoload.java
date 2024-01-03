@@ -3,7 +3,6 @@ package com.hanifsapp.hisabee;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -73,7 +72,6 @@ public class autoload {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("entry", String.valueOf(dataSnapshot));
                 productLists.clear();
                 costCalculations.clear();
                 cardItem.clear();
@@ -102,7 +100,6 @@ public class autoload {
                                     case "CustomarList":
                                         for (DataSnapshot dataSnapshot1: keys.getChildren()) {
                                             CustomerInfo.add((Map<String, Object>) dataSnapshot1.getValue());
-                                            Log.d("datamks", CustomerInfo.toString());
                                         }
                                         break;
 
