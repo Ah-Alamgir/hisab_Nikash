@@ -1,15 +1,11 @@
-package com.hanifsapp.hisabee.localDb;
+package com.hanifsapp.hisabee.firebase_Db;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.activity.homePage;
-
-import java.util.concurrent.Executor;
 
 
 public class GoogleSignUp {
@@ -28,8 +24,7 @@ public class GoogleSignUp {
                     if (task.isSuccessful()) {
                         activity.startActivity(new Intent(activity, homePage.class));
                     } else {
-
-                        Toast.makeText(activity, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity.getApplicationContext(), String.valueOf(task.getException()), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -38,7 +33,7 @@ public class GoogleSignUp {
     public void signInWithEmailAndPassword(String email, String password) {
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, (OnCompleteListener<AuthResult>) task -> {
+                .addOnCompleteListener(activity,task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(activity, "signInWithEmail:success", Toast.LENGTH_SHORT).show();
                         activity.startActivity(new Intent(activity, homePage.class));

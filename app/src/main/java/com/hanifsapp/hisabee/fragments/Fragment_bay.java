@@ -1,4 +1,4 @@
-package com.hanifsapp.hisabee;
+package com.hanifsapp.hisabee.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class Fragment_bay extends Fragment {
         return view;
     }
 
-    static void Update(ArrayList<Map<String, Object>> list ){
+    public static void Update(ArrayList<Map<String, Object>> list){
         recyclerView.setAdapter(new denapaonaAdapter(list, context, "todaySpend"));
     }
 

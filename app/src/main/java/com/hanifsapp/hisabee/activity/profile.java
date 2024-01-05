@@ -1,4 +1,4 @@
-package com.hanifsapp.hisabee;
+package com.hanifsapp.hisabee.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.recyclerView.SqopenHelper;
 
 import java.util.ArrayList;

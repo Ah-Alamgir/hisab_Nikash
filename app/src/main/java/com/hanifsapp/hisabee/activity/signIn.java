@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hanifsapp.hisabee.databinding.ActivitySignInBinding;
-import com.hanifsapp.hisabee.localDb.GoogleSignUp;
+import com.hanifsapp.hisabee.firebase_Db.GoogleSignUp;
 
 public class signIn extends AppCompatActivity {
 
@@ -28,8 +28,13 @@ public class signIn extends AppCompatActivity {
             } else{
                 sg.signInWithEmailAndPassword(email,password);
             }
+
+
+
         });
 
         binding.SignUPBtn.setOnClickListener(v -> startActivity(new Intent(this, SignUp.class)));
+
+
     }
 }

@@ -1,22 +1,15 @@
 package com.hanifsapp.hisabee.activity;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
@@ -25,10 +18,8 @@ import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.BottomNavigationWishPrinterBinding;
-import com.hanifsapp.hisabee.localDb.localStore;
-import com.hanifsapp.hisabee.printEpos;
-
-import java.util.ArrayList;
+import com.hanifsapp.hisabee.firebase_Db.localStore;
+import com.hanifsapp.hisabee.utility.printEpos;
 
 public class wish_printer extends AppCompatActivity {
     ArrayAdapter<String> adapter;

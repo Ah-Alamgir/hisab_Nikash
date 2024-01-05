@@ -117,19 +117,25 @@
         app:layout_constraintStart_toStartOf="@+id/SignIn" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="9dp"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-        <Button
-            android:id="@+id/SIGNUP_BTN"
-            android:layout_width="150dp"
+
+        <TextView
+            android:id="@+id/SIGNUPBTNS"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signupBtn" />
+            android:layout_gravity="center"
+            android:text="@string/signupBtn"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 

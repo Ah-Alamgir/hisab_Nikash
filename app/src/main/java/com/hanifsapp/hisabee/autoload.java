@@ -12,12 +12,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hanifsapp.hisabee.firebase_Db.variable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -37,14 +37,11 @@ public class autoload {
     }
 
 
-    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaydue = new ArrayList<>();
     public static ArrayList<Map<String, Object>> CustomerInfo = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todayspend = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaysell = new ArrayList<>();
     static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
-    public static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
-    public static List<String> cardItem_list = new ArrayList<>();
 
 
 
@@ -58,27 +55,24 @@ public class autoload {
 
 
 
+    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
 
 
-
-
+    //241
 
 
 
 
     public static void getData(){
         // Create a DatabaseReference object
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        variable.productList_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productLists.clear();
                 costCalculations.clear();
-                cardItem.clear();
                 todaydue.clear();
                 todaysell.clear();
                 todayspend.clear();
-                cardItem_list.clear();
                 CustomerInfo.clear();
 
 
@@ -192,7 +186,7 @@ public class autoload {
 
 
 
-    public static void isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -206,19 +200,13 @@ public class autoload {
                     .setMessage("Please check your internet connection.")
                     .setPositiveButton("OK", null)
                     .show();
+        }else {
+            return true;
         }
+        return false;
     }
 
 
-    public static boolean getStockToUpdate(){
-        DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
-        for (Map<String, Object> cardItems : cardItem){
-            int updatedStock;
-            updatedStock  = Integer.parseInt(String.valueOf(cardItems.get("Stock"))) - Integer.parseInt(String.valueOf(cardItems.get("Order")));
-            usersRef.child(String.valueOf(cardItems.get("id"))).child("Stock").setValue(updatedStock);
-        }
 
-        return true;
-    }
 
 }

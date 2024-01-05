@@ -1,15 +1,10 @@
 package com.hanifsapp.hisabee.activity;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,12 +15,11 @@ import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.InvoiceBinding;
-import com.hanifsapp.hisabee.localDb.localStore;
-import com.hanifsapp.hisabee.printEpos;
-
-import java.util.Map;
+import com.hanifsapp.hisabee.firebase_Db.getProductList;
+import com.hanifsapp.hisabee.firebase_Db.localStore;
+import com.hanifsapp.hisabee.model.ProductList;
+import com.hanifsapp.hisabee.utility.printEpos;
 
 public class invoice extends AppCompatActivity {
     public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
@@ -109,16 +103,16 @@ public class invoice extends AppCompatActivity {
         dorString.append("দর  \n");
         amountString.append("পিছ \n");
         damString.append("মোট \n");
-        for(Map<String, Object> entry: autoload.cardItem){
-            totalPrices = totalPrices + Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")));
+        for(ProductList entry: getProductList.card_list){
+            totalPrices = totalPrices + entry.getOrder() * entry.getSellPrice();
 
-            nameString.append(entry.get("name")).append("\n");
-            dorString.append(entry.get("sellPrice")).append("\n");
-            damString.append(Integer.parseInt(String.valueOf(entry.get("Order"))) * Integer.parseInt(String.valueOf(entry.get("sellPrice")))).append("\n");
-            amountString.append(entry.get("Order")).append("\n");
+            nameString.append(entry.getName()).append("\n");
+            dorString.append(entry.getSellPrice()).append("\n");
+            damString.append(entry.getOrder() * entry.getSellPrice()).append("\n");
+            amountString.append(entry.getOrder()).append("\n");
 
-            totdisc = totdisc + (Integer.parseInt(String.valueOf(entry.get("Discount"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
-            totvat = totvat + (Integer.parseInt(String.valueOf(entry.get("vat"))) * Integer.parseInt(String.valueOf(entry.get("Order"))));
+            totdisc = totdisc + entry.getDiscount() * entry.getOrder();
+            totvat = totvat + entry.getVat() * entry.getOrder();
 
 
         }

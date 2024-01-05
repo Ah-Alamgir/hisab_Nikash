@@ -13,12 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.hanifsapp.hisabee.databinding.ActivityDenaPawnaBinding;
 import com.hanifsapp.hisabee.databinding.DialogTextInputBinding;
+import com.hanifsapp.hisabee.fragments.Fragment_bay;
 import com.hanifsapp.hisabee.fragments.baki;
 import com.hanifsapp.hisabee.fragments.bikri;
 
