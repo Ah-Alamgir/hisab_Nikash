@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    public static String dates;
+    public static String dates, auth_User_id;
 
     public static void deleteData(String id){
         DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
@@ -37,7 +37,6 @@ public class autoload {
     }
 
 
-    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todaydue = new ArrayList<>();
     public static ArrayList<Map<String, Object>> CustomerInfo = new ArrayList<>();
     public static ArrayList<Map<String, Object>> todayspend = new ArrayList<>();
@@ -56,20 +55,24 @@ public class autoload {
 
 
 
+    public static DatabaseReference dbRef;
+    public static void getDbRef(){
+        dbRef= FirebaseDatabase.getInstance().getReference("denaPaona").child("userList").child(auth_User_id);
+    }
 
 
 
+    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
 
 
-
+    //241
 
 
 
 
     public static void getData(){
         // Create a DatabaseReference object
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productLists.clear();
@@ -192,7 +195,7 @@ public class autoload {
 
 
 
-    public static void isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -206,7 +209,10 @@ public class autoload {
                     .setMessage("Please check your internet connection.")
                     .setPositiveButton("OK", null)
                     .show();
+        }else {
+            return true;
         }
+        return false;
     }
 
 

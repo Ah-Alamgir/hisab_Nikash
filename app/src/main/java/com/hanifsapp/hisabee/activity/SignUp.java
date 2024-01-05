@@ -1,10 +1,10 @@
 package com.hanifsapp.hisabee.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.hanifsapp.hisabee.databinding.ActivitySignUpBinding;
 import com.hanifsapp.hisabee.localDb.GoogleSignUp;
 
@@ -20,7 +20,7 @@ public class SignUp extends AppCompatActivity {
         googleSignUp = new GoogleSignUp(SignUp.this);
 
 
-        binding.SIGNUPBTN.setOnClickListener(v -> {
+        binding.SIGNUPBTNS.setOnClickListener(v -> {
             String email = binding.signUpEmail.getText().toString();
             String password = binding.signUppassword.getText().toString();
             if (email.isEmpty()) {
@@ -32,6 +32,9 @@ public class SignUp extends AppCompatActivity {
             }
 
         });
+
+
+        binding.SignIn.setOnClickListener(v -> startActivity(new Intent(SignUp.this, signIn.class)));
 
     }
 

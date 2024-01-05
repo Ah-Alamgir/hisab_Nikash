@@ -39,9 +39,7 @@
         <activity
             android:name=".StockProduct"
             android:exported="false" />
-        <activity
-            android:name=".printOrder"
-            android:exported="false" />
+
         <activity
             android:name=".activity.invoice"
             android:exported="false" />

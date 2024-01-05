@@ -1,10 +1,5 @@
 package com.hanifsapp.hisabee.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.autoload;
@@ -39,11 +39,9 @@ public class Sell extends AppCompatActivity {
 
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
-
-        totalItemBtn.setOnClickListener(view ->{
-                    startActivity(new Intent(Sell.this, invoice.class));
-        });
+        totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, invoice.class)));
         setTitle("প্রোডাক্ট নির্বাচন করুন ");
+
 
     }
 
@@ -52,16 +50,16 @@ public class Sell extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        RecyclerView recyclerView = findViewById(R.id.pdRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
+
+//        RecyclerView recyclerView = findViewById(R.id.pdRecycler);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new MyAdapter(autoload.productLists, LayoutInflater.from(this)));
+
+
     }
 
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
+
 
 
     //57-127, 151
@@ -155,4 +153,27 @@ public class Sell extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "on Restart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        Toast.makeText(this, "on finish", Toast.LENGTH_SHORT).show();
+    }
 }

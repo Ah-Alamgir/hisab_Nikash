@@ -28,8 +28,13 @@ public class signIn extends AppCompatActivity {
             } else{
                 sg.signInWithEmailAndPassword(email,password);
             }
+
+
+
         });
 
         binding.SignUPBtn.setOnClickListener(v -> startActivity(new Intent(this, SignUp.class)));
+
+
     }
 }
