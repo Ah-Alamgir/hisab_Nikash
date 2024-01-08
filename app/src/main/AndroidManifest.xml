@@ -28,7 +28,7 @@
             android:name=".activity.wish_printer"
             android:exported="false" />
         <activity
-            android:name=".activity.profile"
+            android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".denaPawna"
@@ -37,7 +37,7 @@
             android:name=".activity.costCalculation"
             android:exported="false" />
         <activity
-            android:name=".activity.StockProduct"
+            android:name=".StockProduct"
             android:exported="false" />
 
         <activity
