@@ -50,7 +50,7 @@ public class stock_RecyclerView extends RecyclerView.Adapter<stock_RecyclerView.
                         int positions = mData.indexOf(item);
                         if (positions != -1) {
 //                            removeItem(positions);
-                            autoload.productLists.remove(positions);
+//                            autoload.productLists.remove(positions);
                         }
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.dismiss());

@@ -29,7 +29,7 @@ public class Sell extends AppCompatActivity {
         totalItemBtn = findViewById(R.id.orderPage);
         totalPrice_textView = findViewById(R.id.totalPrice);
         totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, invoice.class)));
-        getProductList.getProduct_item();
+
 
 
     }

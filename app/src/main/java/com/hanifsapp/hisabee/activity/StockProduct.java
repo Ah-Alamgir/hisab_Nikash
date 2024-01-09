@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
+import com.hanifsapp.hisabee.firebase_Db.getProductList;
+import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.recyclerView.stock_RecyclerView;
-
-import java.util.Map;
 
 public class StockProduct extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class StockProduct extends AppCompatActivity {
 
         });
 
-        setTitle("মোট পণ্য সংখ্যাঃ "+ autoload.productLists.size());
+        setTitle("মোট পণ্য সংখ্যাঃ "+ getProductList.product_Lists.size());
         count();
 
     }
@@ -59,9 +58,9 @@ public class StockProduct extends AppCompatActivity {
     private void count(){
         int totalStock_var=0, totalStock_valueVar=0;
 
-        for (Map<String, Object> map : autoload.productLists) {
-            totalStock_var = Integer.parseInt(map.get("Stock").toString()) + totalStock_var;
-            totalStock_valueVar = (Integer.parseInt(map.get("buyPrice").toString())*  Integer.parseInt(map.get("Stock").toString())) + totalStock_valueVar;
+        for (ProductList map : getProductList.product_Lists) {
+            totalStock_var = map.getStock() + totalStock_var;
+            totalStock_valueVar = map.getBuyPrice()* map.getStock() + totalStock_valueVar;
         }
         totoalStock_textview.setText(String.valueOf(totalStock_var));
         totalStock_value_textView.setText(String.valueOf(totalStock_valueVar));

@@ -6,13 +6,12 @@ import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.ActivityAddProductBinding;
-import com.hanifsapp.hisabee.model.ProductList;
+import com.hanifsapp.hisabee.firebase_Db.getProductList;
 import com.hanifsapp.hisabee.firebase_Db.variable;
+import com.hanifsapp.hisabee.model.ProductList;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class addProduct extends AppCompatActivity {
 
@@ -43,20 +42,20 @@ public class addProduct extends AppCompatActivity {
 //            setTitle("তথ্য আপডেট করুন");
             binding.submit.setVisibility(View.GONE);
             binding.update.setVisibility(View.VISIBLE);
-            Map<String, Object> item = autoload.productLists.get(edit_position);
+            ProductList item = getProductList.product_Lists.get(edit_position);
 
 
-            binding.editTextName.setText((String) item.get("name"));
-            id = Objects.requireNonNull(item.get("id")).toString();
-            binding.sellingPrice.setText(Objects.requireNonNull(item.get("sellPrice")).toString());
-            binding.buyPrice.setText(Objects.requireNonNull(item.get("buyPrice")).toString());
-            binding.stock.setText(Objects.requireNonNull(item.get("Stock")).toString());
-            if (!Objects.requireNonNull(item.get("Discount")).toString().isEmpty()) {
-                binding.discount.setText(Objects.requireNonNull(item.get("Discount")).toString());
+            binding.editTextName.setText(item.getName());
+            id = item.getId();
+            binding.sellingPrice.setText(String.valueOf(item.getSellPrice()));
+            binding.buyPrice.setText(String.valueOf(item.getBuyPrice()));
+            binding.stock.setText(String.valueOf(item.getStock()));
+            if (item.getDiscount()>0) {
+                binding.discount.setText(String.valueOf(item.getDiscount()));
 
             }
-            if (!Objects.requireNonNull(item.get("vat")).toString().isEmpty()) {
-                binding.discount.setText(Objects.requireNonNull(item.get("vat")).toString());
+            if (item.getVat()>0) {
+                binding.discount.setText(String.valueOf(item.getVat()));
             }
 
         } else {
@@ -94,7 +93,7 @@ public class addProduct extends AppCompatActivity {
 
 
             if (editProduct){
-                variable.productList_ref.child("ProductList").child(id).updateChildren(postValues);
+                variable.productList_ref.child(id).updateChildren(postValues);
             }else {
                 variable.productList_ref.push().setValue(postValues);
             }

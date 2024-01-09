@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
 import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.denaPawna;
+import com.hanifsapp.hisabee.firebase_Db.getProductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
 import com.hanifsapp.hisabee.firebase_Db.variable;
 
@@ -46,12 +47,7 @@ public class homePage extends AppCompatActivity {
 
 
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            startActivity(new Intent(homePage.this, SignUp.class));
-        }else{
-            variable.getDbRef(auth.getUid());
-        }
+
 
 
 
@@ -107,5 +103,17 @@ public class homePage extends AppCompatActivity {
         binding.phoneNumberTextView.setText(localStore.settings.get(3));
     }
 
-
+    @Override
+    protected void onStart() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            startActivity(new Intent(homePage.this, SignUp.class));
+        }else{
+            variable.getDbRef(auth.getUid());
+            if (getProductList.product_Lists.size()==0){
+                getProductList.getProduct_item();
+            }
+        }
+        super.onStart();
+    }
 }

@@ -4,31 +4,25 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.hanifsapp.hisabee.firebase_Db.variable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    public static String dates, auth_User_id;
+    public static String dates;
 
     public static void deleteData(String id){
-        DatabaseReference usersRef = rootRef.child("denaPaona").child("ProductList");
-        usersRef.child(id).removeValue();
+        variable.productList_ref.child(id).removeValue();
     }
 
     public static void deleteFragmentData(String id, String tag){
@@ -55,14 +49,10 @@ public class autoload {
 
 
 
-    public static DatabaseReference dbRef;
-    public static void getDbRef(){
-        dbRef= FirebaseDatabase.getInstance().getReference("denaPaona").child("userList").child(auth_User_id);
-    }
 
 
 
-    public static ArrayList<Map<String, Object>> productLists = new ArrayList<>();
+
 
 
     //241
@@ -70,92 +60,92 @@ public class autoload {
 
 
 
-    public static void getData(){
-        // Create a DatabaseReference object
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                productLists.clear();
-                costCalculations.clear();
-                cardItem.clear();
-                todaydue.clear();
-                todaysell.clear();
-                todayspend.clear();
-                cardItem_list.clear();
-                CustomerInfo.clear();
-
-
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    String category = childSnapshot.getKey();
-                    switch (Objects.requireNonNull(category)) {
-                        case "ProductList":
-                            for (DataSnapshot productSnapshot : childSnapshot.getChildren()) {
-                                Map<String, Object> product = (Map<String, Object>) productSnapshot.getValue();
-                                product.put("id",productSnapshot.getKey());
-                                productLists.add(product);
-                            }
-                            break;
-
-                        case "singleValues":
-                            for (DataSnapshot keys : childSnapshot.getChildren()) {
-                                String key = keys.getKey();
-                                switch (key) {
-                                    case "CustomarList":
-                                        for (DataSnapshot dataSnapshot1: keys.getChildren()) {
-                                            CustomerInfo.add((Map<String, Object>) dataSnapshot1.getValue());
-                                        }
-                                        break;
-
-                                    case "todayDue":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
-                                            dues.put("date", costsnapshot.getKey());
-                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
-                                                todaydueamount = String.valueOf(dues.get("price"));
-                                            }
-                                            todaydue.add(dues);
-                                        }
-                                        Collections.reverse(todaydue);
-                                        break;
-                                    case "todaySell":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
-                                            sells.put("date", costsnapshot.getKey());
-                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
-                                                todaysellamount = String.valueOf(sells.get("price"));
-                                            }
-                                            todaysell.add(sells);
-                                        }
-                                        Collections.reverse(todaysell);
-                                        break;
-                                    case "todaySpend":
-                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
-                                            Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
-                                            spends.put("date", costsnapshot.getKey());
-                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
-                                                todaycostamount = String.valueOf(spends.get("price"));
-                                            }
-                                            todayspend.add(spends);
-                                        }
-                                        Collections.reverse(todayspend);
-                                        break;
-
-
-                                }}
-
-                            break;
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
+//    public static void getData(){
+//        // Create a DatabaseReference object
+//        dbRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                productLists.clear();
+//                costCalculations.clear();
+//                cardItem.clear();
+//                todaydue.clear();
+//                todaysell.clear();
+//                todayspend.clear();
+//                cardItem_list.clear();
+//                CustomerInfo.clear();
+//
+//
+//                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+//                    String category = childSnapshot.getKey();
+//                    switch (Objects.requireNonNull(category)) {
+//                        case "ProductList":
+//                            for (DataSnapshot productSnapshot : childSnapshot.getChildren()) {
+//                                Map<String, Object> product = (Map<String, Object>) productSnapshot.getValue();
+//                                product.put("id",productSnapshot.getKey());
+//                                productLists.add(product);
+//                            }
+//                            break;
+//
+//                        case "singleValues":
+//                            for (DataSnapshot keys : childSnapshot.getChildren()) {
+//                                String key = keys.getKey();
+//                                switch (key) {
+//                                    case "CustomarList":
+//                                        for (DataSnapshot dataSnapshot1: keys.getChildren()) {
+//                                            CustomerInfo.add((Map<String, Object>) dataSnapshot1.getValue());
+//                                        }
+//                                        break;
+//
+//                                    case "todayDue":
+//                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+//                                            Map<String, Object> dues = (Map<String, Object>) costsnapshot.getValue();
+//                                            dues.put("date", costsnapshot.getKey());
+//                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
+//                                                todaydueamount = String.valueOf(dues.get("price"));
+//                                            }
+//                                            todaydue.add(dues);
+//                                        }
+//                                        Collections.reverse(todaydue);
+//                                        break;
+//                                    case "todaySell":
+//                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+//                                            Map<String, Object> sells = (Map<String, Object>) costsnapshot.getValue();
+//                                            sells.put("date", costsnapshot.getKey());
+//                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
+//                                                todaysellamount = String.valueOf(sells.get("price"));
+//                                            }
+//                                            todaysell.add(sells);
+//                                        }
+//                                        Collections.reverse(todaysell);
+//                                        break;
+//                                    case "todaySpend":
+//                                        for (DataSnapshot costsnapshot : keys.getChildren()) {
+//                                            Map<String, Object> spends = (Map<String, Object>) costsnapshot.getValue();
+//                                            spends.put("date", costsnapshot.getKey());
+//                                            if (Objects.requireNonNull(costsnapshot.getKey()).contains(dates)) {
+//                                                todaycostamount = String.valueOf(spends.get("price"));
+//                                            }
+//                                            todayspend.add(spends);
+//                                        }
+//                                        Collections.reverse(todayspend);
+//                                        break;
+//
+//
+//                                }}
+//
+//                            break;
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
 
 
