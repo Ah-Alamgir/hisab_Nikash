@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.firebase_Db.getProductList;
 import com.hanifsapp.hisabee.model.ProductList;
-import com.hanifsapp.hisabee.recyclerView.stock_RecyclerView;
+import com.hanifsapp.hisabee.recyclerView.interFaces.deleteClickListener;
 
-public class StockProduct extends AppCompatActivity {
+public class StockProduct extends AppCompatActivity implements deleteClickListener {
 
 
     public TextView totoalStock_textview, totalStock_value_textView;
@@ -49,7 +51,7 @@ public class StockProduct extends AppCompatActivity {
     protected void onStart() {
         RecyclerView recyclerView = findViewById(R.id.stockRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new stock_RecyclerView(StockProduct.this));
+//        recyclerView.setAdapter(new stock_RecyclerView(StockProduct.this));
         super.onStart();
     }
 
@@ -73,4 +75,22 @@ public class StockProduct extends AppCompatActivity {
         super.onStop();
         finish();
     }
+
+
+    @Override
+    public void onDeleteClick(String id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this item?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, ids) -> {
+                    autoload.deleteData(id);
+
+                })
+                .setNegativeButton("No", (dialog, ids) -> dialog.dismiss());
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+
 }

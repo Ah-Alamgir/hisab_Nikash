@@ -1,4 +1,4 @@
-package com.hanifsapp.hisabee.recyclerView;
+package com.hanifsapp.hisabee.recyclerView.adapters;
 
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -9,6 +9,12 @@ import java.util.ArrayList;
 public class greedy_dif extends DiffUtil.Callback {
     ArrayList<ProductList> oldList;
     ArrayList<ProductList> newList;
+
+    public greedy_dif(ArrayList<ProductList> oldList, ArrayList<ProductList> newList) {
+        this.oldList = oldList;
+        this.newList = newList;
+    }
+
     @Override
     public int getOldListSize() {
         return oldList.size();
@@ -21,11 +27,11 @@ public class greedy_dif extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return false;
+        return oldList.get(oldItemPosition).getId().equals(newList.get(newItemPosition).getId());
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return false;
+        return oldList.get(oldItemPosition) == newList.get(newItemPosition);
     }
 }

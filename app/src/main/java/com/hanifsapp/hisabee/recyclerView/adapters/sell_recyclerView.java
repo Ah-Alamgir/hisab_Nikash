@@ -1,4 +1,4 @@
-package com.hanifsapp.hisabee.recyclerView;
+package com.hanifsapp.hisabee.recyclerView.adapters;
 
 
 import android.view.LayoutInflater;

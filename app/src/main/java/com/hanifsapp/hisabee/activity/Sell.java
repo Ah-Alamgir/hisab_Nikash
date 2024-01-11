@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.firebase_Db.getProductList;
-import com.hanifsapp.hisabee.recyclerView.sell_recyclerView;
+import com.hanifsapp.hisabee.recyclerView.adapters.sell_recyclerView;
 
 
 public class Sell extends AppCompatActivity {

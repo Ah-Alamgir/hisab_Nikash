@@ -1,10 +1,9 @@
-package com.hanifsapp.hisabee.recyclerView;
+package com.hanifsapp.hisabee.recyclerView.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 

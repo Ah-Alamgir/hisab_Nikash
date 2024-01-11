@@ -1,7 +1,5 @@
 package com.hanifsapp.hisabee.firebase_Db;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +21,6 @@ public class getProductList {
                 variable.productList_ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.d("entry", String.valueOf(snapshot.getValue()));
                         for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                             ProductList product = dataSnapshot.getValue(ProductList.class);
                             product.setId(dataSnapshot.getKey());
@@ -38,7 +35,6 @@ public class getProductList {
                 });
 
         }catch (DatabaseException e) {
-            Log.d("entry", e.getMessage());
         };
 
     }

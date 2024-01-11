@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.autoload;
-import com.hanifsapp.hisabee.recyclerView.denapaonaAdapter;
+import com.hanifsapp.hisabee.recyclerView.adapters.denapaonaAdapter;
 
 import java.util.ArrayList;
 import java.util.Map;
