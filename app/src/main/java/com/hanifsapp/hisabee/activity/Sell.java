@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.recyclerView.adapters.sell_recyclerView;
+import com.hanifsapp.hisabee.recyclerView.interFaces.invoiceListener;
 
 
-public class Sell extends AppCompatActivity {
+public class Sell extends AppCompatActivity implements invoiceListener {
 
     public TextView totalPrice_textView;
     public Button totalItemBtn;
@@ -48,4 +49,9 @@ public class Sell extends AppCompatActivity {
     }
 
 
+    @Override
+    public void setInvoice(int totalPrice, int totalAmount) {
+        totalPrice_textView.setText(String.valueOf(totalPrice));
+        totalItemBtn.setText(String.valueOf(totalAmount));
+    }
 }

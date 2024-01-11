@@ -14,19 +14,19 @@ import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.firebase_Db.getProductList;
 import com.hanifsapp.hisabee.model.ProductList;
-import com.hanifsapp.hisabee.recyclerView.interFaces.deleteClickListener;
+import com.hanifsapp.hisabee.recyclerView.interFaces.onDeleteClickListener;
+import com.hanifsapp.hisabee.recyclerView.interFaces.onEditclickListner;
 
-public class StockProduct extends AppCompatActivity implements deleteClickListener {
+public class StockProduct extends AppCompatActivity implements onDeleteClickListener, onEditclickListner {
 
 
     public TextView totoalStock_textview, totalStock_value_textView;
     Button addNewProduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_product);
-
-
 
 
         totoalStock_textview = findViewById(R.id.total_stock_textView);
@@ -35,16 +35,15 @@ public class StockProduct extends AppCompatActivity implements deleteClickListen
 
 
         addNewProduct.setOnClickListener(view -> {
-            addProduct.editProduct= false;
+            addProduct.editProduct = false;
             startActivity(new Intent(this, addProduct.class));
 
         });
 
-        setTitle("মোট পণ্য সংখ্যাঃ "+ getProductList.product_Lists.size());
+        setTitle("মোট পণ্য সংখ্যাঃ " + getProductList.product_Lists.size());
         count();
 
     }
-
 
 
     @Override
@@ -56,13 +55,12 @@ public class StockProduct extends AppCompatActivity implements deleteClickListen
     }
 
 
-
-    private void count(){
-        int totalStock_var=0, totalStock_valueVar=0;
+    private void count() {
+        int totalStock_var = 0, totalStock_valueVar = 0;
 
         for (ProductList map : getProductList.product_Lists) {
             totalStock_var = map.getStock() + totalStock_var;
-            totalStock_valueVar = map.getBuyPrice()* map.getStock() + totalStock_valueVar;
+            totalStock_valueVar = map.getBuyPrice() * map.getStock() + totalStock_valueVar;
         }
         totoalStock_textview.setText(String.valueOf(totalStock_var));
         totalStock_value_textView.setText(String.valueOf(totalStock_valueVar));
@@ -77,6 +75,10 @@ public class StockProduct extends AppCompatActivity implements deleteClickListen
     }
 
 
+
+
+    //Method that is called from recyclerView
+
     @Override
     public void onDeleteClick(String id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -84,7 +86,6 @@ public class StockProduct extends AppCompatActivity implements deleteClickListen
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, ids) -> {
                     autoload.deleteData(id);
-
                 })
                 .setNegativeButton("No", (dialog, ids) -> dialog.dismiss());
         AlertDialog alert = builder.create();
@@ -92,5 +93,8 @@ public class StockProduct extends AppCompatActivity implements deleteClickListen
     }
 
 
-
+    @Override
+    public void onEditClick(int position) {
+        startActivity(new Intent(this, addProduct.class));
+    }
 }
