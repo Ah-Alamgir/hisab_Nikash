@@ -6,11 +6,11 @@ import com.hanifsapp.hisabee.model.ProductList;
 
 import java.util.ArrayList;
 
-public class greedy_dif extends DiffUtil.Callback {
+public class DiffCallback extends DiffUtil.Callback {
     ArrayList<ProductList> oldList;
     ArrayList<ProductList> newList;
 
-    public greedy_dif(ArrayList<ProductList> oldList, ArrayList<ProductList> newList) {
+    public DiffCallback(ArrayList<ProductList> oldList, ArrayList<ProductList> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }

@@ -6,13 +6,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
 import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.denaPawna;
-import com.hanifsapp.hisabee.firebase_Db.getProductList;
+import com.hanifsapp.hisabee.firebase_Db.Constant;
+import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
-import com.hanifsapp.hisabee.firebase_Db.variable;
 
 import java.util.Objects;
 
@@ -105,15 +104,21 @@ public class homePage extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            startActivity(new Intent(homePage.this, SignUp.class));
-        }else{
-            variable.getDbRef(auth.getUid());
-            if (getProductList.product_Lists.size()==0){
-                getProductList.getProduct_item();
-            }
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        if (auth.getCurrentUser() == null) {
+//            startActivity(new Intent(homePage.this, SignUp.class));
+//        }else{
+//            variable.getDbRef(auth.getUid());
+//            if (Objects.requireNonNull(getProductList.product_list.getValue()).size() ==0){
+//                getProductList.getProduct_item();
+//            }
+//        }
+
+        if(GetproductList.product_list.getValue() == null){
+            Constant.getDbRef();
+            GetproductList.getProduct_item();
         }
+
         super.onStart();
     }
 }
