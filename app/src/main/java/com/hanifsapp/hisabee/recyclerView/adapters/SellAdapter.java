@@ -1,6 +1,7 @@
 package com.hanifsapp.hisabee.recyclerView.adapters;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,27 +9,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.databinding.RecyclerViewSellBinding;
-import com.hanifsapp.hisabee.firebase_Db.getProductList;
+import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.model.ProductList;
 
-public class sell_recyclerView extends RecyclerView.Adapter<sell_recyclerView.ViewHolder> {
+import java.util.ArrayList;
+
+public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ViewHolder> {
     int itemCountVar = 0;
     int totalPriceVar = 0;
+    private ArrayList<ProductList> items;
 
-    public sell_recyclerView() {
+    public SellAdapter(Context context, ArrayList<ProductList> item) {
+        this.items = item;
     }
+
 
     @NonNull
     @Override
-    public sell_recyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SellAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerViewSellBinding binding = RecyclerViewSellBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull sell_recyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SellAdapter.ViewHolder holder, int position) {
 
-        ProductList item = getProductList.product_Lists.get(position);
+        ProductList item = GetproductList.product_list.getValue().get(position);
         holder.binding.nameText.setText(item.getName());
         holder.binding.pieceText.setText("00");
         holder.binding.sellPriceText.setText(String.valueOf(item.getSellPrice()));
@@ -55,7 +61,7 @@ public class sell_recyclerView extends RecyclerView.Adapter<sell_recyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return getProductList.product_Lists.size();
+        return items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,14 +81,14 @@ public class sell_recyclerView extends RecyclerView.Adapter<sell_recyclerView.Vi
         //        totalItemBtn.setText(String.valueOf(itemCountVar));
 
 
-        if (!getProductList.added_tocard.contains(id)) {
-            getProductList.added_tocard.add(id);
-            ProductList item = getProductList.product_Lists.get(position);
+        if (!GetproductList.added_tocard.contains(id)) {
+            GetproductList.added_tocard.add(id);
+            ProductList item = GetproductList.product_list.getValue().get(position);
             item.setOrder(1);
-            getProductList.card_list.add(item);
+            GetproductList.card_list.add(item);
         } else {
-            int location = getProductList.added_tocard.indexOf(id);
-            getProductList.card_list.get(location).setOrder(orderAmount);
+            int location = GetproductList.added_tocard.indexOf(id);
+            GetproductList.card_list.get(location).setOrder(orderAmount);
         }
     }
 

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.addProduct">
+    tools:context=".activity.addProductActivity">
+
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
@@ -52,7 +53,7 @@
                 android:ems="10"
                 android:background="@drawable/round_shape"
                 android:hint="@string/sell_price"
-                android:inputType="text"/>
+                android:inputType="number"/>
 
 
             <EditText
@@ -64,7 +65,7 @@
                 android:ems="10"
                 android:background="@drawable/round_shape"
                 android:hint="@string/stock_hint"
-                android:inputType="text"/>
+                android:inputType="number"/>
 
             <EditText
                 android:id="@+id/buyPrice"
@@ -75,7 +76,7 @@
                 android:ems="10"
                 android:background="@drawable/round_shape"
                 android:hint="@string/buyPrice_hint"
-                android:inputType="text"/>
+                android:inputType="number"/>
 
 
 

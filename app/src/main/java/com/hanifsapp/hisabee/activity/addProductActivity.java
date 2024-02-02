@@ -3,17 +3,18 @@ package com.hanifsapp.hisabee.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hanifsapp.hisabee.databinding.ActivityAddProductBinding;
-import com.hanifsapp.hisabee.firebase_Db.getProductList;
-import com.hanifsapp.hisabee.firebase_Db.variable;
+import com.hanifsapp.hisabee.firebase_Db.GetproductList;
+import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.ProductList;
+import com.hanifsapp.hisabee.utility.Dialogues;
 
 import java.util.Map;
 
-public class addProduct extends AppCompatActivity {
+public class addProductActivity extends AppCompatActivity {
 
 
     public static String id;
@@ -32,6 +33,7 @@ public class addProduct extends AppCompatActivity {
         binding.update.setOnClickListener(view -> {
             updateProduct();
         });
+        handleBackpress();
 
     }
 
@@ -39,11 +41,10 @@ public class addProduct extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (editProduct) {
-//            setTitle("তথ্য আপডেট করুন");
+            setTitle("Update Product");
             binding.submit.setVisibility(View.GONE);
             binding.update.setVisibility(View.VISIBLE);
-            ProductList item = getProductList.product_Lists.get(edit_position);
-
+            ProductList item = GetproductList.product_list.getValue().get(edit_position);
 
             binding.editTextName.setText(item.getName());
             id = item.getId();
@@ -59,7 +60,7 @@ public class addProduct extends AppCompatActivity {
             }
 
         } else {
-            setTitle("পণ্য যোগ করুন");
+            setTitle("Add Product");
 
             binding.update.setVisibility(View.GONE);
             binding.submit.setVisibility(View.VISIBLE);
@@ -93,34 +94,27 @@ public class addProduct extends AppCompatActivity {
 
 
             if (editProduct){
-                variable.productList_ref.child(id).updateChildren(postValues);
+                Constant.productList_ref.child(id).updateChildren(postValues);
             }else {
-                variable.productList_ref.push().setValue(postValues);
+                Constant.productList_ref.push().setValue(postValues);
             }
 
-            alartDIalogue();
-
+            Dialogues.addProductDialogue(editProduct, this);
         }
     }
 
 
 
-
-    private void alartDIalogue(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (editProduct){
-            builder.setTitle("Product Updated")
-                    .setMessage("Your product has been successfully updated.");
-        }else {
-            builder.setTitle("Product Added")
-                    .setMessage("Your product has been successfully added.");
-        }
-        builder.setPositiveButton("OK", (dialog, which) -> {
-
+    private void handleBackpress(){
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
         });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
+
+
 
 
 }

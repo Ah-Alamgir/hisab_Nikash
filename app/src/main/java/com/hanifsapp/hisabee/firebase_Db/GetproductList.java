@@ -1,6 +1,9 @@
 package com.hanifsapp.hisabee.firebase_Db;
 
+import static com.hanifsapp.hisabee.utility.logs.showLog;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -10,22 +13,28 @@ import com.hanifsapp.hisabee.model.ProductList;
 
 import java.util.ArrayList;
 
-public class getProductList {
-    public static ArrayList<ProductList> product_Lists = new ArrayList<ProductList>();
+public class GetproductList {
+
+
     public static ArrayList<ProductList> card_list= new ArrayList<ProductList>();
     public static ArrayList<String> added_tocard= new ArrayList<String>();
-
+    public static MutableLiveData<ArrayList<ProductList>> product_list = new MutableLiveData<>();
 
     public static void getProduct_item(){
         try {
-                variable.productList_ref.addValueEventListener(new ValueEventListener() {
+                Constant.productList_ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<ProductList> productArray = new ArrayList<>();
+                        showLog("datachanged GetProductList");
+
                         for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                             ProductList product = dataSnapshot.getValue(ProductList.class);
+                            assert product != null;
                             product.setId(dataSnapshot.getKey());
-                            product_Lists.add(product);
+                            productArray.add(product);
                         }
+                        product_list.setValue(productArray);
                     }
 
                     @Override
@@ -33,7 +42,6 @@ public class getProductList {
 
                     }
                 });
-
         }catch (DatabaseException e) {
         };
 
@@ -46,7 +54,7 @@ public class getProductList {
         for (ProductList cardItems : card_list ){
             int updatedStock;
             updatedStock  = cardItems.getStock() - cardItems.getOrder();
-            variable.dbRef.child(cardItems.getId()).child("Stock").setValue(updatedStock);
+            Constant.dbRef.child(cardItems.getId()).child("Stock").setValue(updatedStock);
         }
 
         return true;

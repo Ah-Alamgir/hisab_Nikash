@@ -16,12 +16,12 @@ import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.InvoiceBinding;
-import com.hanifsapp.hisabee.firebase_Db.getProductList;
+import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
 import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.utility.printEpos;
 
-public class invoice extends AppCompatActivity {
+public class invoiceActivity extends AppCompatActivity {
     public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
     LinearLayout layout_tobePrint;
     private boolean printed;
@@ -103,7 +103,7 @@ public class invoice extends AppCompatActivity {
         dorString.append("দর  \n");
         amountString.append("পিছ \n");
         damString.append("মোট \n");
-        for(ProductList entry: getProductList.card_list){
+        for(ProductList entry: GetproductList.card_list){
             totalPrices = totalPrices + entry.getOrder() * entry.getSellPrice();
 
             nameString.append(entry.getName()).append("\n");

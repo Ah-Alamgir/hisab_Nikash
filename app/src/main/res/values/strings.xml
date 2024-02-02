@@ -24,5 +24,9 @@
     <string name="buyPrice_hint">ক্রয় মূল্য</string>
     <string name="_0">0</string>
     <string name="vat_hint">ভ্যাট</string>
+    <string name="profile">Profile</string>
+    <string name="contacts">Contacts</string>
+    <string name="print">Print</string>
+    <string name="home">Home</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

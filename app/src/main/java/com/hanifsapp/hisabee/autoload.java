@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hanifsapp.hisabee.firebase_Db.variable;
+import com.hanifsapp.hisabee.firebase_Db.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class autoload {
     public static String dates;
 
     public static void deleteData(String id){
-        variable.productList_ref.child(id).removeValue();
+        Constant.productList_ref.child(id).removeValue();
     }
 
     public static void deleteFragmentData(String id, String tag){

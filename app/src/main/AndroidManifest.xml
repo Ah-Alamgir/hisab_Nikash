@@ -37,11 +37,11 @@
             android:name=".activity.costCalculation"
             android:exported="false" />
         <activity
-            android:name=".activity.StockProduct"
+            android:name=".activity.StockActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activity.invoice"
+            android:name=".activity.invoiceActivity"
             android:exported="false" />
         <activity
             android:name=".activity.Sell"
@@ -56,7 +56,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.addProduct"
+            android:name=".activity.addProductActivity"
             android:exported="false" />
     </application>
 
