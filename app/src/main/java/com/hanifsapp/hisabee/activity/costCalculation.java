@@ -1,22 +1,12 @@
 package com.hanifsapp.hisabee.activity;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Switch;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.databinding.ActivityCostCalculationBinding;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class costCalculation extends AppCompatActivity {
 

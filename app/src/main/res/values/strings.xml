@@ -28,5 +28,6 @@
     <string name="contacts">Contacts</string>
     <string name="print">Print</string>
     <string name="home">Home</string>
+    <string name="write_here">Write here</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

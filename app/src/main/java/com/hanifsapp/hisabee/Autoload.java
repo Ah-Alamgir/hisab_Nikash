@@ -7,7 +7,6 @@ import com.hanifsapp.hisabee.firebase_Db.Constant;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -26,9 +25,7 @@ public class Autoload {
 
 
     public static ArrayList<Map<String, Object>> CustomerInfo = new ArrayList<>();
-    static ArrayList<Map<String, Object>> costCalculations = new ArrayList<>();
     public static ArrayList<Map<String, Object>> cardItem = new ArrayList<>();
-    public static List<String> cardItem_list = new ArrayList<>();
 
 
 
