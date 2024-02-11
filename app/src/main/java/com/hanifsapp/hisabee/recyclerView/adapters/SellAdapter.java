@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hanifsapp.hisabee.databinding.RecyclerViewSellBinding;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.model.ProductList;
+import com.hanifsapp.hisabee.recyclerView.interFaces.invoiceListener;
 
 import java.util.ArrayList;
 
 public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ViewHolder> {
-    int itemCountVar = 0;
+
     int totalPriceVar = 0;
     private ArrayList<ProductList> items;
+    invoiceListener listener;
 
-    public SellAdapter(Context context, ArrayList<ProductList> item) {
+    public SellAdapter(Context context, ArrayList<ProductList> item, invoiceListener listen) {
         this.items = item;
+        this.listener = listen;
     }
 
 
@@ -36,23 +39,26 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ViewHolder> {
 
         ProductList item = GetproductList.product_list.getValue().get(position);
         holder.binding.nameText.setText(item.getName());
-        holder.binding.pieceText.setText("00");
+        holder.binding.amountText.setText("00");
         holder.binding.sellPriceText.setText(String.valueOf(item.getSellPrice()));
         holder.binding.stockamountTextView.setText(String.valueOf(item.getStock()));
 
 
         holder.binding.plusBtn.setOnClickListener(view -> {
-            itemCountVar = itemCountVar + 1;
-            holder.binding.pieceText.setText(String.valueOf(Integer.parseInt(holder.binding.pieceText.getText().toString()) + 1));
-            addtoCard(item.getId(), position, item.getSellPrice(), Integer.parseInt(String.valueOf(holder.binding.pieceText.getText())));
+            int orderAmount = Integer.parseInt(holder.binding.amountText.getText().toString()) + 1;
+            holder.binding.amountText.setText(String.valueOf(orderAmount));
+            addtoCard(item.getId(), position, item.getSellPrice(), orderAmount);
+            listener.setInvoice(item.getSellPrice(), 1);
 
 
         });
         holder.binding.minusBtn.setOnClickListener(view -> {
-            if (!(Integer.parseInt(holder.binding.sellPriceText.getText().toString()) <= 0)) {
-                itemCountVar = itemCountVar - 1;
-                holder.binding.pieceText.setText(String.valueOf(Integer.parseInt(holder.binding.pieceText.getText().toString()) - 1));
-                addtoCard(item.getId(), position, -item.getSellPrice(), Integer.parseInt(String.valueOf(holder.binding.pieceText.getText())));
+
+            if (!(Integer.parseInt(holder.binding.amountText.getText().toString()) <= 0)) {
+                int orderAmount = Integer.parseInt(holder.binding.amountText.getText().toString()) - 1;
+                holder.binding.amountText.setText(String.valueOf(orderAmount));
+                addtoCard(item.getId(), position, -item.getSellPrice(), orderAmount);
+                listener.setInvoice(item.getSellPrice() * -1, -1);
             }
         });
 

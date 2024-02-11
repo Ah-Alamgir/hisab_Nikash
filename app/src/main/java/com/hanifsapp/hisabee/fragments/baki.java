@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.recyclerView.adapters.denapaonaAdapter;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class baki extends Fragment {
 
         recyclerView = view.findViewById(R.id.baki_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaydue, context, "todayDue"));
+//        recyclerView.setAdapter(new denapaonaAdapter(autoload.todaydue, context, "todayDue"));
 
         return view;
     }

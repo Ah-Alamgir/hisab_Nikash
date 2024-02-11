@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
 
 
 import java.util.List;
@@ -54,19 +53,19 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
                         String itemId = (String) item.get("date");
-                        autoload.deleteFragmentData(itemId, tags);
-                        int positions = mData.indexOf(item);
-                        if (positions != -1) {
-                            removeItem(positions);
-                            if (tags.equals("todaySell")) {
-                                autoload.todaysell.remove(positions);
-                            }else if (tags.equals("todayDue")){
-                                autoload.todaydue.remove(positions);
-                            }else if (tags.equals("todaySpend")){
-                                autoload.todayspend.remove(positions);
-                            }
-
-                        }
+//                        autoload.deleteFragmentData(itemId, tags);
+//                        int positions = mData.indexOf(item);
+//                        if (positions != -1) {
+//                            removeItem(positions);
+//                            if (tags.equals("todaySell")) {
+//                                autoload.todaysell.remove(positions);
+//                            }else if (tags.equals("todayDue")){
+//                                autoload.todaydue.remove(positions);
+//                            }else if (tags.equals("todaySpend")){
+//                                autoload.todayspend.remove(positions);
+//                            }
+//
+//                        }
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
             AlertDialog alert = builder.create();

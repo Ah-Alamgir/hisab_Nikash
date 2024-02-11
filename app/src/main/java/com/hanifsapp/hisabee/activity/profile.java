@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hanifsapp.hisabee.Autoload;
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.autoload;
 import com.hanifsapp.hisabee.recyclerView.adapters.SqopenHelper;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class profile extends AppCompatActivity {
         addButton.setOnClickListener(v -> showAddCustomerDialog());
 
         FETCH_BUTTON.setOnClickListener(v -> {
-            for (Map<String, Object> map : autoload.CustomerInfo){
+            for (Map<String, Object> map : Autoload.CustomerInfo){
 
                 sqopenHelper.addtoDatabase(String.valueOf(map.get("name")), String.valueOf(map.get("address")),String.valueOf(map.get("phoneNumber")));
             }

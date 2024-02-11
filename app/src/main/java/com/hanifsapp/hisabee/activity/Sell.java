@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,14 +46,15 @@ public class Sell extends AppCompatActivity implements invoiceListener {
 
         super.onStart();
 
+        try {
             items = GetproductList.product_list.getValue();
             RecyclerView recyclerView = findViewById(R.id.pdRecycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new SellAdapter(this, items);
+            adapter = new SellAdapter(this, items, this);
             recyclerView.setAdapter(adapter);
-
-
-
+        }catch (Exception e){
+            Toast.makeText(this, "Items not Loaded", Toast.LENGTH_LONG).show();
+        }
 
 
 
@@ -61,7 +63,9 @@ public class Sell extends AppCompatActivity implements invoiceListener {
 
     @Override
     public void setInvoice(int totalPrice, int totalAmount) {
-        totalPrice_textView.setText(String.valueOf(totalPrice));
-        totalItemBtn.setText(String.valueOf(totalAmount));
+        int totalCost = Integer.parseInt(totalPrice_textView.getText().toString()) + totalPrice;
+        int orderAmount = Integer.parseInt(totalItemBtn.getText().toString()) + totalAmount;
+        totalPrice_textView.setText(String.valueOf(totalCost));
+        totalItemBtn.setText(String.valueOf(orderAmount));
     }
 }

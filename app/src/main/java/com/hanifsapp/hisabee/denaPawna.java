@@ -43,7 +43,7 @@ public class denaPawna extends AppCompatActivity {
         binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
         binding.viewPager3.setAdapter(adapter);
-        binding.dateTextView.setText(autoload.dates);
+        binding.dateTextView.setText(Autoload.dates);
         binding.datePickBtn.setOnClickListener(v -> showDatePickerDialog());
 
 
@@ -93,9 +93,9 @@ public class denaPawna extends AppCompatActivity {
 
         if (!amountText.isEmpty() && !details.isEmpty()) {
             if (binding1.switchButtonGive.isChecked()) {
-                autoload.getDataToUpdate("todaySpend", Integer.parseInt(amountText), details);
+               Autoload.getDataToUpdate("todaySpend", Integer.parseInt(amountText), details);
             } else if (binding1.switchButtonDue.isChecked()) {
-                autoload.getDataToUpdate("todayDue", Integer.parseInt(amountText), details);
+                Autoload.getDataToUpdate("todayDue", Integer.parseInt(amountText), details);
             }
 
         } else {
@@ -172,20 +172,20 @@ public class denaPawna extends AppCompatActivity {
             }
 
 
-            switch (fragmentName){
-                case "baki":
-                    baki.Update(Update(titleText , autoload.todaydue));
-                    binding.hisabTextView.setText(String.valueOf(amount));
-                    break;
-                case "bikri":
-                    bikri.Update(Update(titleText , autoload.todaysell));
-                    binding.hisabTextView.setText(String.valueOf(amount));
-                    break;
-                case "bay":
-                    Fragment_bay.Update(Update(titleText , autoload.todayspend));
-                    binding.hisabTextView.setText(String.valueOf(amount));
-                    break;
-            }
+//            switch (fragmentName){
+//                case "baki":
+//                    baki.Update(Update(titleText , Autoload.todaydue));
+//                    binding.hisabTextView.setText(String.valueOf(amount));
+//                    break;
+//                case "bikri":
+//                    bikri.Update(Update(titleText , autoload.todaysell));
+//                    binding.hisabTextView.setText(String.valueOf(amount));
+//                    break;
+//                case "bay":
+//                    Fragment_bay.Update(Update(titleText , autoload.todayspend));
+//                    binding.hisabTextView.setText(String.valueOf(amount));
+//                    break;
+//            }
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());

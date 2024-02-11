@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.hanifsapp.hisabee.autoload;
+
 
 public class Dialogues {
 
@@ -31,7 +31,7 @@ public class Dialogues {
         builder.setMessage("Are you sure you want to delete this item?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, ids) -> {
-                    autoload.deleteData(id);
+//                    autoload.deleteData(id);
                 })
                 .setNegativeButton("No", (dialog, ids) -> dialog.dismiss());
         AlertDialog alert = builder.create();

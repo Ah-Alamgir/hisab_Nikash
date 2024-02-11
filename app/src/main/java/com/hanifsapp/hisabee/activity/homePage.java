@@ -1,17 +1,16 @@
 package com.hanifsapp.hisabee.activity;
 
-import static com.hanifsapp.hisabee.utility.CustomChart.showChart;
-
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.anychart.charts.CircularGauge;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
 import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
+import com.hanifsapp.hisabee.firebase_Db.ChekNet;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
@@ -36,18 +35,7 @@ public class homePage extends AppCompatActivity {
         setTitle("মাহি এন্টারপ্রাইজ");
 
 
-
-
-        //handle ui releted work
-//        binding.sellBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, Sell.class)));
-//        binding.contactBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, profile.class)));
-//        binding.stockManageBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, StockActivity.class)));
-//        binding.costBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, costCalculation.class)));
-//        binding.dueBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, denaPawna.class)));
-//        binding.wishBtn.setOnClickListener(view -> startActivity(new Intent(homePage.this, wish_printer.class)));
-
-
-//        binding.EditInfo.setOnClickListener(view -> showAddCustomerDialog());
+        ChekNet.isNetworkAvailable(getApplicationContext());
 
 
         if (savedInstanceState==null){
@@ -68,8 +56,14 @@ public class homePage extends AppCompatActivity {
             }
 
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder, selectedFragment).commit();
-            return true;
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder, selectedFragment).commit();
+                return true;
+            } else {
+                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
         });
 
 
@@ -146,16 +140,9 @@ public class homePage extends AppCompatActivity {
             GetproductList.getProduct_item();
         }
 
-        GetproductList.product_list.observe(this, arrayList -> displayChart());
 
     }
 
 
-    private void displayChart(){
-        binding.anyChartView.setProgressBar(binding.progressBars);
-        String[] values = {"500", "250", "1800", "5685"};
-        String[] labels = {"Due", "Cost", "Sell", "le"};
-        CircularGauge gauge = showChart(values, labels);
-        binding.anyChartView.setChart(gauge);
-    }
+
 }

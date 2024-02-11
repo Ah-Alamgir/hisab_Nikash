@@ -14,19 +14,22 @@ import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
+import com.hanifsapp.hisabee.Autoload;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.InvoiceBinding;
+import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
 import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.utility.printEpos;
 
 public class invoiceActivity extends AppCompatActivity {
-    public final int PERMISSION_BLUETOOTH = 1,PERMISSION_BLUETOOTH_ADMIN = 2,PERMISSION_BLUETOOTH_CONNECT = 3,PERMISSION_BLUETOOTH_SCAN = 4;
+    public final int PERMISSION_BLUETOOTH = 1, PERMISSION_BLUETOOTH_ADMIN = 2, PERMISSION_BLUETOOTH_CONNECT = 3, PERMISSION_BLUETOOTH_SCAN = 4;
     LinearLayout layout_tobePrint;
     private boolean printed;
 
     InvoiceBinding binding;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +43,7 @@ public class invoiceActivity extends AppCompatActivity {
         readyText();
 
 
-
     }
-
 
 
     @Override
@@ -57,13 +58,31 @@ public class invoiceActivity extends AppCompatActivity {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             printed = true;
+
+            updateSellStatus();
         });
     }
 
 
 
 
-    public void getPermissions(){
+
+    private void updateSellStatus(){
+        Constant.todaySell.get().addOnCompleteListener(task -> {
+            int sell = 0;
+            try {
+                sell = task.getResult().getValue(Integer.class) + totalPrices;
+            }catch (Exception e) {
+               sell = totalPrices;
+            }
+            Constant.todaySell.child(Autoload.getCurrentDate()).setValue(sell);
+        });
+
+    }
+
+
+
+    public void getPermissions() {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S && ContextCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.BLUETOOTH}, PERMISSION_BLUETOOTH);
         } else if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S && ContextCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
@@ -77,21 +96,83 @@ public class invoiceActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     String text;
-    int totdisc=0;
-    int totvat=0;
-    int totalPrices=0;
+    int totdisc = 0;
+    int totvat = 0;
+    int totalPrices = 0;
 
 
+    public void readyText() {
 
-    public void readyText(){
+        try {
+            text = localStore.settings.get(2) + ("\n")
+                    + localStore.settings.get(3) + "\n" +
+                    localStore.settings.get(4) +
+                    "\n----------------------";
 
+        }catch (Exception e) {
+            text = "Your Company Name" + ("\n")
+                    + "Company Address" + "\n" +
+                    "Phone Number" +
+                    "\n----------------------";
 
-
-        text =  localStore.settings.get(2)+ ("\n")+
-                localStore.settings.get(3)
-                + "\n" + localStore.settings.get(4)+
-                "\n----------------------";
+        }
 
 
         StringBuilder dorString = new StringBuilder(), damString = new StringBuilder(), amountString = new StringBuilder(), nameString = new StringBuilder();
@@ -103,7 +184,7 @@ public class invoiceActivity extends AppCompatActivity {
         dorString.append("দর  \n");
         amountString.append("পিছ \n");
         damString.append("মোট \n");
-        for(ProductList entry: GetproductList.card_list){
+        for (ProductList entry : GetproductList.card_list) {
             totalPrices = totalPrices + entry.getOrder() * entry.getSellPrice();
 
             nameString.append(entry.getName()).append("\n");
@@ -119,18 +200,17 @@ public class invoiceActivity extends AppCompatActivity {
 
         String pricedetail =
 
-                "সর্বমোটঃ  "+ totalPrices +"\n" +
-                        "ডিস্কাউন্টঃ  "+ totdisc +"\n" +
-                        "ভ্যাটঃ "+totvat+"\n" +
-                        "-----------------------\n"+
-                        "মোট প্রদেয়ঃ "+ (totalPrices - totdisc - totvat) ;
+                "সর্বমোটঃ  " + totalPrices + "\n" +
+                        "ডিস্কাউন্টঃ  " + totdisc + "\n" +
+                        "ভ্যাটঃ " + totvat + "\n" + "-----------------------\n" +
+                        "মোট প্রদেয়ঃ " + (totalPrices - totdisc - totvat);
 
 
         binding.textViewHeader.setText(text);
         binding.textViewName.setText(nameString);
         binding.textViewPrice.setText(dorString);
         binding.textViewAmount.setText(amountString);
-       binding.textViewTotal.setText(damString);
+        binding.textViewTotal.setText(damString);
         binding.textViewFooter.setText(pricedetail);
 
     }
