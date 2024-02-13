@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hanifsapp.hisabee.activity.addProductActivity;
 import com.hanifsapp.hisabee.databinding.RecyclerViewStockBinding;
 import com.hanifsapp.hisabee.model.ProductList;
-import com.hanifsapp.hisabee.utility.Dialogues;
+import com.hanifsapp.hisabee.recyclerView.interFaces.onStockclickListner;
 
 import java.util.ArrayList;
 
 public class StockAdapter extends RecyclerView.Adapter<StockAdapter.viewHolder> {
     private final Context context;
     private final ArrayList<ProductList> getItem;
+    private onStockclickListner listner;
 
-    public StockAdapter(Context context, ArrayList<ProductList> items) {
+
+    public StockAdapter(Context context, ArrayList<ProductList> items, onStockclickListner listen) {
         this.context = context;
         this.getItem = items;
+        this.listner = listen;
 
     }
 
@@ -52,13 +55,11 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.viewHolder> 
         holder.bd.sellPriceTextView.setText(String.valueOf(item.getSellPrice()));
         holder.bd.buyPriceTextView.setText(String.valueOf(item.getBuyPrice()));
         holder.bd.stockTextView.setText("স্টকঃ " + item.getStock());
-        holder.bd.deleteBtn.setOnClickListener(view -> {
-            Dialogues.onDeleteClick(item.getId(), context);
-        });
 
+        holder.bd.deleteBtn.setOnClickListener(view -> listner.onDeleteClick(item.getId()));
         holder.bd.editBtn.setOnClickListener(view -> {
-            addProductActivity.edit_position = holder.getAdapterPosition();
-            addProductActivity.editProduct = true;
+            listner.onEditClick(position);
+            addProductActivity.item = item;
 
         });
     }

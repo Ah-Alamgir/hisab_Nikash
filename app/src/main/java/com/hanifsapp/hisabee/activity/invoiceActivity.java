@@ -59,27 +59,21 @@ public class invoiceActivity extends AppCompatActivity {
             }
             printed = true;
 
-            updateSellStatus();
+            String date = Autoload.getCurrentDate();
+            Constant.todaySellHistory.child(date).setValue(totalPrices);
+            Constant.todaySell.child(date.substring(0, 9)).get().addOnCompleteListener(task -> {
+                Integer totalSold;
+                if (task.isSuccessful()) {
+                    totalSold = task.getResult().getValue(Integer.class) + totalPrices;
+                } else {
+                    totalSold = totalPrices;
+                }
+
+                Constant.todaySell.child(date.substring(0, 9)).setValue(totalSold);
+            });
+
         });
     }
-
-
-
-
-
-    private void updateSellStatus(){
-        Constant.todaySell.get().addOnCompleteListener(task -> {
-            int sell = 0;
-            try {
-                sell = task.getResult().getValue(Integer.class) + totalPrices;
-            }catch (Exception e) {
-               sell = totalPrices;
-            }
-            Constant.todaySell.child(Autoload.getCurrentDate()).setValue(sell);
-        });
-
-    }
-
 
 
     public void getPermissions() {
@@ -93,63 +87,6 @@ public class invoiceActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.BLUETOOTH_SCAN}, PERMISSION_BLUETOOTH_SCAN);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     String text;
@@ -166,7 +103,7 @@ public class invoiceActivity extends AppCompatActivity {
                     localStore.settings.get(4) +
                     "\n----------------------";
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             text = "Your Company Name" + ("\n")
                     + "Company Address" + "\n" +
                     "Phone Number" +

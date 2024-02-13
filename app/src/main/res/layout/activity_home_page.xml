@@ -8,12 +8,21 @@
     tools:context=".activity.homePage">
 
 
+
+
     <FrameLayout
         android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

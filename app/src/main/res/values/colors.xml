@@ -4,15 +4,17 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#E91E63</color>
 
 
 
 
 
-    <color name="colorPrimary">#C38154</color>
-    <color name="colorSecondary">#884A39</color>
+    <color name="colorPrimary">#664E88</color>
+    <color name="colorSecondary">#4B3869</color>
     <color name="colorTextView">#404258</color>
     <color name="colorTextView3">#50577A</color>
     <color name="colorTextView2">#FCE9F1</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="chartBg">#81689D</color>
 </resources>

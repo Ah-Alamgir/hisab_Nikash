@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hanifsapp.hisabee.databinding.ActivityAddProductBinding;
-import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.utility.Dialogues;
@@ -19,7 +18,7 @@ public class addProductActivity extends AppCompatActivity {
 
     public static String id;
     public static boolean editProduct= false;
-    public static int edit_position;
+    public static ProductList item;
     private ActivityAddProductBinding binding;
 
     @Override
@@ -44,7 +43,6 @@ public class addProductActivity extends AppCompatActivity {
             setTitle("Update Product");
             binding.submit.setVisibility(View.GONE);
             binding.update.setVisibility(View.VISIBLE);
-            ProductList item = GetproductList.product_list.getValue().get(edit_position);
 
             binding.editTextName.setText(item.getName());
             id = item.getId();

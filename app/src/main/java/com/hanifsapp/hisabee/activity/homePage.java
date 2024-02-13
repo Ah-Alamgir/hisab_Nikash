@@ -32,7 +32,9 @@ public class homePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setTitle("মাহি এন্টারপ্রাইজ");
+
+
+
 
 
         ChekNet.isNetworkAvailable(getApplicationContext());

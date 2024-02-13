@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.anychart.charts.CircularGauge;
 import com.hanifsapp.hisabee.activity.Sell;
 import com.hanifsapp.hisabee.activity.StockActivity;
-import com.hanifsapp.hisabee.activity.costCalculation;
+import com.hanifsapp.hisabee.activity.CostHistoryActivity;
 import com.hanifsapp.hisabee.databinding.FragmentHomeBinding;
 import com.hanifsapp.hisabee.denaPawna;
 
@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
         //handle ui releted work
         binding.selling.setOnClickListener(view -> startActivity(new Intent(getContext(), Sell.class)));
         binding.stockManage.setOnClickListener(view -> startActivity(new Intent(getContext(), StockActivity.class)));
-        binding.costBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), costCalculation.class)));
+        binding.costBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), CostHistoryActivity.class)));
         binding.dueBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), denaPawna.class)));
 
         return binding.getRoot();

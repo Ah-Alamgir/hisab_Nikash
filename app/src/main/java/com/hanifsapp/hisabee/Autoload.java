@@ -4,15 +4,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 import java.util.Map;
 
 public class Autoload {
     public static DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    public static String dates;
 
     public static void deleteData(String id){
         Constant.productList_ref.child(id).removeValue();
@@ -30,13 +26,6 @@ public class Autoload {
 
 
 
-
-    public static String getCurrentDate(){
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        dates= dateFormat.format(calendar.getTime());
-        return dates;
-    }
 
 
 

@@ -34,7 +34,7 @@
             android:name=".denaPawna"
             android:exported="false" />
         <activity
-            android:name=".activity.costCalculation"
+            android:name=".activity.CostHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".activity.StockActivity"

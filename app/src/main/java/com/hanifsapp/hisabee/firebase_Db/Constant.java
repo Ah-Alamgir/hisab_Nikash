@@ -23,8 +23,8 @@ public class Constant {
             todayDue = SingleValue_ref.child("todayDue");
 
 
-            todaySellHistory = dbRef.child("todaySellHistory");
-            todayCostHistory = dbRef.child("todayCostHistory");
+            todaySellHistory = dbRef.child("History").child("todaySellHistory");
+            todayCostHistory = dbRef.child("History").child("todayCostHistory");
     }
 
 

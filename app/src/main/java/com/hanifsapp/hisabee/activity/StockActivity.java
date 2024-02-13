@@ -13,12 +13,13 @@ import com.hanifsapp.hisabee.databinding.ActivityStockProductBinding;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.recyclerView.adapters.StockAdapter;
-import com.hanifsapp.hisabee.recyclerView.interFaces.onEditclickListner;
+import com.hanifsapp.hisabee.recyclerView.interFaces.onStockclickListner;
+import com.hanifsapp.hisabee.utility.Dialogues;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class StockActivity extends AppCompatActivity implements onEditclickListner {
+public class StockActivity extends AppCompatActivity implements onStockclickListner {
 
 
     private ArrayList<ProductList> currentList = new ArrayList<ProductList>();
@@ -69,7 +70,7 @@ public class StockActivity extends AppCompatActivity implements onEditclickListn
 
     private void setRecyclerView(){
         currentList = GetproductList.product_list.getValue();
-        stockAdapter = new StockAdapter(this, currentList);
+        stockAdapter = new StockAdapter(this, currentList,this);
         binding.stockRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.stockRecycler.setAdapter(stockAdapter);
     }
@@ -92,6 +93,10 @@ public class StockActivity extends AppCompatActivity implements onEditclickListn
         startActivity(new Intent(this, addProductActivity.class));
     }
 
+    @Override
+    public void onDeleteClick(String id) {
+        Dialogues.onDeleteClick(id, this);
+    }
 
 
     private void handleBackPress(){

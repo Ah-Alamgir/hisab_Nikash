@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sellCardView"
     android:layout_width="match_parent"
     android:layout_height="70dp"
@@ -10,36 +11,61 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@mipmap/mobileapp" />
 
         <TextView
             android:id="@+id/name_text"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Poco M2" />
+            android:text="Poco M2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView5"
             android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="8dp">
+            android:layout_height="60dp"
+            app:cardCornerRadius="8dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
+
+            <TextView
+                android:id="@+id/stockamount_text_view"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:background="@drawable/amountbg"
+                android:textAlignment="center"
+                android:textSize="11sp"
+                android:text="155"/>
 
             <ImageButton
                 android:id="@+id/plusBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:backgroundTintMode="add"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
                 android:contentDescription="add"
                 android:visibility="visible"
                 app:srcCompat="@drawable/plush" />
@@ -54,31 +80,13 @@
 
             <ImageButton
                 android:id="@+id/minusBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:backgroundTintMode="add"
+                android:layout_gravity="center_vertical|end"
+                android:background="@color/transparent"
                 android:contentDescription="add"
                 android:visibility="visible"
                 app:srcCompat="@drawable/baseline_horizontal_rule_24" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:id="@+id/stockamount_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="15"
-                    android:textColor="@color/colorTextView2"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </androidx.cardview.widget.CardView>
 
 
         </androidx.cardview.widget.CardView>
@@ -87,17 +95,22 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="   ৳ "/>
+            android:layout_marginEnd="8dp"
+            android:text="৳ "
+            app:layout_constraintBottom_toBottomOf="@+id/sell_price_text"
+            app:layout_constraintEnd_toStartOf="@+id/sell_price_text" />
 
         <TextView
-            android:layout_weight="1"
             android:id="@+id/sell_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="15,000" />
+            android:layout_marginEnd="24dp"
+            android:text="15,000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

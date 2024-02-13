@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.hanifsapp.hisabee.databinding.ActivityDenaPawnaBinding;
 import com.hanifsapp.hisabee.databinding.DialogTextInputBinding;
 import com.hanifsapp.hisabee.fragments.Fragment_bay;
@@ -41,26 +40,8 @@ public class denaPawna extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
-        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), getLifecycle());
-        binding.viewPager3.setAdapter(adapter);
-        binding.dateTextView.setText(Autoload.dates);
-        binding.datePickBtn.setOnClickListener(v -> showDatePickerDialog());
 
 
-        new TabLayoutMediator(binding.tableLayout,binding.viewPager3,
-                (tab, position) -> {
-                    if (position == 0) {
-                        tabPosition = 0;
-                        tab.setText("বাকি");
-                    } else if (position == 1) {
-                        tabPosition = 1;
-                        tab.setText("বিক্রি");
-                    } else if (position == 2) {
-                        tabPosition = 2;
-                        tab.setText("ব্যায় ");
-                    }
-                }
-        ).attach();
 
 
 
@@ -162,13 +143,12 @@ public class denaPawna extends AppCompatActivity {
 
             if (switchYear.isChecked()) {
                 titleText = selectedYear;
-                binding.dateTextView.setText(titleText);
+
             } else if (switchMonth.isChecked()) {
                 titleText = getMonthName(selectedMonth);
-                binding.dateTextView.setText(titleText);
+
             } else {
                 titleText = selectedDay + " " + getMonthName(selectedMonth) + " " + selectedYear;
-                binding.dateTextView.setText(titleText);
             }
 
 
