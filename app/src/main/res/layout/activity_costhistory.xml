@@ -12,10 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/chart_bg"
-        android:orientation="vertical">
-
-
-    </LinearLayout>
+        android:orientation="vertical"/>
 
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
@@ -269,7 +266,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="24 May 2024"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="22sp" />
 
         <ImageButton
             android:id="@+id/btn_forword"

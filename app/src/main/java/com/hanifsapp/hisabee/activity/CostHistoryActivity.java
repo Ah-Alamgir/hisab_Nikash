@@ -4,10 +4,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.hanifsapp.hisabee.databinding.ActivityCosthistoryBinding;
 import com.hanifsapp.hisabee.firebase_Db.GetHistory;
 import com.hanifsapp.hisabee.model.SoldHistory;
-import com.hanifsapp.hisabee.utility.CustomChart;
 import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class CostHistoryActivity extends AppCompatActivity {
 
         setTitle("Cost calculation");
 
-        binding.textViewDate.setText(GetDate.getDate());
+        binding.textViewDate.setText(GetDate.getDate(0));
         history = GetHistory.getSoldHistory();
         calculateCost(binding.textViewDate.getText().toString());
 
@@ -45,6 +47,7 @@ private int foodCostvar=0;
 private int otherCostvar=0;
 
     private void calculateCost(String date){
+        binding.textViewDate.setText(date);
         travelCostvar = 0;
         foodCostvar = 0;
         shoppingCostvar = 0;
@@ -67,12 +70,38 @@ private int otherCostvar=0;
        binding.travelCost.setText(String.valueOf(travelCostvar));
        binding.foodCost.setText(String.valueOf(foodCostvar));
        binding.otherCost.setText(String.valueOf(otherCostvar));
-       String[] costList = {String.valueOf(shoppingCostvar), String.valueOf(foodCostvar), String.valueOf(travelCostvar), String.valueOf(otherCostvar)};
-       CustomChart.showChart(costList, new String[]{"Shopping", "Travel", "Food", "Others"});
-
+//       String[] costList = {String.valueOf(shoppingCostvar), String.valueOf(foodCostvar), String.valueOf(travelCostvar), String.valueOf(otherCostvar)};
+//       CustomChart.showChart(costList, new String[]{"Shopping", "Travel", "Food", "Others"});
+        displayChart();
     }
 
 
+    private void displayChart() {
+        AAChartModel aaChartModel = new AAChartModel()
+                .chartType(AAChartType.Area)
+                .title("Today's Cost Histrory")
+                .backgroundColor("")
+                .categories(new String[]{"Shopping","Travel","Food","Others"})
+                .axesTextColor("#FFBB86FC")
+                .dataLabelsEnabled(true)
+                .yAxisGridLineWidth(0f)
+                .series(new AASeriesElement[]{
+                        new AASeriesElement()
+                                .name("Shopping")
+                                .data(new Object[]{7.0, 50.0, 9.5, 14.5}),
+                        new AASeriesElement()
+                                .name("Travel")
+                                .data(new Object[]{0.2, 0.8, 24.6, 11.3}),
+                        new AASeriesElement()
+                                .name("Food")
+                                .data(new Object[]{9.5, 0.6, 35.5, 8.4}),
+                        new AASeriesElement()
+                                .name("Others")
+                                .data(new Object[]{9.5, 0.6, 35.5, 8.4}),
+                });
+
+//        binding.aaChartView.aa_drawChartWithChartModel(aaChartModel);
+    }
 
 
 //    private void showTextInputDialog(String title, String tag) {

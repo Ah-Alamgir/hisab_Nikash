@@ -1,8 +1,5 @@
 package com.hanifsapp.hisabee.fragments;
 
-import static com.hanifsapp.hisabee.utility.CustomChart.showChart;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.anychart.charts.CircularGauge;
-import com.hanifsapp.hisabee.activity.Sell;
-import com.hanifsapp.hisabee.activity.StockActivity;
-import com.hanifsapp.hisabee.activity.CostHistoryActivity;
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
+import com.github.aachartmodel.aainfographics.aachartcreator.AADataElement;
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.hanifsapp.hisabee.databinding.FragmentHomeBinding;
-import com.hanifsapp.hisabee.denaPawna;
 
 
 public class HomeFragment extends Fragment {
@@ -30,10 +26,10 @@ public class HomeFragment extends Fragment {
 
 
         //handle ui releted work
-        binding.selling.setOnClickListener(view -> startActivity(new Intent(getContext(), Sell.class)));
-        binding.stockManage.setOnClickListener(view -> startActivity(new Intent(getContext(), StockActivity.class)));
-        binding.costBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), CostHistoryActivity.class)));
-        binding.dueBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), denaPawna.class)));
+//        binding.selling.setOnClickListener(view -> startActivity(new Intent(getContext(), Sell.class)));
+//        binding.stockManage.setOnClickListener(view -> startActivity(new Intent(getContext(), StockActivity.class)));
+//        binding.costBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), CostHistoryActivity.class)));
+//        binding.dueBooks.setOnClickListener(view -> startActivity(new Intent(getContext(), denaPawna.class)));
 
         return binding.getRoot();
 
@@ -42,10 +38,25 @@ public class HomeFragment extends Fragment {
 
 
     private void displayChart() {
-        binding.anyChartView.setProgressBar(binding.progressBar);
-        String[] values = {"500", "250", "1800", "5685"};
-        String[] labels = {"Due", "Cost", "Sell", "le"};
-        CircularGauge gauge = showChart(values, labels);
-        binding.anyChartView.setChart(gauge);
+        AAChartModel aaChartModel = new AAChartModel()
+                .chartType(AAChartType.Pie)
+                .polar(true)
+                .backgroundColor("")
+                .axesTextColor("#FFBB86FC")
+                .dataLabelsEnabled(true)
+                .yAxisGridLineWidth(0f)
+                .series(new AASeriesElement[]{
+                        new AASeriesElement()
+                                .name("Data")
+                                .data(new AADataElement[]{
+                                new AADataElement().name("Sell").y(5000),
+                                new AADataElement().name("Buy").y(300),
+                                new AADataElement().name("Due").y(2000),
+
+                                // Add more data elements as needed
+                        }),
+                });
+
+        binding.aaChartView.aa_drawChartWithChartModel(aaChartModel);
     }
 }

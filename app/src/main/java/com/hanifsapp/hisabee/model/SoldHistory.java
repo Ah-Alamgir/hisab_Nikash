@@ -11,11 +11,14 @@ public class SoldHistory {
         this.description = description;
         this.price = price;
         this.type = type;
+        this.date = date;
     }
 
     public String getDate() {
         return date;
     }
+
+
 
     public void setDate(String date) {
         this.date = date;

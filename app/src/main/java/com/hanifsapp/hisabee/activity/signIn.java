@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.databinding.ActivitySignInBinding;
 import com.hanifsapp.hisabee.firebase_Db.GoogleSignUp;
 
@@ -27,6 +28,8 @@ public class signIn extends AppCompatActivity {
                 Toast.makeText(signIn.this, "Please enter your email", Toast.LENGTH_SHORT).show();
             } else{
                 sg.signInWithEmailAndPassword(email,password);
+
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             }
 
 

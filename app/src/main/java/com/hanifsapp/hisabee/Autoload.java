@@ -3,6 +3,7 @@ package com.hanifsapp.hisabee;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
+import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class Autoload {
 
     public static void getDataToUpdate(String tag, int userInputtedCost, String userInputDetails){
         DatabaseReference costRef = FirebaseDatabase.getInstance().getReference().child("denaPaona").child("singleValues").child(tag);
+        String dates = GetDate.getDate();
 
         costRef.get().addOnCompleteListener(task -> {
             if (task.getResult().hasChild(dates)) {

@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.hanifsapp.hisabee.Autoload;
 import com.hanifsapp.hisabee.model.SoldHistory;
+import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,7 +39,7 @@ public class GetHistory {
                     ArrayList<String> items = new ArrayList<String>();
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (Objects.equals(dataSnapshot.getKey(), Autoload.dates)) {
+                        if (Objects.equals(dataSnapshot.getKey(), GetDate.getDate())) {
                             items.add(dataSnapshot.getValue(String.class));
                         }
 

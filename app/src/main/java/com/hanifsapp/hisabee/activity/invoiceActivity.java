@@ -14,13 +14,13 @@ import com.dantsu.escposprinter.exceptions.EscPosBarcodeException;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 import com.dantsu.escposprinter.exceptions.EscPosEncodingException;
 import com.dantsu.escposprinter.exceptions.EscPosParserException;
-import com.hanifsapp.hisabee.Autoload;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.InvoiceBinding;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
 import com.hanifsapp.hisabee.model.ProductList;
+import com.hanifsapp.hisabee.utility.GetDate;
 import com.hanifsapp.hisabee.utility.printEpos;
 
 public class invoiceActivity extends AppCompatActivity {
@@ -59,7 +59,7 @@ public class invoiceActivity extends AppCompatActivity {
             }
             printed = true;
 
-            String date = Autoload.getCurrentDate();
+            String date = GetDate.getDate();
             Constant.todaySellHistory.child(date).setValue(totalPrices);
             Constant.todaySell.child(date.substring(0, 9)).get().addOnCompleteListener(task -> {
                 Integer totalSold;

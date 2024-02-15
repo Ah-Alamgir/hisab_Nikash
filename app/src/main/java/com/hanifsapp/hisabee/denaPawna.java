@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.hanifsapp.hisabee.databinding.ActivityDenaPawnaBinding;
 import com.hanifsapp.hisabee.databinding.DialogTextInputBinding;
 import com.hanifsapp.hisabee.fragments.Fragment_bay;
 import com.hanifsapp.hisabee.fragments.baki;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 public class denaPawna extends AppCompatActivity {
 
-    private ActivityDenaPawnaBinding binding;
+//    private ActivityDenaPawnaBinding binding;
     int tabPosition = 0;
 
 
@@ -36,10 +35,10 @@ public class denaPawna extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDenaPawnaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
+//        binding = ActivityDenaPawnaBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+//
+//        binding.newDueBtn.setOnClickListener(view -> showTextInputDialog());
 
 
 

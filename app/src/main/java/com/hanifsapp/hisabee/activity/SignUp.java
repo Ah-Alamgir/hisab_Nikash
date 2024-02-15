@@ -29,6 +29,7 @@ public class SignUp extends AppCompatActivity {
                 Toast.makeText(SignUp.this, "Please enter your email", Toast.LENGTH_SHORT).show();
             } else{
                 googleSignUp.createUserWithEmailAndPassword(email, password);
+
             }
 
         });
