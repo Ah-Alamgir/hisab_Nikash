@@ -10,6 +10,7 @@ public class Constant {
     public static DatabaseReference SingleValue_ref;
     public static DatabaseReference todaySell;
     public static DatabaseReference todayDue;
+    public static DatabaseReference todayCost;
     public static DatabaseReference todaySellHistory;
     public static DatabaseReference todayDueHistory;
     public static DatabaseReference todayCostHistory;
@@ -19,8 +20,10 @@ public class Constant {
             dbRef= FirebaseDatabase.getInstance().getReference("denaPaona").child("userList").child("H00sdMoS4tPd3s4R48gxD82QXfr1");
             productList_ref = dbRef.child("ProductList");
             SingleValue_ref = dbRef.child("singleValues");
+
             todaySell = SingleValue_ref.child("todaySell");
             todayDue = SingleValue_ref.child("todayDue");
+            todayCost = SingleValue_ref.child("todayCost");
 
 
             todaySellHistory = dbRef.child("History").child("todaySellHistory");

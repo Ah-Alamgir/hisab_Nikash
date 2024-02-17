@@ -1,7 +1,7 @@
 package com.hanifsapp.hisabee.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,7 +14,6 @@ import com.hanifsapp.hisabee.firebase_Db.ChekNet;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
-import com.hanifsapp.hisabee.fragments.ContactFragment;
 import com.hanifsapp.hisabee.fragments.HomeFragment;
 import com.hanifsapp.hisabee.fragments.ProfileFragment;
 import com.hanifsapp.hisabee.fragments.printFragment;
@@ -30,14 +29,14 @@ public class homePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(GetproductList.product_list.getValue() == null){
+            Constant.getDbRef();
+            GetproductList.getProduct_item();
+        }
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
-
-
-        ChekNet.isNetworkAvailable(getApplicationContext());
+        ChekNet.isNetworkAvailable(this);
 
 
         if (savedInstanceState==null){
@@ -52,7 +51,7 @@ public class homePage extends AppCompatActivity {
             } else if (id == R.id.printActivity) {
                 selectedFragment = new printFragment();
             } else if (id == R.id.contactActivity) {
-                selectedFragment = new ContactFragment();
+                startActivity(new Intent(this, Sell.class));
             } else if (id == R.id.ProfileActivity) {
                 selectedFragment = new ProfileFragment();
             }
@@ -61,8 +60,7 @@ public class homePage extends AppCompatActivity {
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder, selectedFragment).commit();
                 return true;
-            } else {
-                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+            }else {
                 return false;
             }
 
@@ -74,23 +72,6 @@ public class homePage extends AppCompatActivity {
 
 
 
-
-
-//        //Handle data releted work
-//        if(autoload.isNetworkAvailable(this)){
-//
-//            FirebaseAuth auth = FirebaseAuth.getInstance();
-//            autoload.auth_User_id = auth.getUid();
-//            autoload.getDbRef();
-//            autoload.getCurrentMonthName();
-//            localStore.getDatas(this);
-//            autoload.cardItem_list.clear();
-//            autoload.cardItem.clear();
-//            if (autoload.productLists.isEmpty()) {
-////            autoload.getData();
-//            }
-//            updateBusinessInfo();
-//        }
     }
 
 
@@ -137,10 +118,7 @@ public class homePage extends AppCompatActivity {
 //            }
 //        }
         super.onStart();
-        if(GetproductList.product_list.getValue() == null){
-            Constant.getDbRef();
-            GetproductList.getProduct_item();
-        }
+
 
 
     }

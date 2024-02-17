@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.recyclerView.adapters.denapaonaAdapter;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class bikri extends Fragment {
     }
 
     public static void Update(ArrayList<Map<String, Object>> list){
-        recyclerView.setAdapter(new denapaonaAdapter(list, context, "todaySell"));
+//        recyclerView.setAdapter(new SoldhistoryAdapter(list, context, "todaySell"));
     }
 
 }

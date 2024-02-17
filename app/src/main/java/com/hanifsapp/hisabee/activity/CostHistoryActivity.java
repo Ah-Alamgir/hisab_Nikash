@@ -8,16 +8,15 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.hanifsapp.hisabee.databinding.ActivityCosthistoryBinding;
-import com.hanifsapp.hisabee.firebase_Db.GetHistory;
-import com.hanifsapp.hisabee.model.SoldHistory;
+import com.hanifsapp.hisabee.fragments.GetHistory;
+import com.hanifsapp.hisabee.model.CostHistory;
 import com.hanifsapp.hisabee.utility.GetDate;
-
 import java.util.ArrayList;
 
 public class CostHistoryActivity extends AppCompatActivity {
 
     private ActivityCosthistoryBinding binding;
-    private ArrayList<SoldHistory> history;
+    private ArrayList<CostHistory> history;
 
 
     @Override
@@ -29,7 +28,7 @@ public class CostHistoryActivity extends AppCompatActivity {
         setTitle("Cost calculation");
 
         binding.textViewDate.setText(GetDate.getDate(0));
-        history = GetHistory.getSoldHistory();
+        history = GetHistory.getCostHistory();
         calculateCost(binding.textViewDate.getText().toString());
 
 
@@ -55,13 +54,13 @@ private int otherCostvar=0;
        history.forEach(items->{
            if (items.getDate().equals(date)){
                if (items.getType()==0) {
-                    shoppingCostvar+= items.getPrice();
+                    shoppingCostvar+= items.getAmount();
                } else if (items.getType()==1) {
-                   travelCostvar+= items.getPrice();
+                   travelCostvar+= items.getAmount();
                } else if (items.getType() == 2) {
-                   foodCostvar+= items.getPrice();
+                   foodCostvar+= items.getAmount();
                }else if (items.getType() == 3) {
-                   otherCostvar+= items.getPrice();
+                   otherCostvar+= items.getAmount();
                }
            }
        });

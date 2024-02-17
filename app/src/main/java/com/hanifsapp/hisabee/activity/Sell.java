@@ -38,6 +38,8 @@ public class Sell extends AppCompatActivity implements invoiceListener {
         totalPrice_textView = findViewById(R.id.totalPrice);
         totalItemBtn.setOnClickListener(view -> startActivity(new Intent(Sell.this, invoiceActivity.class)));
 
+        totalItemBtn.setText("");
+        totalPrice_textView.setText("");
     }
 
 

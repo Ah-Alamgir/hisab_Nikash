@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,7 +45,21 @@ public class invoiceActivity extends AppCompatActivity {
         readyText();
 
 
+
+
+
+        backPress();
+
     }
+
+
+
+
+
+
+
+
+
 
 
     @Override
@@ -60,13 +76,20 @@ public class invoiceActivity extends AppCompatActivity {
             printed = true;
 
             String date = GetDate.getDate();
-            Constant.todaySellHistory.child(date).setValue(totalPrices);
+
+            Constant.todaySellHistory.child(date).setValue(finalPrice);
+
             Constant.todaySell.child(date.substring(0, 9)).get().addOnCompleteListener(task -> {
                 Integer totalSold;
                 if (task.isSuccessful()) {
-                    totalSold = task.getResult().getValue(Integer.class) + totalPrices;
+                    try {
+                        totalSold = task.getResult().getValue(Integer.class) + finalPrice;
+                    }catch (Exception e) {
+                        totalSold = 0;
+                    }
+
                 } else {
-                    totalSold = totalPrices;
+                    totalSold = finalPrice;
                 }
 
                 Constant.todaySell.child(date.substring(0, 9)).setValue(totalSold);
@@ -74,6 +97,9 @@ public class invoiceActivity extends AppCompatActivity {
 
         });
     }
+
+
+
 
 
     public void getPermissions() {
@@ -93,7 +119,8 @@ public class invoiceActivity extends AppCompatActivity {
     int totdisc = 0;
     int totvat = 0;
     int totalPrices = 0;
-
+    int finalPrice = 0;
+    String description="";
 
     public void readyText() {
 
@@ -123,11 +150,11 @@ public class invoiceActivity extends AppCompatActivity {
         damString.append("মোট \n");
         for (ProductList entry : GetproductList.card_list) {
             totalPrices = totalPrices + entry.getOrder() * entry.getSellPrice();
-
             nameString.append(entry.getName()).append("\n");
             dorString.append(entry.getSellPrice()).append("\n");
             damString.append(entry.getOrder() * entry.getSellPrice()).append("\n");
             amountString.append(entry.getOrder()).append("\n");
+
 
             totdisc = totdisc + entry.getDiscount() * entry.getOrder();
             totvat = totvat + entry.getVat() * entry.getOrder();
@@ -135,12 +162,13 @@ public class invoiceActivity extends AppCompatActivity {
 
         }
 
+        finalPrice = totalPrices - totdisc - totvat;
         String pricedetail =
 
                 "সর্বমোটঃ  " + totalPrices + "\n" +
                         "ডিস্কাউন্টঃ  " + totdisc + "\n" +
                         "ভ্যাটঃ " + totvat + "\n" + "-----------------------\n" +
-                        "মোট প্রদেয়ঃ " + (totalPrices - totdisc - totvat);
+                        "মোট প্রদেয়ঃ " + (finalPrice);
 
 
         binding.textViewHeader.setText(text);
@@ -151,5 +179,23 @@ public class invoiceActivity extends AppCompatActivity {
         binding.textViewFooter.setText(pricedetail);
 
     }
+
+
+
+
+    private void backPress(){
+       OnBackPressedDispatcher onBackPressedDispatcher = this.getOnBackPressedDispatcher();
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                GetproductList.card_list.clear();
+                GetproductList.added_tocard.clear();
+                finish();
+            }
+        };
+
+        onBackPressedDispatcher.addCallback(callback);
+    }
+
 
 }

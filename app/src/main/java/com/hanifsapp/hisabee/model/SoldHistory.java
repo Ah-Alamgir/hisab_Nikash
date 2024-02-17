@@ -1,17 +1,18 @@
 package com.hanifsapp.hisabee.model;
 
 public class SoldHistory {
-    String description;
     String date;
     int price;
-    int type;
 
 
-    public SoldHistory(String description, int price, int type, String date) {
-        this.description = description;
-        this.price = price;
-        this.type = type;
+    public SoldHistory() {
+
+    }
+
+    public SoldHistory(String date, int price) {
+
         this.date = date;
+        this.price = price;
     }
 
     public String getDate() {
@@ -19,18 +20,10 @@ public class SoldHistory {
     }
 
 
-
     public void setDate(String date) {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getPrice() {
         return price;
@@ -40,11 +33,4 @@ public class SoldHistory {
         this.price = price;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }

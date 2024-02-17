@@ -1,7 +1,5 @@
 package com.hanifsapp.hisabee.firebase_Db;
 
-import static com.hanifsapp.hisabee.utility.logs.showLog;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
@@ -26,7 +24,6 @@ public class GetproductList {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ArrayList<ProductList> productArray = new ArrayList<>();
-                        showLog("datachanged GetProductList");
 
                         for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                             ProductList product = dataSnapshot.getValue(ProductList.class);

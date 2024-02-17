@@ -13,59 +13,42 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanifsapp.hisabee.R;
+import com.hanifsapp.hisabee.model.SoldHistory;
 
+import java.util.ArrayList;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.ViewHolder> {
+public class SoldhistoryAdapter extends RecyclerView.Adapter<SoldhistoryAdapter.ViewHolder> {
     Context mcontext;
-    String tags;
-    private final List<Map<String, Object>> mData;
+    private final ArrayList<SoldHistory> mData;
 
-    public denapaonaAdapter(List<Map<String, Object>> data , Context context, String tag) {
+    public SoldhistoryAdapter(ArrayList<SoldHistory> data, Context context) {
         mData = data;
         mcontext = context;
-        tags = tag;
     }
 
 
     @NonNull
     @Override
-    public denapaonaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SoldhistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_dena_paona, parent, false);
-        return new denapaonaAdapter.ViewHolder(view);
+        return new SoldhistoryAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull denapaonaAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SoldhistoryAdapter.ViewHolder holder, int position) {
 
-        Map<String, Object> item = mData.get(position);
-        holder.price.setText("মোটঃ "+ String.valueOf(item.get("price")));
-        holder.details.setText(Objects.requireNonNull(item.get("details")).toString());
-        holder.dates.setText(Objects.requireNonNull(item.get("date")).toString());
+        SoldHistory item = mData.get(position);
+        holder.price.setText("মোটঃ "+ item.getPrice());
+        holder.dates.setText(item.getDate());
 
 
         holder.deleteButton.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
-            builder.setMessage("Are you sure you want to delete this item?")
+            builder.setMessage("Do you want to delete this item?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
-                        String itemId = (String) item.get("date");
-//                        autoload.deleteFragmentData(itemId, tags);
-//                        int positions = mData.indexOf(item);
-//                        if (positions != -1) {
-//                            removeItem(positions);
-//                            if (tags.equals("todaySell")) {
-//                                autoload.todaysell.remove(positions);
-//                            }else if (tags.equals("todayDue")){
-//                                autoload.todaydue.remove(positions);
-//                            }else if (tags.equals("todaySpend")){
-//                                autoload.todayspend.remove(positions);
-//                            }
-//
-//                        }
+                        String itemId = item.getDate();
+
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
             AlertDialog alert = builder.create();
@@ -93,7 +76,6 @@ public class denapaonaAdapter extends RecyclerView.Adapter<denapaonaAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             price = itemView.findViewById(R.id.price_denapaona_textview);
-            details = itemView.findViewById(R.id.details_denapaona_text_view);
             dates = itemView.findViewById(R.id.date_denapaona_text_view);
 
             cardViews = itemView.findViewById(R.id.cardDenapaona);

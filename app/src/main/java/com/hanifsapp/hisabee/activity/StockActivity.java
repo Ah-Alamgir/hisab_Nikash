@@ -1,7 +1,5 @@
 package com.hanifsapp.hisabee.activity;
 
-import static com.hanifsapp.hisabee.utility.logs.showLog;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -58,7 +56,6 @@ public class StockActivity extends AppCompatActivity implements onStockclickList
             if (firstTime.get()){
                 firstTime.set(false);
             }else {
-                showLog("Data changed: observer");
                 stockAdapter.updateList(arrayList);
             }
 

@@ -15,6 +15,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/dateTextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="16 Mar 2024"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
         <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
             android:id="@+id/aa_chart_view"
             android:layout_width="match_parent"
@@ -25,10 +34,20 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/recycler_view_dena_paona"
-        android:layout_margin="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Today Sell History"
+        android:textStyle="bold" />
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/graphChartView"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="match_parent">
+
+    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 </LinearLayout>
 
