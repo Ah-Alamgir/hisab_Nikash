@@ -22,7 +22,7 @@
     <string name="sell_price">বিক্রয় মূল্য</string>
     <string name="stock_hint">স্টক</string>
     <string name="buyPrice_hint">ক্রয় মূল্য</string>
-    <string name="_0">0</string>
+    <string name="_0">00</string>
     <string name="vat_hint">ভ্যাট</string>
     <string name="profile">Profile</string>
     <string name="contacts">Contacts</string>
@@ -32,5 +32,13 @@
     <string name="today">Today</string>
     <string name="_7_day">7 day</string>
     <string name="_1_month">1 Month</string>
+    <string name="back_button">back button</string>
+    <string name="next_button">next Button</string>
+    <string name="shopping">Shopping</string>
+    <string name="travel">Travel</string>
+    <string name="food">Food</string>
+    <string name="others">Others</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="enter_cost_amount">Enter Cost amount</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

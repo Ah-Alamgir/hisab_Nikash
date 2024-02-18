@@ -14,96 +14,106 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.CostHistory;
-import com.hanifsapp.hisabee.model.SoldHistory;
 import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Optional;
 
 public class GetHistory {
 
-
-    public static ArrayList<SoldHistory> getSoldHistory() {
-        ArrayList<SoldHistory> items = new ArrayList<SoldHistory>();
-        Constant.todaySellHistory.get().addOnCompleteListener(task -> {
+    public static MutableLiveData<AAChartModel> getGraph = new MutableLiveData<>();
+    public static int sold = 0;
+    public static void getSoldHistory() {
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<Integer> amount = new ArrayList<>();
+        sold=0;
+        Task task4 = Constant.todaySellHistory.get().addOnCompleteListener(task -> {
 
             if (task.isSuccessful()) {
                 DataSnapshot snapshot = task.getResult();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    SoldHistory soldHistory = new SoldHistory();
-                    soldHistory.setDate(dataSnapshot.getKey());
-                    soldHistory.setPrice(dataSnapshot.getValue(Integer.class));
-                    items.add(soldHistory);
-
+                    sold+=dataSnapshot.getValue(Integer.class);
+                    dates.add(dataSnapshot.getKey());
+                    amount.add(dataSnapshot.getValue(Integer.class));
                 }
             }
         });
-        return items;
+
+
+
+        Tasks.whenAllComplete(task4).addOnCompleteListener(task -> {
+            AAChartModel aaChartModel = new AAChartModel()
+                    .chartType(AAChartType.Area)
+                    .title("Today Sell History")
+                    .backgroundColor("")
+                    .categories(dates.toArray(new String[0]))
+                    .dataLabelsEnabled(false)
+                    .yAxisGridLineWidth(0f)
+                    .series(new AASeriesElement[]{
+                            new AASeriesElement()
+                                    .name("Sells")
+                                    .data(amount.toArray(new Integer[0])),
+                    });
+
+
+            getGraph.setValue(aaChartModel);
+            getTodayTotalSell();
+        });
+
     }
 
 
-    public static ArrayList<CostHistory> getCostHistory() {
+
+public static MutableLiveData<ArrayList<CostHistory>> costHistory = new MutableLiveData<>();
+    public static void getCostHistory() {
         ArrayList<CostHistory> result = new ArrayList<CostHistory>();
-        try {
-            Constant.todayCostHistory.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (Objects.equals(dataSnapshot.getKey(), GetDate.getDate())) {
-                            result.add(dataSnapshot.getValue(CostHistory.class));
-                        }
 
-                    }
-
+        Constant.todayCostHistory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    result.add(dataSnapshot.getValue(CostHistory.class));
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                costHistory.setValue(new ArrayList<>());
+                costHistory.setValue(result);
 
-                }
-            });
-        } catch (Exception e) {
+            }
 
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
-        return result;
     }
-
-
 
 
     public static MutableLiveData<AAChartModel> model = new MutableLiveData<>();
-    public static void getTodayTotalSell() {
-        int[] amount = {0,0,0};
-        Task task1=Constant.todaySell.child(GetDate.date).get().addOnCompleteListener(task -> {
-            try {
-                amount[0] = task.getResult().getValue(Integer.class);
-            }catch (Exception e) {
-                amount[0] = 0;
-            }
-        });
 
 
-       Task task2= Constant.todayDue.child(GetDate.date).get().addOnCompleteListener(task -> {
-            try {
-                amount[1] = task.getResult().getValue(Integer.class);
-            }catch (Exception e) {
-                amount[1] = 0;
-            }
+    public static void getTodayTotalSell( ) {
+        Integer[] amount = {sold, 0, 0};
+
+        Task task2 = Constant.todayDue.child(GetDate.date).get().addOnCompleteListener(task -> {
+
+            Integer value1 = task.getResult().getValue(Integer.class);
+            Optional<Integer> optional = Optional.ofNullable(value1);
+            amount[1] = optional.orElse(0);
+
         });
 
 
         Task task3 = Constant.todayCost.child(GetDate.date).get().addOnCompleteListener(task -> {
-            try {
-                amount[2] = task.getResult().getValue(Integer.class);
-            }catch (Exception e) {
-                amount[2] = 0;
-            }
+            Integer value2 = task.getResult().getValue(Integer.class);
+            Optional<Integer> optional = Optional.ofNullable(value2);
+            amount[2] = optional.orElse(0);
         });
 
-        Tasks.whenAllComplete(task1,task2,task3).addOnCompleteListener(task -> {
+
+        Tasks.whenAllComplete(task2, task3).addOnCompleteListener(task -> {
             AAChartModel aaChartModel = new AAChartModel()
                     .chartType(AAChartType.Pie)
                     .polar(true)

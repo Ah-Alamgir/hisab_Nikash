@@ -5,20 +5,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.hanifsapp.hisabee.fragments.CostFragment;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
-import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.firebase_Db.ChekNet;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
-import com.hanifsapp.hisabee.firebase_Db.localStore;
 import com.hanifsapp.hisabee.fragments.HomeFragment;
-import com.hanifsapp.hisabee.fragments.ProfileFragment;
 import com.hanifsapp.hisabee.fragments.printFragment;
-
-import java.util.Objects;
 
 
 public class homePage extends AppCompatActivity {
@@ -53,12 +49,12 @@ public class homePage extends AppCompatActivity {
             } else if (id == R.id.contactActivity) {
                 startActivity(new Intent(this, Sell.class));
             } else if (id == R.id.ProfileActivity) {
-                selectedFragment = new ProfileFragment();
+                selectedFragment = new CostFragment();
             }
 
 
             if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder, selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.fragmentHolder, selectedFragment).commit();
                 return true;
             }else {
                 return false;
@@ -78,30 +74,7 @@ public class homePage extends AppCompatActivity {
 
 
 
-    DialogAddCustomerBinding dialogBinding;
 
-    private void showAddCustomerDialog() {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        dialogBinding = DialogAddCustomerBinding.inflate(getLayoutInflater());
-        bottomSheetDialog.setContentView(dialogBinding.getRoot());
-        bottomSheetDialog.show();
-
-
-        dialogBinding.addInfoButton.setOnClickListener(v -> {
-            String name = Objects.requireNonNull(dialogBinding.nam.getText()).toString();
-            String address = Objects.requireNonNull(dialogBinding.thikana.getText().toString());
-            String phoneNumber = Objects.requireNonNull(dialogBinding.editTextPhoneNumber.getText().toString());
-
-            if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
-
-                boolean done = localStore.putAddress(name, address, phoneNumber, this);
-                if (done) {
-                    localStore.getDatas(this);
-                    bottomSheetDialog.dismiss();
-                }
-            }
-        });
-    }
 
 
 

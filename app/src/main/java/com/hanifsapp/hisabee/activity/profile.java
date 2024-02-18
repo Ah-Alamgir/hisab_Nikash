@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,7 +22,6 @@ import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.recyclerView.adapters.SqopenHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -68,35 +66,34 @@ public class profile extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_add_customer, null);
         dialogBuilder.setView(dialogView);
 
-        EditText editTextName = dialogView.findViewById(R.id.nam);
-        EditText editTextAddress = dialogView.findViewById(R.id.thikana);
-        EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
+//        EditText editTextName = dialogView.findViewById(R.id.nam);
+//        EditText editTextAddress = dialogView.findViewById(R.id.thikana);
+//        EditText editTextPhoneNumber = dialogView.findViewById(R.id.editTextPhoneNumber);
 
         dialogBuilder.setPositiveButton("যোগ করুন", (dialog, which) -> {
-            String name = editTextName.getText().toString().trim();
-            String address = editTextAddress.getText().toString().trim();
-            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+//            String name = editTextName.getText().toString().trim();
+//            String address = editTextAddress.getText().toString().trim();
+//            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
-            if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
-
-                sqopenHelper.addtoDatabase(name, address, phoneNumber);
-
-
-
-
-                //add to firebase
-                Map<String, Object> userData = new HashMap<>();
-                userData.put("name",name);
-                userData.put("address",address);
-                userData.put("phoneNumber", phoneNumber);
+//            if (!name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty()) {
+//
+//                sqopenHelper.addtoDatabase(name, address, phoneNumber);
+//
+//
+//
+//
+//                //add to firebase
+//                Map<String, Object> userData = new HashMap<>();
+//                userData.put("name",name);
+//                userData.put("address",address);
+//                userData.put("phoneNumber", phoneNumber);
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("denaPaona");
-                databaseReference.child("singleValues").child("CustomerList").push().setValue(userData);
+//                databaseReference.child("singleValues").child("CustomerList").push().setValue(userData);
 
                 refreshRecyclerView();
                 dialog.dismiss();
 
-            }  // Show an error message or handle empty input fields
 
         });
 

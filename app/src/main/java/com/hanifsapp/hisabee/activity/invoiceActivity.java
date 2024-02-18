@@ -45,21 +45,9 @@ public class invoiceActivity extends AppCompatActivity {
         readyText();
 
 
-
-
-
         backPress();
 
     }
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -75,31 +63,12 @@ public class invoiceActivity extends AppCompatActivity {
             }
             printed = true;
 
-            String date = GetDate.getDate();
+            String date = GetDate.getDate("");
 
             Constant.todaySellHistory.child(date).setValue(finalPrice);
 
-            Constant.todaySell.child(date.substring(0, 9)).get().addOnCompleteListener(task -> {
-                Integer totalSold;
-                if (task.isSuccessful()) {
-                    try {
-                        totalSold = task.getResult().getValue(Integer.class) + finalPrice;
-                    }catch (Exception e) {
-                        totalSold = 0;
-                    }
-
-                } else {
-                    totalSold = finalPrice;
-                }
-
-                Constant.todaySell.child(date.substring(0, 9)).setValue(totalSold);
-            });
-
         });
     }
-
-
-
 
 
     public void getPermissions() {
@@ -120,7 +89,7 @@ public class invoiceActivity extends AppCompatActivity {
     int totvat = 0;
     int totalPrices = 0;
     int finalPrice = 0;
-    String description="";
+    String description = "";
 
     public void readyText() {
 
@@ -181,10 +150,8 @@ public class invoiceActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void backPress(){
-       OnBackPressedDispatcher onBackPressedDispatcher = this.getOnBackPressedDispatcher();
+    private void backPress() {
+        OnBackPressedDispatcher onBackPressedDispatcher = this.getOnBackPressedDispatcher();
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

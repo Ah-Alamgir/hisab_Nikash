@@ -7,8 +7,9 @@ public class GetDate {
     public static String date = "";
     public static Calendar calendar = Calendar.getInstance();
     public static String getDate(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy hh:mm:ss");
-        return dateFormat.format(calendar.getTime());
+        Calendar cd= Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy HH:mm:ss");
+        return dateFormat.format(cd.getTime());
     }
 
 
@@ -17,5 +18,10 @@ public class GetDate {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
         date = dateFormat.format(calendar.getTime());
         return date;
+    }
+    public static String getDate(String seconds){
+        Calendar cd= Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(cd.getTime());
     }
 }

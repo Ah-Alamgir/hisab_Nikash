@@ -8,54 +8,64 @@
     android:paddingHorizontal="30dp"
     android:paddingBottom="20dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/denapawna_textInput"
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="নাম "
-        app:boxBackgroundMode="outline">
+        android:layout_height="48dp"
+        android:id="@+id/toogleBtnGroup"
+        android:layout_marginVertical="10dp"
+        app:singleSelection="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#673AB7" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details_t"
+        <Button
+
+            android:id="@+id/button4"
+            style="@style/toogleButtonIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon="@mipmap/grocery_cart" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/toogleButtonIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon="@drawable/baseline_travel_24"/>
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/toogleButtonIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon="@mipmap/salad"/>
+
+        <Button
+            android:id="@+id/button"
+            style="@style/toogleButtonIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:icon="@mipmap/cost"/>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <EditText
+        android:id="@+id/amountTextview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ঠিকানা"
-        app:boxBackgroundMode="outline">
+        android:layout_height="48dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:inputType="number"
+        android:padding="10dp"
+        android:hint="@string/enter_cost_amount" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/thikana"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#673AB7" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details_"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="নাম্বার"
-        app:boxBackgroundMode="outline">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:textColor="#673AB7" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:layout_marginTop="20dp"
         android:id="@+id/addInfo_Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="যোগ করুন" />
+        android:text="@string/add_expense" />
 
 </LinearLayout>

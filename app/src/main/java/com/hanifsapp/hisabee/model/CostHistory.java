@@ -6,10 +6,9 @@ public class CostHistory {
     public CostHistory() {
     }
 
-    public CostHistory(int amount, int type, String date) {
+    public CostHistory(int amount, int type) {
         this.amount = amount;
         this.type = type;
-        this.date = date;
     }
 
     public int getAmount() {
