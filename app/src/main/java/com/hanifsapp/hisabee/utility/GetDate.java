@@ -5,6 +5,8 @@ import java.util.Calendar;
 
 public class GetDate {
     public static String date = "";
+    public static String Month = "";
+    public static String Tarikh = "";
     public static Calendar calendar = Calendar.getInstance();
     public static String getDate(){
         Calendar cd= Calendar.getInstance();
@@ -19,9 +21,19 @@ public class GetDate {
         date = dateFormat.format(calendar.getTime());
         return date;
     }
-    public static String getDate(String seconds){
+    public static String getHour(){
         Calendar cd= Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         return dateFormat.format(cd.getTime());
+    }
+
+    public static void getMonth(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yy");
+        Month = dateFormat.format(calendar.getTime());
+    }
+
+    public static void getTarikh(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+        Tarikh =  dateFormat.format(calendar.getTime());
     }
 }

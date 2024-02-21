@@ -12,19 +12,19 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
 import com.hanifsapp.hisabee.databinding.FragmentCostBinding;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.CostHistory;
 import com.hanifsapp.hisabee.utility.GetDate;
-import com.hanifsapp.hisabee.utility.logs;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CostFragment extends Fragment {
     private FragmentCostBinding binding;
-    private ArrayList<CostHistory> history;
+    private ArrayList<CostHistory> history = new ArrayList<>();
 
 
     @Override
@@ -34,12 +34,12 @@ public class CostFragment extends Fragment {
 
 
         binding.textViewDate.setText(GetDate.getDate(0));
-        GetHistory.getCostHistory();
+        GetHistory.getCostHistory(GetDate.date);
 
 
 
-        binding.btnBack.setOnClickListener(v -> calculateCost(GetDate.getDate(-1)));
-        binding.btnForword.setOnClickListener(v -> calculateCost(GetDate.getDate(+1)));
+        binding.btnBack.setOnClickListener(v -> GetHistory.getCostHistory(GetDate.getDate(-1)));
+        binding.btnForword.setOnClickListener(v -> GetHistory.getCostHistory(GetDate.getDate(+1)));
         binding.expenseBtn.setOnClickListener(v -> {
             showAddCustomerDialog();
         });
@@ -57,11 +57,9 @@ public class CostFragment extends Fragment {
             if (firstTime.get()) {
                 firstTime.set(false);
             }{
-                if (costHistories.size()>0) {
-                    history = costHistories;
-                    logs.showLog(String.valueOf(history));
-                    calculateCost(binding.textViewDate.getText().toString());
-                }
+                binding.textViewDate.setText(GetDate.date);
+                history = costHistories;
+                calculateCost();
 
             }
 
@@ -78,28 +76,27 @@ public class CostFragment extends Fragment {
     private int travCost =0;
     private int foodCost =0;
     private int otherCost =0;
-    private void calculateCost(String date) {
-        binding.textViewDate.setText(date);
+    private void calculateCost() {
         shopCost =0;
         travCost=0;
         foodCost =0;
         otherCost =0;
         history.forEach(items -> {
-            switch (items.getType()) {
-                case 0:
-                    shopCost += items.getAmount();
-                    break;
-                case 1:
-                    travCost += items.getAmount();
-                    break;
-                case 2:
-                    foodCost += items.getAmount();
-                    break;
-                case 3:
-                    otherCost += items.getAmount();
-                    break;
+                switch (items.getType()) {
+                    case 0:
+                        shopCost += items.getAmount();
+                        break;
+                    case 1:
+                        travCost += items.getAmount();
+                        break;
+                    case 2:
+                        foodCost += items.getAmount();
+                        break;
+                    case 3:
+                        otherCost += items.getAmount();
+                        break;
+                }
 
-            }
 
         });
 
@@ -128,6 +125,7 @@ public class CostFragment extends Fragment {
 
         binding.costGraph.aa_drawChartWithChartModel(aaChartModel);
         binding.progressBar2.setVisibility(View.GONE);
+        history.clear();
     }
 
 
@@ -143,29 +141,24 @@ public class CostFragment extends Fragment {
         CostHistory costHistory = new CostHistory();
 
         dialogBinding.toogleBtnGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                switch (checkedId) {
-                    case 2131231357:
-                        costHistory.setType(0);
-                        break;
-                    case 2131231356:
-                        costHistory.setType(1);
-                        break;
-                    case 2131231355:
-                        costHistory.setType(2);
-                        break;
-                    case 2131230845:
-                        costHistory.setType(3);
-                        break;
-                }
+            if (checkedId == R.id.btnShop){
+                costHistory.setType(0);
+            }else if (checkedId ==R.id.btnTravel){
+                costHistory.setType(1);
+            }else if (checkedId ==R.id.btnFood){
+                costHistory.setType(2);
+            }else if (checkedId ==R.id.btnOther){
+                costHistory.setType(3);
             }
+
         });
 
         dialogBinding.addInfoButton.setOnClickListener(v -> {
             String amount = dialogBinding.amountTextview.getText().toString();
             if (!amount.isEmpty()) {
                 costHistory.setAmount(Integer.parseInt(amount));
-                Constant.todayCostHistory.child(GetDate.getDate("")).setValue(costHistory);
+                Constant.CostHistory.child(GetDate.getDate(0)).child(GetDate.getHour()).setValue(costHistory);
+                GetHistory.getDataToUpdate(Constant.thisMonthCost, Integer.parseInt(amount));
                 bottomSheetDialog.dismiss();
             }
         });

@@ -21,6 +21,7 @@ import com.hanifsapp.hisabee.databinding.InvoiceBinding;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
 import com.hanifsapp.hisabee.firebase_Db.localStore;
+import com.hanifsapp.hisabee.fragments.GetHistory;
 import com.hanifsapp.hisabee.model.ProductList;
 import com.hanifsapp.hisabee.utility.GetDate;
 import com.hanifsapp.hisabee.utility.printEpos;
@@ -63,9 +64,10 @@ public class invoiceActivity extends AppCompatActivity {
             }
             printed = true;
 
-            String date = GetDate.getDate("");
+            String date = GetDate.getHour();
 
             Constant.todaySellHistory.child(date).setValue(finalPrice);
+            GetHistory.getDataToUpdate(Constant.thisMonthSell, finalPrice);
 
         });
     }

@@ -18,7 +18,7 @@
 
         <Button
 
-            android:id="@+id/button4"
+            android:id="@+id/btnShop"
             style="@style/toogleButtonIconOnly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -26,7 +26,7 @@
             app:icon="@mipmap/grocery_cart" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnTravel"
             style="@style/toogleButtonIconOnly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
             app:icon="@drawable/baseline_travel_24"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnFood"
             style="@style/toogleButtonIconOnly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -42,7 +42,7 @@
             app:icon="@mipmap/salad"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnOther"
             style="@style/toogleButtonIconOnly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
