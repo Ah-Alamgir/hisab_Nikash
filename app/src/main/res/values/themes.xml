@@ -15,6 +15,9 @@
         <item name="android:paddingRight">12dp</item>
         <item name="iconSize">30dp</item>
         <item name="minWidth">70dp</item>
+        <item name="iconTint">@color/transparent</item>
+        <item name="iconTintMode">screen</item>
+        <item name="iconGravity">textEnd</item>
 
 
     </style>

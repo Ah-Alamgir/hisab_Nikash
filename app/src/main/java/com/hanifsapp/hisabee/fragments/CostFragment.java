@@ -13,7 +13,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hanifsapp.hisabee.R;
-import com.hanifsapp.hisabee.databinding.DialogAddCustomerBinding;
+import com.hanifsapp.hisabee.databinding.DialogAddCostBinding;
 import com.hanifsapp.hisabee.databinding.FragmentCostBinding;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.CostHistory;
@@ -129,13 +129,13 @@ public class CostFragment extends Fragment {
     }
 
 
-    DialogAddCustomerBinding dialogBinding;
+    DialogAddCostBinding dialogBinding;
 
 
 
     private void showAddCustomerDialog() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        dialogBinding = DialogAddCustomerBinding.inflate(getLayoutInflater());
+        dialogBinding = DialogAddCostBinding.inflate(getLayoutInflater());
         bottomSheetDialog.setContentView(dialogBinding.getRoot());
         bottomSheetDialog.show();
         CostHistory costHistory = new CostHistory();

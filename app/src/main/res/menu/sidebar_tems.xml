@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Profile" />
+    <item
+        android:id="@+id/thisMontSell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="This Month Sell" />
+    <item
+        android:id="@+id/thisMontCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="This Month Cost" />
+    <item
+        android:id="@+id/thisMontRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Rate This App" />
+</menu>

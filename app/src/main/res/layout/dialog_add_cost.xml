@@ -16,7 +16,7 @@
         app:singleSelection="true">
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
 
             android:id="@+id/btnShop"
             style="@style/toogleButtonIconOnly"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:icon="@drawable/baseline_travel_24"/>
+            app:icon="@mipmap/aeroplane"/>
 
         <Button
             android:id="@+id/btnFood"

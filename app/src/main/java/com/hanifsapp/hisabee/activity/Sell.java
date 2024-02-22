@@ -62,6 +62,12 @@ public class Sell extends AppCompatActivity implements invoiceListener {
 
     }
 
+    @Override
+    protected void onResume() {
+        totalItemBtn.setText("00");
+        totalPrice_textView.setText("00");
+        super.onResume();
+    }
 
     @Override
     public void setInvoice(int totalPrice, int totalAmount) {

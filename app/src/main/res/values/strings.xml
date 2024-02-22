@@ -7,23 +7,19 @@
     <string name="setting">setting</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="signup">SIGN UP \n\n\nTo experience cutting edge \ntechnology in business</string>
-    <string name="signupBtn">Sign Up </string>
+    <string name="signup">Get Code</string>
 
-    <string name="have_an_account">Already have an account?</string>
-    <string name="sign_In">Sign In</string>
+    <string name="currency">$</string>
+    <string name="sign_In">Submit Code</string>
     <string name="todo">todo</string>
-    <string name="enterYourEmail">Please Enter your email</string>
+    <string name="enterYourEmail">+880 (Add Country Code)</string>
     <string name="enter_phone_number">Enter the verification code</string>
-    <string name="enter_a_password">Enter a password</string>
-    <string name="dont_have_an_account">Dont have an account?</string>
-    <string name="forget_password">Forget Password?</string>
-    <string name="product_name">প্রোডাক্টের নাম</string>
-    <string name="sell_price">বিক্রয় মূল্য</string>
-    <string name="stock_hint">স্টক</string>
-    <string name="buyPrice_hint">ক্রয় মূল্য</string>
+    <string name="product_name">Product name</string>
+    <string name="sell_price">Selling Price</string>
+    <string name="stock_hint">Stock</string>
+    <string name="buyPrice_hint">Buy Price</string>
     <string name="_0">00</string>
-    <string name="vat_hint">ভ্যাট</string>
+    <string name="vat_hint">Vat</string>
     <string name="profile">Profile</string>
     <string name="contacts">Contacts</string>
     <string name="print">Print</string>
@@ -40,5 +36,12 @@
     <string name="others">Others</string>
     <string name="add_expense">Add Expense</string>
     <string name="enter_cost_amount">Enter Cost amount</string>
+    <string name="cost_activity">Cost Activity</string>
+    <string name="enter_your_phone_number">Enter Your Phone Number</string>
+    <string name="enter_number">Enter your Phone Number</string>
+    <string name="input_address">Enter your address</string>
+    <string name="input_name">Enter your Name</string>
+    <string name="input_currency">Enter your Currency</string>
+    <string name="edit_info">edit info</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

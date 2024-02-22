@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.hanifsapp.hisabee.fragments.CostFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.hanifsapp.hisabee.R;
 import com.hanifsapp.hisabee.databinding.ActivityHomePageBinding;
 import com.hanifsapp.hisabee.firebase_Db.ChekNet;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.firebase_Db.GetproductList;
+import com.hanifsapp.hisabee.fragments.CostFragment;
 import com.hanifsapp.hisabee.fragments.HomeFragment;
+import com.hanifsapp.hisabee.fragments.ProfileFragment;
 import com.hanifsapp.hisabee.fragments.printFragment;
 
 
@@ -48,8 +50,10 @@ public class homePage extends AppCompatActivity {
                 selectedFragment = new printFragment();
             } else if (id == R.id.contactActivity) {
                 startActivity(new Intent(this, Sell.class));
-            } else if (id == R.id.ProfileActivity) {
+            } else if (id == R.id.CostActivity) {
                 selectedFragment = new CostFragment();
+            } else if (id == R.id.ProfileActivity) {
+                selectedFragment = new ProfileFragment();
             }
 
 
@@ -81,15 +85,10 @@ public class homePage extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        if (auth.getCurrentUser() == null) {
-//            startActivity(new Intent(homePage.this, SignUp.class));
-//        }else{
-//            variable.getDbRef(auth.getUid());
-//            if (Objects.requireNonNull(getProductList.product_list.getValue()).size() ==0){
-//                getProductList.getProduct_item();
-//            }
-//        }
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            startActivity(new Intent(homePage.this, SignUp.class));
+        }
         super.onStart();
 
 

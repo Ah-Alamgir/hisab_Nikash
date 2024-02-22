@@ -4,51 +4,81 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.hanifsapp.hisabee.activity.homePage;
+import com.hanifsapp.hisabee.activity.signIn;
+import com.hanifsapp.hisabee.utility.logs;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class GoogleSignUp {
-    Activity activity;
-    private FirebaseAuth mAuth;
+    private static final String TAG = "FirebasePhoneAuth";
+    private static FirebaseAuth firebaseAuth;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks verificationCallbacks;
+    private static String verificationId = "";
+    private static Activity activity;
 
-    public GoogleSignUp(Activity ac) {
-        activity = ac;
+    public GoogleSignUp(Activity activity) {
+        this.activity = activity;
+        firebaseAuth = FirebaseAuth.getInstance();
+        setupVerificationCallbacks();
     }
 
+    private void setupVerificationCallbacks() {
+        verificationCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                signInWithPhoneAuthCredential(phoneAuthCredential);
+            }
 
-    public void createUserWithEmailAndPassword(String email, String password) {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password)
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                verificationId = s;
+                logs.showLog(verificationId);
+                activity.startActivity(new Intent(activity, signIn.class));
+            }
+        };
+    }
+
+    public void sendVerificationCode(String phoneNumber) {
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                .setPhoneNumber(phoneNumber)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(activity)
+                .setCallbacks(verificationCallbacks)
+                .build();
+
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    }
+
+    public static void signInWithVerificationCode(String verificationCode) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, verificationCode);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private static void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
-                        activity.startActivity(new Intent(activity, homePage.class));
+                       activity.startActivity(new Intent(activity, homePage.class));
                     } else {
-                        Toast.makeText(activity.getApplicationContext(), String.valueOf(task.getException()), Toast.LENGTH_LONG).show();
+                        // Phone authentication failed.
+                        Toast.makeText(activity.getApplicationContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
-
-    public void signInWithEmailAndPassword(String email, String password) {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity,task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(activity, "signInWithEmail:success", Toast.LENGTH_SHORT).show();
-                        activity.startActivity(new Intent(activity, homePage.class));
-                    } else {
-                        Toast.makeText(activity, "signInWithEmail:failure", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-
-    }
-
-    public void forgetPassword(String email){
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener( task -> Toast.makeText(activity, task.getException().getMessage(), Toast.LENGTH_SHORT).show());
-    }
-
-
 }
+
+

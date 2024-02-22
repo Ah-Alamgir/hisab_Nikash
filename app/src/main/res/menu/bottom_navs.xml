@@ -20,9 +20,17 @@
         android:icon="@drawable/baseline_add_shopping_cart_24"
         android:title="@string/contacts" />
     <item
-        android:id="@+id/ProfileActivity"
+        android:id="@+id/CostActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_exposure_24"
+        android:title="@string/cost_activity" />
+
+
+    <item
+        android:id="@+id/ProfileActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/account_circle_24px"
         android:title="@string/profile" />
 </menu>

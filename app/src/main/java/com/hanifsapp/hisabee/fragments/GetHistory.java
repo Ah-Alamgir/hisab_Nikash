@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.CostHistory;
-import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -93,7 +92,7 @@ public class GetHistory {
     public static void getTodayTotalSell() {
         Integer[] amount = {0, 0};
 
-        Task task2 = Constant.thisMonthSell.child(GetDate.Tarikh).get().addOnCompleteListener(task -> {
+        Task task2 = Constant.thisMonthSell.get().addOnCompleteListener(task -> {
 
             Integer value1 = task.getResult().getValue(Integer.class);
             Optional<Integer> optional = Optional.ofNullable(value1);
@@ -102,7 +101,7 @@ public class GetHistory {
         });
 
 
-        Task task3 = Constant.thisMonthCost.child(GetDate.Tarikh).get().addOnCompleteListener(task -> {
+        Task task3 = Constant.thisMonthCost.get().addOnCompleteListener(task -> {
             Integer value2 = task.getResult().getValue(Integer.class);
             Optional<Integer> optional = Optional.ofNullable(value2);
             amount[1] = optional.orElse(0);

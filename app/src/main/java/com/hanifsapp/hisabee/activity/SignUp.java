@@ -1,10 +1,11 @@
 package com.hanifsapp.hisabee.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.hanifsapp.hisabee.databinding.ActivitySignUpBinding;
 import com.hanifsapp.hisabee.firebase_Db.GoogleSignUp;
 
@@ -18,24 +19,21 @@ public class SignUp extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         googleSignUp = new GoogleSignUp(SignUp.this);
-
+        binding.progressBar3.setVisibility(View.GONE);
 
         binding.SIGNUPBTNS.setOnClickListener(v -> {
-            String email = binding.signUpEmail.getText().toString();
-            String password = binding.signUppassword.getText().toString();
-            if (email.isEmpty()) {
+            String Number = binding.signUpEmail.getText().toString();
+
+            if (Number.isEmpty()) {
                 Toast.makeText(SignUp.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-            } else if (password.isEmpty()) {
-                Toast.makeText(SignUp.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-            } else{
-                googleSignUp.createUserWithEmailAndPassword(email, password);
+            }else{
+                googleSignUp.sendVerificationCode(Number);
+                binding.progressBar3.setVisibility(View.VISIBLE);
+
 
             }
 
         });
-
-
-        binding.SignIn.setOnClickListener(v -> startActivity(new Intent(SignUp.this, signIn.class)));
 
     }
 
