@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.hanifsapp.hisabee.Autoload;
+import com.hanifsapp.hisabee.firebase_Db.Constant;
 
 
 public class Dialogues {
@@ -32,7 +32,7 @@ public class Dialogues {
         builder.setMessage("Are you sure you want to delete this item?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, ids) -> {
-                    Autoload.deleteData(id);
+                    Constant.productList_ref.child(id).removeValue();
                 })
                 .setNegativeButton("No", (dialog, ids) -> dialog.dismiss());
         AlertDialog alert = builder.create();

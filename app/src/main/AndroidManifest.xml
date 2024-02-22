@@ -24,15 +24,8 @@
         <activity
             android:name=".activity.SignUp"
             android:exported="false" />
-        <activity
-            android:name=".activity.profile"
-            android:exported="false" />
-        <activity
-            android:name=".denaPawna"
-            android:exported="false" />
-        <activity
-            android:name=".activity.CostHistoryActivity"
-            android:exported="false" />
+
+
         <activity
             android:name=".activity.StockActivity"
             android:exported="false" />

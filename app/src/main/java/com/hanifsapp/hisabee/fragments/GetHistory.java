@@ -20,6 +20,7 @@ public class GetHistory {
 
     public static MutableLiveData<ArrayList<Integer>> getGraph = new MutableLiveData<>();
     public static ArrayList<String> dates = new ArrayList<>();
+    public static int totalSold = 0;
 
     public static void getSoldHistory() {
 
@@ -32,6 +33,7 @@ public class GetHistory {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     dates.add(dataSnapshot.getKey());
                     amount.add(dataSnapshot.getValue(Integer.class));
+                    totalSold+= dataSnapshot.getValue(Integer.class);
                 }
             }
         });
@@ -112,8 +114,10 @@ public class GetHistory {
     }
 
 
+    //Only for Profile Fragments
     public static MutableLiveData<ArrayList<Integer>> thisMonthCost = new MutableLiveData<>();
-
+    public static ArrayList<String> profileCostlDates = new ArrayList<>();
+    public static int thisMonthTotalCost = 0;
     public static void getMonthCost(int modify) {
         ArrayList<Integer> list = new ArrayList<>();
         Constant.dbRef.child("MonthHistory").child("MonthCost").child(GetDate.getMonth(modify)).get().addOnCompleteListener(task -> {
@@ -121,6 +125,8 @@ public class GetHistory {
                 DataSnapshot snapshot = task.getResult();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     list.add(dataSnapshot.getValue(Integer.class));
+                    thisMonthTotalCost  += dataSnapshot.getValue(Integer.class);
+                    profileCostlDates.add(dataSnapshot.getKey());
                 }
                 thisMonthCost.setValue(list);
             }
@@ -130,6 +136,8 @@ public class GetHistory {
 
 
     public static MutableLiveData<ArrayList<Integer>> thisMonthSell = new MutableLiveData<>();
+    public static ArrayList<String> profileSellDates = new ArrayList<>();
+    public static int thisMonthTotalSell = 0;
 
     public static void getMonthSell(int modify) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -138,6 +146,8 @@ public class GetHistory {
                 DataSnapshot snapshot = task.getResult();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     list.add(dataSnapshot.getValue(Integer.class));
+                    thisMonthTotalSell  += dataSnapshot.getValue(Integer.class);
+                    profileSellDates.add(dataSnapshot.getKey());
                 }
 
                 thisMonthSell.setValue(list);

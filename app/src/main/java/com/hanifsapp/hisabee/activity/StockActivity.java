@@ -70,19 +70,12 @@ public class StockActivity extends AppCompatActivity implements onStockclickList
         stockAdapter = new StockAdapter(this, currentList,this);
         binding.stockRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.stockRecycler.setAdapter(stockAdapter);
+
+        binding.totalStockTextView.setText(String.valueOf(GetproductList.stocktotal));
+        binding.totalStockValueText.setText(String.valueOf(GetproductList.stockPrice));
     }
 
-//    private void count() {
-//        int totalStock_var = 0, totalStock_valueVar = 0;
-//
-//        for (ProductList map : getProductList.product_Lists) {
-//            totalStock_var = map.getStock() + totalStock_var;
-//            totalStock_valueVar = map.getBuyPrice() * map.getStock() + totalStock_valueVar;
-//        }
-//        totoalStock_textview.setText(String.valueOf(totalStock_var));
-//        totalStock_value_textView.setText(String.valueOf(totalStock_valueVar));
-//
-//    }
+
 
 
     @Override

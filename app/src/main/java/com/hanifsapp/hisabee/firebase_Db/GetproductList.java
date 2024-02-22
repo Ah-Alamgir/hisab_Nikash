@@ -18,6 +18,11 @@ public class GetproductList {
     public static ArrayList<String> added_tocard= new ArrayList<String>();
     public static MutableLiveData<ArrayList<ProductList>> product_list = new MutableLiveData<ArrayList<ProductList>>();
 
+
+    public static int stocktotal = 0;
+    public static int stockPrice = 0;
+
+
     public static void getProduct_item(){
         try {
                 Constant.productList_ref.addValueEventListener(new ValueEventListener() {
@@ -29,6 +34,8 @@ public class GetproductList {
                             ProductList product = dataSnapshot.getValue(ProductList.class);
                             assert product != null;
                             product.setId(dataSnapshot.getKey());
+                            stocktotal+= product.getStock();
+                            stockPrice+= product.getSellPrice()*product.getStock();
                             productArray.add(product);
                         }
                         product_list.setValue(productArray);
@@ -44,16 +51,4 @@ public class GetproductList {
 
     }
 
-
-
-
-    public static boolean getStockToUpdate(){
-        for (ProductList cardItems : card_list ){
-            int updatedStock;
-            updatedStock  = cardItems.getStock() - cardItems.getOrder();
-            Constant.dbRef.child(cardItems.getId()).child("Stock").setValue(updatedStock);
-        }
-
-        return true;
-    }
 }

@@ -1,12 +1,14 @@
 package com.hanifsapp.hisabee.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -14,6 +16,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.hanifsapp.hisabee.activity.StockActivity;
 import com.hanifsapp.hisabee.databinding.DialogueChartBinding;
 import com.hanifsapp.hisabee.databinding.DialogueInfoInputBinding;
 import com.hanifsapp.hisabee.databinding.FragmentProfileBinding;
@@ -48,13 +51,17 @@ public class ProfileFragment extends Fragment {
             isSellCalled = true;
             showChart();
         });
+
+        binding.stockBtn.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), StockActivity.class));
+        });
         return binding.getRoot();
     }
 
 
     private void setInfos() {
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("Submit", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
 
 
         binding.textViewName.setText(prefs.getString(DB_NAME, "Add Your Name"));
@@ -82,6 +89,7 @@ public class ProfileFragment extends Fragment {
             editor.apply();
 
 
+            setInfos();
         });
 
         dialogBuilder.setNegativeButton("Cancel", null);
@@ -91,7 +99,10 @@ public class ProfileFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     private DialogueChartBinding binding1;
     private void showChart() {
@@ -124,18 +135,22 @@ public class ProfileFragment extends Fragment {
 
 
         GetHistory.thisMonthSell.observe(getActivity(), seriesArray -> {
-            binding1.chartviewProfile.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(new AASeriesElement[]{
-                    new AASeriesElement()
-                            .data(seriesArray.toArray())
+            profileChart.setTitle("This Month Sell = " + GetHistory.thisMonthTotalSell);
+            profileChart.setCategories(GetHistory.profileSellDates.toArray(new String[0]));
+            profileChart.series(new AASeriesElement[]{
+                    new AASeriesElement().data(seriesArray.toArray())
             });
+            binding1.chartviewProfile.aa_refreshChartWithChartModel(profileChart);
         });
 
 
         GetHistory.thisMonthCost.observe(getActivity(), seriesArray -> {
-            binding1.chartviewProfile.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(new AASeriesElement[]{
-                    new AASeriesElement()
-                            .data(seriesArray.toArray())
+            profileChart.setTitle("This Month Cost = " + GetHistory.thisMonthTotalCost);
+            profileChart.setCategories(GetHistory.profileCostlDates.toArray(new String[0]));
+            profileChart.series(new AASeriesElement[]{
+                    new AASeriesElement().data(seriesArray.toArray())
             });
+            binding1.chartviewProfile.aa_refreshChartWithChartModel(profileChart);
         });
 
     }
@@ -145,7 +160,6 @@ public class ProfileFragment extends Fragment {
         profileChart = new AAChartModel()
                 .chartType(AAChartType.Column)
                 .backgroundColor("")
-                .categories(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"})
                 .axesTextColor("#FFBB86FC")
                 .dataLabelsEnabled(true)
                 .yAxisGridLineWidth(0f)

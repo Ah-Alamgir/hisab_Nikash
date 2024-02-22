@@ -1,12 +1,11 @@
 package com.hanifsapp.hisabee.model;
 
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@IgnoreExtraProperties
+
 public class ProductList {
     String name, id;
     int Discount, Stock, buyPrice, sellPrice, vat;

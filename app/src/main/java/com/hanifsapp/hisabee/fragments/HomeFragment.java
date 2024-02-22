@@ -49,9 +49,14 @@ public class HomeFragment extends Fragment {
         GetHistory.getGraph.observe(this, seriesData -> {
             Integer[] dataArray = seriesData.toArray(new Integer[seriesData.size()]);
             aaChartModelGraph.setCategories(GetHistory.dates.toArray(new String[0]));
-            binding.graphChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(new AASeriesElement[]{
-                    new AASeriesElement().data(dataArray)
+            aaChartModelGraph.setTitle("Today total sold= " + GetHistory.totalSold);
+            aaChartModelGraph.series(new AASeriesElement[]{
+                    new AASeriesElement()
+                            .data(dataArray)
             });
+
+
+            binding.graphChartView.aa_refreshChartWithChartModel(aaChartModelGraph);
         });
 
         super.onCreate(savedInstanceState);
