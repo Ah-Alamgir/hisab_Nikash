@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_backs"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/transparent"
+            android:contentDescription="@string/back_button"
+            app:tint = "@color/colorSecondary"
+            android:src="@drawable/arrow_back24" />
+
+        <TextView
+            android:id="@+id/textView_dates"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="May"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/btn_forwords"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/transparent"
+            android:contentDescription="@string/next_button"
+            android:src="@drawable/arrow_forward24"
+            app:tint="@color/colorSecondary" />
+
+    </LinearLayout>
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/chartview_profile"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="40dp">
+
+    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+
+</LinearLayout>

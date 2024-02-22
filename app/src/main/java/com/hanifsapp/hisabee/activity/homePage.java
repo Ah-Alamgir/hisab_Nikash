@@ -67,11 +67,6 @@ public class homePage extends AppCompatActivity {
         });
 
 
-
-
-
-
-
     }
 
 

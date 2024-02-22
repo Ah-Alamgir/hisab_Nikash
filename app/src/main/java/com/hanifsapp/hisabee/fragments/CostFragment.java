@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CostFragment extends Fragment {
     private FragmentCostBinding binding;
     private ArrayList<CostHistory> history = new ArrayList<>();
+    private AAChartModel costChart;
 
 
     @Override
@@ -32,11 +33,24 @@ public class CostFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCostBinding.inflate(inflater, container, false);
 
-
         binding.textViewDate.setText(GetDate.getDate(0));
         GetHistory.getCostHistory(GetDate.date);
 
+        costChart = new AAChartModel()
+                .chartType(AAChartType.Column)
+                .backgroundColor("")
+                .categories(new String[]{"Shopping", "Travel", "Food", "Others"})
+                .axesTextColor("#FFBB86FC")
+                .dataLabelsEnabled(true)
+                .yAxisGridLineWidth(0f)
+                .series(new AASeriesElement[]{
+                        new AASeriesElement()
+                                .name("Cost")
+                                .data(new Object[]{0,0,0,0}),
 
+                });
+
+        binding.costGraph.aa_drawChartWithChartModel(costChart);
 
         binding.btnBack.setOnClickListener(v -> GetHistory.getCostHistory(GetDate.getDate(-1)));
         binding.btnForword.setOnClickListener(v -> GetHistory.getCostHistory(GetDate.getDate(+1)));
@@ -104,29 +118,16 @@ public class CostFragment extends Fragment {
         binding.travelCost.setText(String.valueOf(travCost));
         binding.foodCost.setText(String.valueOf(foodCost));
         binding.otherCost.setText(String.valueOf(otherCost));
-        displayChart();
-    }
 
 
-    private void displayChart() {
-        AAChartModel aaChartModel = new AAChartModel()
-                .chartType(AAChartType.Column)
-                .backgroundColor("")
-                .categories(new String[]{"Shopping", "Travel", "Food", "Others"})
-                .axesTextColor("#FFBB86FC")
-                .dataLabelsEnabled(true)
-                .yAxisGridLineWidth(0f)
-                .series(new AASeriesElement[]{
-                        new AASeriesElement()
-                                .name("Cost")
-                                .data(new Object[]{shopCost, travCost, foodCost,otherCost}),
-
-                });
-
-        binding.costGraph.aa_drawChartWithChartModel(aaChartModel);
-        binding.progressBar2.setVisibility(View.GONE);
+        binding.costGraph.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(new AASeriesElement[]{
+                new AASeriesElement()
+                        .name("Cost")
+                        .data(new Object[]{shopCost, travCost, foodCost,otherCost})});
         history.clear();
     }
+
+
 
 
     DialogAddCostBinding dialogBinding;

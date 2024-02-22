@@ -27,9 +27,11 @@ public class GetDate {
         return dateFormat.format(cd.getTime());
     }
 
-    public static void getMonth(){
+    public static String getMonth(int modify){
+        calendar.add(Calendar.MONTH, modify);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yy");
         Month = dateFormat.format(calendar.getTime());
+        return Month;
     }
 
     public static void getTarikh(){

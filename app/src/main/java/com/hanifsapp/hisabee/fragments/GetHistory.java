@@ -3,10 +3,6 @@ package com.hanifsapp.hisabee.fragments;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel;
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType;
-import com.github.aachartmodel.aainfographics.aachartcreator.AADataElement;
-import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
@@ -15,16 +11,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.hanifsapp.hisabee.firebase_Db.Constant;
 import com.hanifsapp.hisabee.model.CostHistory;
+import com.hanifsapp.hisabee.utility.GetDate;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class GetHistory {
 
-    public static MutableLiveData<AAChartModel> getGraph = new MutableLiveData<>();
+    public static MutableLiveData<ArrayList<Integer>> getGraph = new MutableLiveData<>();
+    public static ArrayList<String> dates = new ArrayList<>();
 
     public static void getSoldHistory() {
-        ArrayList<String> dates = new ArrayList<>();
+
         ArrayList<Integer> amount = new ArrayList<>();
         Task task4 = Constant.todaySellHistory.get().addOnCompleteListener(task -> {
 
@@ -40,21 +38,7 @@ public class GetHistory {
 
 
         Tasks.whenAllComplete(task4).addOnCompleteListener(task -> {
-            AAChartModel aaChartModel = new AAChartModel()
-                    .chartType(AAChartType.Area)
-                    .title("Today Sell History")
-                    .backgroundColor("")
-                    .categories(dates.toArray(new String[0]))
-                    .dataLabelsEnabled(false)
-                    .yAxisGridLineWidth(0f)
-                    .series(new AASeriesElement[]{
-                            new AASeriesElement()
-                                    .name("Sells")
-                                    .data(amount.toArray(new Integer[0])),
-                    });
-
-
-            getGraph.setValue(aaChartModel);
+            getGraph.setValue(amount);
             getTodayTotalSell();
         });
 
@@ -86,7 +70,7 @@ public class GetHistory {
     }
 
 
-    public static MutableLiveData<AAChartModel> model = new MutableLiveData<>();
+    public static MutableLiveData<Integer[]> model = new MutableLiveData<>();
 
 
     public static void getTodayTotalSell() {
@@ -109,26 +93,7 @@ public class GetHistory {
 
 
         Tasks.whenAllComplete(task2, task3).addOnCompleteListener(task -> {
-            AAChartModel aaChartModel = new AAChartModel()
-                    .chartType(AAChartType.Pie)
-                    .polar(true)
-                    .backgroundColor("")
-                    .axesTextColor("#FFBB86FC")
-                    .dataLabelsEnabled(true)
-                    .yAxisGridLineWidth(0f)
-                    .series(new AASeriesElement[]{
-                            new AASeriesElement()
-                                    .name("Data")
-                                    .data(new AADataElement[]{
-                                    new AADataElement().name("Sell").y(amount[0]),
-                                    new AADataElement().name("Cost").y(amount[1]),
-//                                    new AADataElement().name("Due").y(amount[2]),
-
-                                    // Add more data elements as needed
-                            }),
-                    });
-
-            model.setValue(aaChartModel);
+            model.setValue(amount);
         });
 
 
@@ -147,4 +112,37 @@ public class GetHistory {
     }
 
 
+    public static MutableLiveData<ArrayList<Integer>> thisMonthCost = new MutableLiveData<>();
+
+    public static void getMonthCost(int modify) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Constant.dbRef.child("MonthHistory").child("MonthCost").child(GetDate.getMonth(modify)).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot snapshot = task.getResult();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    list.add(dataSnapshot.getValue(Integer.class));
+                }
+                thisMonthCost.setValue(list);
+            }
+        });
+
+    }
+
+
+    public static MutableLiveData<ArrayList<Integer>> thisMonthSell = new MutableLiveData<>();
+
+    public static void getMonthSell(int modify) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Constant.dbRef.child("MonthHistory").child("MonthSell").child(GetDate.getMonth(modify)).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot snapshot = task.getResult();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    list.add(dataSnapshot.getValue(Integer.class));
+                }
+
+                thisMonthSell.setValue(list);
+            }
+        });
+
+    }
 }

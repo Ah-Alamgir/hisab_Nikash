@@ -21,7 +21,7 @@ public class Constant {
 
     public static void getDbRef() {
         String dates = GetDate.getDate(0);
-        GetDate.getMonth();
+        GetDate.getMonth(0);
         GetDate.getTarikh();
         dbRef = FirebaseDatabase.getInstance().getReference("denaPaona").child("userList").child("H00sdMoS4tPd3s4R48gxD82QXfr1");
         productList_ref = dbRef.child("ProductList");
@@ -33,8 +33,11 @@ public class Constant {
         todaySellHistory = dbRef.child("History").child("todaySellHistory").child(dates);
 
 
+        //these variable are CostFragment and HomeFragment
         thisMonthCost = dbRef.child("MonthHistory").child("MonthCost").child(GetDate.Month).child(GetDate.Tarikh);
         thisMonthSell = dbRef.child("MonthHistory").child("MonthSell").child(GetDate.Month).child(GetDate.Tarikh);
+
+
     }
 
 

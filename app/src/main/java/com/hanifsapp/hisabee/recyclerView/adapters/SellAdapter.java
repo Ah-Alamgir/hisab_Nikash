@@ -67,7 +67,12 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        try {
+            return items.size();
+        }catch (Exception e) {
+            return 0;
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

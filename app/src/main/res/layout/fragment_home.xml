@@ -30,16 +30,7 @@
             android:id="@+id/aa_chart_view"
             android:layout_width="match_parent"
             android:layout_marginBottom="20dp"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:foregroundGravity="center"
-                android:progressTint="@color/white" />
-        </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

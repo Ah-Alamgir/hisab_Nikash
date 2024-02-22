@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,17 +46,11 @@ public class Sell extends AppCompatActivity implements invoiceListener {
     protected void onStart() {
 
         super.onStart();
-
-        try {
-            items = GetproductList.product_list.getValue();
-            RecyclerView recyclerView = findViewById(R.id.pdRecycler);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new SellAdapter(this, items, this);
-            recyclerView.setAdapter(adapter);
-        }catch (Exception e){
-            Toast.makeText(this, "Items not Loaded", Toast.LENGTH_LONG).show();
-        }
-
+        items = GetproductList.product_list.getValue();
+        RecyclerView recyclerView = findViewById(R.id.pdRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SellAdapter(this, items, this);
+        recyclerView.setAdapter(adapter);
 
 
     }

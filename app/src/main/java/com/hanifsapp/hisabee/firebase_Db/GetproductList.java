@@ -16,7 +16,7 @@ public class GetproductList {
 
     public static ArrayList<ProductList> card_list= new ArrayList<ProductList>();
     public static ArrayList<String> added_tocard= new ArrayList<String>();
-    public static MutableLiveData<ArrayList<ProductList>> product_list = new MutableLiveData<>();
+    public static MutableLiveData<ArrayList<ProductList>> product_list = new MutableLiveData<ArrayList<ProductList>>();
 
     public static void getProduct_item(){
         try {
